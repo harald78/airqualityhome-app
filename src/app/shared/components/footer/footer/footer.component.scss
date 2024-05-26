@@ -1,0 +1,34 @@
+footer {
+  bottom: 0;
+  align-items: center;
+  padding: 5px 0;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+
+footer ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+footer ul li {
+  display: inline;
+
+}
+
+footer ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+footer ul li:not(:last-child) {
+  margin-right: 30px;
+}
