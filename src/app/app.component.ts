@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {HeaderComponent} from "./shared/components/header/header/header.component";
 import {FooterComponent} from "./shared/components/footer/footer/footer.component";
-import {OidcSecurityService} from "angular-auth-oidc-client";
 
 @Component({
   selector: 'app-root',
@@ -14,16 +13,10 @@ import {OidcSecurityService} from "angular-auth-oidc-client";
 export class AppComponent implements OnInit{
   title = 'airqualityhome-app';
 
-  constructor(public oidcSecurityService: OidcSecurityService) {
+  constructor() {
 
   }
 
   ngOnInit() {
-    this.oidcSecurityService.checkAuth()
-      .subscribe((loginResponse) => {
-        const { isAuthenticated, userData, accessToken, idToken, configId } =
-          loginResponse;
-          console.log(loginResponse);
-      });
   }
 }

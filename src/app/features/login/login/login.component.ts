@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {OidcSecurityService} from "angular-auth-oidc-client";
+import {OAuthService} from "angular-oauth2-oidc";
 
 @Component({
   selector: 'app-login',
@@ -10,9 +10,9 @@ import {OidcSecurityService} from "angular-auth-oidc-client";
 })
 export class LoginComponent {
 
-  private readonly oidcSecurityService = inject(OidcSecurityService);
+  private readonly oAuthService = inject(OAuthService);
 
   login() {
-    this.oidcSecurityService.authorize();
+    this.oAuthService.initCodeFlow();
   }
 }

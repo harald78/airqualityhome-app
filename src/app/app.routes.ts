@@ -3,14 +3,12 @@ import {DashboardHomeComponent} from "./features/dashboard/ui/dashboard-home/das
 import {NotificationsHomeComponent} from "./features/notifications/ui/notifications-home/notifications-home.component";
 import {AccountHomeComponent} from "./features/account/ui/account-home/account-home.component";
 import {SettingsHomeComponent} from "./features/settings/ui/settings-home/settings-home.component";
-import {isAuthenticated} from "./core/guards/auth.guard";
-import {LoginComponent} from "./features/login/login/login.component";
 
 export const routes: Routes = [
-  {path: '', component: DashboardHomeComponent, canActivate: [isAuthenticated]},
-  {path: 'notifications', component: NotificationsHomeComponent, canActivate: [isAuthenticated]},
-  {path: 'account', component: AccountHomeComponent, canActivate: [isAuthenticated]},
-  {path: 'settings', component: SettingsHomeComponent, canActivate: [isAuthenticated]},
-  {path: 'login', component: LoginComponent},
+  {path: '', component: DashboardHomeComponent, canActivate: [() => true]},
+  {path: 'notifications', component: NotificationsHomeComponent, canActivate: [() => true]},
+  {path: 'account', component: AccountHomeComponent, canActivate: [() => true]},
+  {path: 'settings', component: SettingsHomeComponent, canActivate: [() => true]},
+  // {path: 'login', component: LoginComponent},
   {path: '**', redirectTo: '/'}
 ];
