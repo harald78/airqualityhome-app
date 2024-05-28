@@ -4,8 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:standalone": "npm run mock:server & npm run start --configuration=standalone",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "mock:server": "nodemon mock/json-server/server.js --ext js,ts,json,html",
     "test": "ng test",
     "test:watch": "ng test --watch",
     "test:integration": "npx playwright test",
@@ -49,7 +51,9 @@
     "eslint": "^8.57.0",
     "jest": "^29.7.0",
     "jest-preset-angular": "^14.1.0",
+    "json-server": "^0.17.3",
     "ng-mocks": "^14.12.2",
+    "nodemon": "^3.1.1",
     "typescript": "~5.4.2"
   }
 }

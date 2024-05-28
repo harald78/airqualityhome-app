@@ -9,6 +9,6 @@ export const routes: Routes = [
   {path: 'notifications', component: NotificationsHomeComponent, canActivate: [() => true]},
   {path: 'account', component: AccountHomeComponent, canActivate: [() => true]},
   {path: 'settings', component: SettingsHomeComponent, canActivate: [() => true]},
-  // {path: 'login', component: LoginComponent},
+  // {path: 'ui', component: LoginComponent},
   {path: '**', redirectTo: '/'}
 ];

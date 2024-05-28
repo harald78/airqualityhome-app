@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {OAuthService} from "angular-oauth2-oidc";
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-ui',
   standalone: true,
   imports: [],
   templateUrl: './login.component.html',
