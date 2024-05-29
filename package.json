@@ -4,13 +4,15 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start:standalone": "npm run mock:server & npm run start --configuration=standalone",
+    "start:standalone": "npm run mock:server & ng serve --configuration=standalone",
+    "start:local": "ng serve --configuration=local",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "mock:server": "nodemon mock/json-server/server.js --ext js,ts,json,html",
     "test": "ng test",
     "test:watch": "ng test --watch",
     "test:integration": "npx playwright test",
+    "test:integration:open": "npx playwright test --headed",
     "lint": "ng lint"
   },
   "private": true,

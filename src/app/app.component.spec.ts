@@ -1,14 +1,19 @@
-import { TestBed } from '@angular/core/testing';
+import {fakeAsync, TestBed} from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import {ActivatedRoute, RouterModule} from "@angular/router";
 import {MockProvider} from "ng-mocks";
+import {AuthService} from "./core/auth/service/auth.service";
 
 describe('AppComponent', () => {
+  let authService: AuthService;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent, RouterModule],
-      providers: [MockProvider(ActivatedRoute)]
+      providers: [MockProvider(ActivatedRoute), MockProvider(AuthService)]
     }).compileComponents();
+
+    authService = TestBed.inject(AuthService);
   });
 
   it('should create the app', () => {
@@ -17,9 +22,17 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'airqualityhome-app' title`, () => {
+  it(`should have the 'AirQuality@Home' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('airqualityhome-app');
+    expect(app.title).toEqual('AirQuality@Home');
   });
+
+  it('should call loadUserProfile onInit', fakeAsync(async () => {
+    const authServiceSpy = jest.spyOn(authService, 'loadUserProfile').mockResolvedValue(undefined);
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+
+    expect(authServiceSpy).toHaveBeenCalled();
+  }));
 });

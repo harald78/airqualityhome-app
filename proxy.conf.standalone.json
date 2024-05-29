@@ -3,7 +3,9 @@
     "target": {
       "host": "localhost",
       "protocol": "http:",
-      "port": "3000"
-    }
+      "port": "3001"
+    },
+    "changeOrigin": true,
+    "secure": false
   }
 }

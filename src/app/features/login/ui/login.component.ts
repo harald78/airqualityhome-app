@@ -1,18 +1,36 @@
 import {Component, inject} from '@angular/core';
-import {OAuthService} from "angular-oauth2-oidc";
+import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
+import {IconComponent} from "../../../shared/components/icon/icon/icon.component";
+import {mdiAccount, mdiLock} from "@mdi/js";
+import {AuthRequestDto} from "../../../core/auth/model/auth-request.model";
+import {AuthService} from "../../../core/auth/service/auth.service";
+
 
 @Component({
-  selector: 'app-ui',
+  selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, IconComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
 
-  private readonly oAuthService = inject(OAuthService);
+  readonly authService = inject(AuthService);
+  private readonly fb: FormBuilder = inject(FormBuilder);
 
-  login() {
-    this.oAuthService.initCodeFlow();
+  accountIcon = mdiAccount;
+  lockIcon = mdiLock;
+
+  public loginForm= this.fb.group({
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+  });
+
+  async login() {
+    if (this.loginForm.valid) {
+      const authRequestDto = this.loginForm.value as AuthRequestDto;
+      await this.authService.login(authRequestDto);
+    }
+
   }
 }
