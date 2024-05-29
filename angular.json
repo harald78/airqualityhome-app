@@ -73,6 +73,10 @@
             "development": {
               "buildTarget": "airqualityhome-app:build:development"
             },
+            "local": {
+              "buildTarget": "airqualityhome-app:build:development",
+              "proxyConfig": "proxy.conf.local.json"
+            },
             "standalone": {
               "buildTarget": "airqualityhome-app:build:development",
               "proxyConfig": "proxy.conf.standalone.json"

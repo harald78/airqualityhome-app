@@ -1,3 +1,20 @@
-<div>
-  <button class="btn btn-primary" (click)="login()">Login</button>
+@if (authService.isLoading()) {
+  <div class="spinner-overlay">
+    <div class="spinner-border" role="status"></div>
+  </div>
+}
+<div class="login-form">
+  <form [formGroup]="loginForm">
+    <div class="input-container">
+      <app-icon [path]="accountIcon"></app-icon>
+      <input class="form-control" type="text" formControlName="username" />
+    </div>
+    <div class="input-container">
+      <app-icon [path]="lockIcon"></app-icon>
+      <input class="form-control" type="password" formControlName="password" />
+    </div>
+    <div>
+    </div>
+  </form>
+  <button type="button" class="btn btn-primary" (click)="login()" [disabled]="!loginForm.valid">Login</button>
 </div>

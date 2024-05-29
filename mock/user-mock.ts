@@ -1,0 +1,9 @@
+export const userMock = {
+  "id": 1,
+  "username": "Balu",
+  "email": "balu@dschungel.de",
+  "roles": [
+    "APP_READ",
+    "APP_WRITE"
+  ]
+}
