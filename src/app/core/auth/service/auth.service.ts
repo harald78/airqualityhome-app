@@ -37,7 +37,7 @@ import {Router} from "@angular/router";
     this.authState.loading(true);
     const jwt = await firstValueFrom(this.http.post<JwtDto>(`${this.baseUrl}/user/login`, authRequest)
       .pipe(catchError((err) => {
-        this.toastService.show({classname: "bg-danger text-light", header: '', body: "Login failed", icon: mdiAlert, iconColor: "white"});
+        this.toastService.show({classname: "bg-danger text-light", header: '', body: "Username or Password not correct", icon: mdiAlert, iconColor: "white"});
         return throwError(() => err);
       }), finalize(() => this.authState.loading(false))));
 

@@ -22,10 +22,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'airqualityhome-app' title`, () => {
+  it(`should have the 'AirQuality@Home' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('airqualityhome-app');
+    expect(app.title).toEqual('AirQuality@Home');
   });
 
   it('should call loadUserProfile onInit', fakeAsync(async () => {

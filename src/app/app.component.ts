@@ -14,7 +14,7 @@ import {AuthService} from "./core/auth/service/auth.service";
 })
 export class AppComponent implements OnInit{
 
-  title = 'airqualityhome-app';
+  title = 'AirQuality@Home';
   authService = inject(AuthService);
 
   async ngOnInit() {

@@ -4,17 +4,17 @@
   </div>
 }
 <div class="login-form">
-  <form [formGroup]="loginForm">
+  <form [formGroup]="loginForm" aria-label="aq-login-form">
     <div class="input-container">
       <app-icon [path]="accountIcon"></app-icon>
-      <input class="form-control" type="text" formControlName="username" />
+      <input class="form-control" type="text" formControlName="username" aria-label="aq-username-input" />
     </div>
     <div class="input-container">
       <app-icon [path]="lockIcon"></app-icon>
-      <input class="form-control" type="password" formControlName="password" />
+      <input class="form-control" type="password" formControlName="password" aria-label="aq-password-input" />
     </div>
     <div>
     </div>
   </form>
-  <button type="button" class="btn btn-primary" (click)="login()" [disabled]="!loginForm.valid">Login</button>
+  <button type="button" class="btn btn-primary" (click)="login()" [disabled]="!loginForm.valid" aria-label="aq-login-button">Login</button>
 </div>
