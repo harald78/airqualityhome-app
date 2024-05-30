@@ -6,6 +6,7 @@ server.use(middleware);
 server.use(jsonServer.bodyParser);
 
 const userData = require('./data/user');
+const registerData = require('./data/register');
 const {userProfile} = require("./data/user");
 
 
@@ -30,6 +31,18 @@ server.get('/api/user/profile', (req, res) => {
     const token = req.headers.authorization;
     if (token) {
       res.status(200).send(userProfile);
+    } else {
+      res.status(401).send();
+    }
+  }, 200);
+});
+
+server.get('/api/register/sensorBase', (req, res) => {
+  console.log("Server received register-request: ", req.body);
+  setTimeout(() => {
+    const token = req.headers.authorization;
+    if (token) {
+      res.status(200).send(registerData.sensorBase);
     } else {
       res.status(401).send();
     }
