@@ -1,0 +1,8 @@
+{
+  "id": 1,
+  "userId": 2,
+  "sensorBaseId": 1,
+  "active": true,
+  "canceled": false,
+  "location": "Living room"
+}

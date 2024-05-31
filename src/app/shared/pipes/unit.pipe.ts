@@ -17,9 +17,9 @@ export class UnitPipe implements PipeTransform {
       case PhysicalType.HUMIDITY:
         return '%';
       case PhysicalType.LIGHT:
-        return 'cd';
+        return 'lx';
       case PhysicalType.PRESSURE:
-        return 'mbar';
+        return 'hPa';
       default:
         return '';
     }

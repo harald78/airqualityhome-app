@@ -1,7 +1,11 @@
-const token = require('./jwt-dto.json');
-const userProfile = require('./user-profile.json');
+const tokenBalu = require('./jwt-dto-balu.json');
+const tokenMogli = require('./jwt-dto-mogli.json');
+const userProfileBalu = require('./user-profile-balu.json');
+const userProfileMogli = require('./user-profile-mogli.json');
 
 module.exports =  {
-  token: token,
-  userProfile: userProfile,
+  tokenBalu: tokenBalu,
+  tokenMogli: tokenMogli,
+  userProfileBalu: userProfileBalu,
+  userProfileMogli: userProfileMogli,
 }

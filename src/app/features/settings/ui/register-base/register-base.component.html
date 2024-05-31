@@ -5,6 +5,9 @@
     <div class="d-flex flex-column sensor-base-tile" aria-label="aq-sensor-base-tile">
       <div class="d-flex sensor-base-tile--header">
         <h3 aria-label="aq-register-sensor-base-title">Sensor Base {{ sensorBase.name }}</h3>
+        @if (activeRequest()?.active) {
+          <span class="badge bg-warning text-dark pending-badge">Pending</span>
+        }
       </div>
       <div class="d-flex flex-column sensor-base-tile--body">
         @for (sensorType of sensorBase.sensorTypes; track sensorType.id; let i=$index) {
@@ -16,11 +19,15 @@
             </div>
             <div class="d-flex p-2">
               <span class="badge bg-info ms-1">min: {{ sensorType.minValue }} {{ sensorType | unit }}</span>
-              <span class="badge bg-warning ms-1">max: {{ sensorType.maxValue }} {{ sensorType | unit }}</span>
+              <span class="badge bg-danger ms-1">max: {{ sensorType.maxValue }} {{ sensorType | unit }}</span>
             </div>
           </div>
         }
-        <button type="button" class="btn btn-secondary" aria-label="register-sensor-tile-button">Register</button>
+        @if (activeRequest()?.active) {
+          <button type="button" class="btn btn-warning mt-2" (click)="cancelRequest(sensorBase)"  aria-label="register-sensor-tile-cancel-button">Cancel request</button>
+        } @else {
+          <button type="button" class="btn btn-success mt-2" (click)="openModal(sensorBase)"  aria-label="register-sensor-tile-register-button">Register</button>
+        }
       </div>
     </div>
   }
