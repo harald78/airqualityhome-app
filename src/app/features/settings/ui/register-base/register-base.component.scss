@@ -1,0 +1,30 @@
+.list-container {
+  width: 100%;
+}
+
+.sensor-base-tile {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 80%;
+
+  &--header {
+    border-bottom: 1px solid #C2C0C0FF;
+  }
+
+  &--body {
+    margin-top: 10px;
+  }
+
+  &--sensor-type {
+    margin-top: 10px;
+  }
+
+  &--sensor-index {
+    font-weight: 600;
+    font-style: italic;
+  }
+}
+

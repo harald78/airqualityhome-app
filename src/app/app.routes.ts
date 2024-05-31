@@ -5,6 +5,7 @@ import {AccountHomeComponent} from "./features/account/ui/account-home/account-h
 import {SettingsHomeComponent} from "./features/settings/ui/settings-home/settings-home.component";
 import {isAuthenticated} from "./core/guards/auth.guard";
 import {LoginComponent} from "./features/login/ui/login.component";
+import {RegisterBaseComponent} from "./features/settings/ui/register-base/register-base.component";
 
 export const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -12,6 +13,7 @@ export const routes: Routes = [
   {path: 'notifications', component: NotificationsHomeComponent, canActivate: [isAuthenticated]},
   {path: 'account', component: AccountHomeComponent, canActivate: [isAuthenticated]},
   {path: 'settings', component: SettingsHomeComponent, canActivate: [isAuthenticated]},
+  {path: 'register', component: RegisterBaseComponent, canActivate: [isAuthenticated]},
   {path: 'login', component: LoginComponent},
   {path: '**', redirectTo: '/'}
 ];
