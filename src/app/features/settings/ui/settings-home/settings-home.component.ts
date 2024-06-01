@@ -1,5 +1,6 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, Signal} from '@angular/core';
 import {Router, RouterOutlet} from "@angular/router";
+import {RegisterRequest} from "../../model/register-request.model";
 
 @Component({
   selector: 'app-settings-home',
@@ -14,7 +15,7 @@ export class SettingsHomeComponent {
 
   private readonly router = inject(Router);
 
-  register() {
-    this.router.navigate(['', 'register']);
+  async register() {
+    await this.router.navigate(['/register'], { relativeTo: null });
   }
 }

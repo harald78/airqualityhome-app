@@ -1,0 +1,19 @@
+<div class="modal-header" aria-label="register-modal">
+  <h4 class="modal-title">Register {{ name }}</h4>
+  <button type="button" class="btn-close" aria-label="Close"
+          aria-label="register-modal-dismiss"
+          (click)="activeModal.dismiss(null)"></button>
+</div>
+<div class="modal-body">
+  <label class="form-label input-label">Please enter:</label>
+  <input type="text" placeholder="sensor location..."
+         aria-label="register-modal-input"
+         id="register-modal-input"
+         class="form-control" [(ngModel)]="location" [minlength]="3"/>
+</div>
+<div class="modal-footer">
+  <button type="button"
+          class="btn btn-outline-dark" (click)="activeModal.close(location)"
+          id="register-modal-register-button"
+   [disabled]="!(location.length && location.length > 3)" aria-label="register-modal-button">Register</button>
+</div>

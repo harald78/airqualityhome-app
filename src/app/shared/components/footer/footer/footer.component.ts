@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {IconComponent} from "../../icon/icon/icon.component";
 import {RouterLink} from "@angular/router";
 import {mdiAccount, mdiBell, mdiCog, mdiTabletDashboard} from '@mdi/js';

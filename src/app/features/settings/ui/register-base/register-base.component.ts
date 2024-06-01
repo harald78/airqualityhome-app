@@ -1,8 +1,13 @@
-import {Component, inject, Signal} from '@angular/core';
+import {Component, inject, OnInit, signal, Signal, WritableSignal} from '@angular/core';
 import {RegisterBaseService} from "../../service/register-base.service";
 import {SensorBase} from "../../../../shared/model/sensor-base.model";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {UnitPipe} from "../../../../shared/pipes/unit.pipe";
+import {RegisterRequest} from "../../model/register-request.model";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {RegisterModalComponent} from "../register-modal/register-modal.component";
+import {AuthState} from "../../../../core/auth/+state/auth.state";
+import {ConfirmModalComponent} from "../../../../shared/components/confirm-modal/confirm-modal.component";
 
 @Component({
   selector: 'app-register-base',
@@ -13,9 +18,49 @@ import {UnitPipe} from "../../../../shared/pipes/unit.pipe";
   templateUrl: './register-base.component.html',
   styleUrl: './register-base.component.scss'
 })
-export class RegisterBaseComponent {
+export class RegisterBaseComponent implements OnInit {
 
   private readonly registerBaseService = inject(RegisterBaseService);
+  private modalService = inject(NgbModal);
+  private authState = inject(AuthState);
 
   sensorBases: Signal<SensorBase[]> = toSignal(this.registerBaseService.getAvailableSensorBases(), {initialValue: []});
+  activeRequest: WritableSignal<RegisterRequest | undefined> = signal(undefined);
+
+  async ngOnInit() {
+    const activeRequest = await this.registerBaseService.getActiveRegistrationsByUser();
+    this.activeRequest.set(activeRequest);
+  }
+
+  async openModal(base: SensorBase) {
+    const modalRef = this.modalService.open(RegisterModalComponent);
+    modalRef.componentInstance.name = base.name;
+    await modalRef.result.then( async (result) => {
+      if (result) {
+        const registerRequest: RegisterRequest = {
+          location: result, sensorBaseId: base.id, userId: this.authState.user().id!
+        };
+        const requestResult = await this.registerBaseService.sendRegisterRequest(registerRequest);
+        if (requestResult) {
+          this.activeRequest.set(requestResult);
+        }
+      }
+    });
+  }
+
+  async cancelRequest(base: SensorBase) {
+    const modalRef = this.modalService.open(ConfirmModalComponent);
+    modalRef.componentInstance.message = "Do you really want to cancel this registration?";
+    await modalRef.result.then( async (result) => {
+      if (result) {
+        const registerRequest: RegisterRequest = {
+          location: '', sensorBaseId: base.id, userId: this.authState.user().id!
+        };
+        const requestResult = await this.registerBaseService.cancelRegisterRequest(registerRequest);
+        if (requestResult) {
+          this.activeRequest.set(requestResult);
+        }
+      }
+    })
+  }
 }

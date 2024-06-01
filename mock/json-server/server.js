@@ -7,7 +7,8 @@ server.use(jsonServer.bodyParser);
 
 const userData = require('./data/user');
 const registerData = require('./data/register');
-const {userProfile} = require("./data/user");
+const {userProfileBalu} = require("./data/user");
+const {userProfileMogli} = require("./data/user");
 
 
 /**
@@ -17,8 +18,10 @@ server.post('/api/user/login', (req, res) => {
   console.log("Server received login-request: ", req.body);
 
   setTimeout(() => {
-    if (req.body.password === 's3cret!') {
-      res.status(200).send(userData.token);
+    if (req.body.username === 'balu' && req.body.password === 's3cret!') {
+      res.status(200).send(userData.tokenBalu);
+    } else if (req.body.username === 'mogli' && req.body.password === 's3cret!') {
+      res.status(200).send(userData.tokenMogli);
     } else {
       res.status(401).send(userData.token);
     }
@@ -29,8 +32,10 @@ server.get('/api/user/profile', (req, res) => {
   console.log("Server received profile-request: ", req.body);
   setTimeout(() => {
     const token = req.headers.authorization;
-    if (token) {
-      res.status(200).send(userProfile);
+    if (token && token.includes('balu')) {
+      res.status(200).send(userProfileBalu);
+    } else if (token && token.includes('mogli')) {
+      res.status(200).send(userProfileMogli);
     } else {
       res.status(401).send();
     }
@@ -49,13 +54,61 @@ server.get('/api/register/sensorBase', (req, res) => {
   }, 200);
 });
 
+server.get('/api/register/requests/:id', (req, res) => {
+  console.log("Server received get active register-request: ", req.body);
+  setTimeout(() => {
+    const token = req.headers.authorization;
+    if (token && token.includes('balu')) {
+      res.status(200).send(registerData.registerRequest);
+    } else if (token && token.includes('mogli')) {
+      res.status(204).send();
+    } else {
+      res.status(401).send();
+    }
+  }, 200);
+});
+
 server.post('/api/user/refreshToken', (req, res) => {
   console.log("Server received refresh-token-request: ", req.body);
   setTimeout(() => {
     const token = req.body.token
-    if (token) {
-      res.status(200).send(userData.token);
-    } else {
+    if (token && token.includes('balu')) {
+      res.status(200).send(userData.tokenBalu);
+    } else if (token && token.includes('mogli')) {
+      res.status(200).send(userData.tokenMogli);
+    }
+    else {
+      res.status(401).send();
+    }
+  }, 200);
+});
+
+server.post('/api/register/sensor', (req, res) => {
+  console.log("Server received register sensor base request: ", req.body);
+  setTimeout(() => {
+    const token = req.headers.authorization;
+    if (token && token.includes('balu')) {
+      res.status(200).send(registerData.registerRequestBalu);
+    } else if (token && token.includes('mogli')) {
+      res.status(200).send(registerData.registerRequestMogliNew);
+    }
+    else {
+      res.status(401).send();
+    }
+  }, 200);
+});
+
+server.post('/api/register/sensor/cancel', (req, res) => {
+  console.log("Server received cancel register sensor base request: ", req.body);
+  setTimeout(() => {
+    const token = req.headers.authorization;
+    if (token && token.includes('balu')) {
+      res.status(200).send(registerData.registerRequestBaluCanceled);
+    } else if (token && token.includes('mogli')) {
+
+      res.status(200).send(registerData.registerRequestMogliCanceled);
+    }
+    else {
       res.status(401).send();
     }
   }, 200);
