@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start:standalone": "npm run mock:server & ng serve --configuration=standalone",
+    "start:standalone": "ng serve --configuration=standalone",
+    "start:standalone:mock": "npm run mock:server && npm run start:standalone",
     "start:local": "ng serve --configuration=local",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
