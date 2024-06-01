@@ -31,6 +31,6 @@ describe('SettingsHomeComponent', () => {
     component = fixture.componentInstance;
     component.register();
 
-    expect(router.navigate).toHaveBeenCalledWith(['', 'register']);
+    expect(router.navigate).toHaveBeenCalledWith(['/register'], {relativeTo: null});
   });
 });

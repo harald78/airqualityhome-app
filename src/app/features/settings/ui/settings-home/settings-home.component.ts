@@ -15,7 +15,7 @@ export class SettingsHomeComponent {
 
   private readonly router = inject(Router);
 
-  register() {
-    this.router.navigate(['', 'register']);
+  async register() {
+    await this.router.navigate(['/register'], { relativeTo: null });
   }
 }
