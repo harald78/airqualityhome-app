@@ -3,7 +3,7 @@ import { selectByAriaLabel } from '../support/playwright-utils';
 
 test.describe('Login', () => {
 
-  test.afterEach(async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
     // 1. Navigation zur Startseite oder einer definierten Seite
     await page.goto('http://localhost:4200/');
 

@@ -3,11 +3,14 @@ import { BrowserContext } from '@playwright/test';
 export async function initGlobalRouteMocks(context: BrowserContext) {}
 
 export const mockRoute = async (context: BrowserContext, uri: string, status: number) =>
-  context.route(uri, (route) =>
-    route.fulfill({
-      body: '',
-      status,
-    })
+  context.route(uri, (route) => {
+      return route.fulfill({
+        body: '',
+        status,
+      });
+  }
+
+
   );
 
 export const mockRouteWithJsonResponse = async (context: BrowserContext, uri: string, fileName: any, status: number, headers?: { [key: string]: string; } | undefined) =>

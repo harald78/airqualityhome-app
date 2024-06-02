@@ -3,13 +3,14 @@ import { AppComponent } from './app.component';
 import {ActivatedRoute, RouterModule} from "@angular/router";
 import {MockProvider} from "ng-mocks";
 import {AuthService} from "./core/auth/service/auth.service";
+import {routes} from "./app.routes";
 
 describe('AppComponent', () => {
   let authService: AuthService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent, RouterModule],
+      imports: [AppComponent, RouterModule.forRoot(routes)],
       providers: [MockProvider(ActivatedRoute), MockProvider(AuthService)]
     }).compileComponents();
 

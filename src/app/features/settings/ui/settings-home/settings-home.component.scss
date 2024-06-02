@@ -13,3 +13,11 @@
     width: 80%;
   }
 }
+
+@media screen and (min-width: 600px) {
+  .setting-home-container {
+     & > button {
+       width: 500px;
+     }
+  }
+}

@@ -1,6 +1,5 @@
-import {Component, inject, Signal} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {Router, RouterOutlet} from "@angular/router";
-import {RegisterRequest} from "../../model/register-request.model";
 
 @Component({
   selector: 'app-settings-home',

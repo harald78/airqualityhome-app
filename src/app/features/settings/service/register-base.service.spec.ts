@@ -1,4 +1,4 @@
-import {discardPeriodicTasks, fakeAsync, flushMicrotasks, TestBed, tick} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
 import { RegisterBaseService } from './register-base.service';
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
@@ -13,7 +13,7 @@ describe('RegisterBaseService', () => {
   let service: RegisterBaseService;
   let httpMock: HttpTestingController;
   let toastService: ToastService;
-  let authState: any;
+  let authState: AuthState;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

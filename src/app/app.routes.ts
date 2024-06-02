@@ -8,12 +8,12 @@ import {LoginComponent} from "./features/login/ui/login.component";
 import {RegisterBaseComponent} from "./features/settings/ui/register-base/register-base.component";
 
 export const routes: Routes = [
-  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: 'dashboard', component: DashboardHomeComponent, canActivate: [isAuthenticated]},
-  {path: 'notifications', component: NotificationsHomeComponent, canActivate: [isAuthenticated]},
-  {path: 'account', component: AccountHomeComponent, canActivate: [isAuthenticated]},
-  {path: 'settings', component: SettingsHomeComponent, canActivate: [isAuthenticated]},
-  {path: 'register', component: RegisterBaseComponent, canActivate: [isAuthenticated]},
-  {path: 'login', component: LoginComponent},
-  {path: '**', redirectTo: '/'}
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardHomeComponent, canActivate: [isAuthenticated] },
+  { path: 'notifications', component: NotificationsHomeComponent, canActivate: [isAuthenticated] },
+  { path: 'account', component: AccountHomeComponent, canActivate: [isAuthenticated] },
+  { path: 'settings', component: SettingsHomeComponent, canActivate: [isAuthenticated] },
+  { path: 'register', component: RegisterBaseComponent, canActivate: [isAuthenticated] },
+  { path: 'login', component: LoginComponent },
+  { path: '**', redirectTo: 'dashboard' }
 ];

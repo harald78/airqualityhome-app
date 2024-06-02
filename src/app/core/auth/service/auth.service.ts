@@ -27,9 +27,6 @@ import {Router} from "@angular/router";
     if (user) {
       await this.authState.setUser(user);
       await this.tryRefresh();
-      setTimeout(() => {
-        this.router.navigate(['dashboard']);
-      }, 100);
     }
   }
 

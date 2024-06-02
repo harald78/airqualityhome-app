@@ -37,9 +37,14 @@ const config: PlaywrightTestConfig = {
 
   /* Configure projects for major browsers */
   projects: [
+    { name: 'setup', testMatch: /.*\.setup\.ts/ },
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/user.json'
+      },
+      dependencies: ['setup']
     },
   ],
 
@@ -48,7 +53,7 @@ const config: PlaywrightTestConfig = {
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'npm run start:standalone',
+    command: 'npm run start:standalone:mock',
     url: 'http://localhost:4200/',
     reuseExistingServer: !process.env['CI'],
     timeout: 180000,

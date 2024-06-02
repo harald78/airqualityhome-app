@@ -25,15 +25,22 @@ import {IconComponent} from "../icon/icon/icon.component";
       </ngb-toast> }
 	`,
   styles: [`
+    :host {
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 10px;
+      z-index: 1200;
+    }
     span > app-icon {
       margin-right: 10px;
     }
   `],
 
-  // ignore @angular-eslint/no-host-metadata-property
-  host: { class: 'toast-container position-fixed p-3', style: 'z-index: 1200; display: flex; ' +
-      'flex-direction: column; align-items: center; width: 100%;' },
+
 })
-export class ToastsContainer {
+export class ToastsContainerComponent {
   toastService = inject(ToastService);
 }

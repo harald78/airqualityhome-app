@@ -15,7 +15,7 @@ import {environment} from "../../../../environments/environment";
 describe("AuthService Test", () => {
   let service: AuthService;
   let httpMock: HttpTestingController;
-  let authState: any;
+  let authState: AuthState;
   let router: Router;
   let toastService: ToastService;
 
@@ -58,8 +58,6 @@ describe("AuthService Test", () => {
     expect(setUserSpy).toHaveBeenCalledWith(userMock);
     expect(navigateSpy).not.toHaveBeenCalled(); // Das Setzen des Timeouts verzögert den Aufruf
     expect(localStorage.getItem).toHaveBeenCalledWith('token');
-    jest.advanceTimersByTime(100); // Simuliere den Timeout
-    expect(navigateSpy).toHaveBeenCalledWith(['dashboard']);
   }));
 
   it('should login user without error', async () => {

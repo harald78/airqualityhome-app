@@ -57,3 +57,14 @@ button {
   z-index: 100;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+
+@media screen and (min-width: 600px) {
+  form {
+    width: 500px;
+  }
+
+  button {
+    width: 500px;
+  }
+}
