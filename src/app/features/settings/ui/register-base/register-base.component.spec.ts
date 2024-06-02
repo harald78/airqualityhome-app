@@ -10,6 +10,9 @@ import {AuthState} from "../../../../core/auth/+state/auth.state";
 import {userMock} from "../../../../../../mock/user-mock";
 import {RegisterModalComponent} from "../register-modal/register-modal.component";
 import {ConfirmModalComponent} from "../../../../shared/components/confirm-modal/confirm-modal.component";
+import { Router, RouterModule } from '@angular/router';
+import { NgZone } from '@angular/core';
+import { routes } from '../../../../app.routes';
 
 describe('RegisterBaseComponent', () => {
   let component: RegisterBaseComponent;
@@ -17,11 +20,13 @@ describe('RegisterBaseComponent', () => {
   let registerBaseService: RegisterBaseService;
   let modalService: NgbModal;
   let authState: AuthState;
+  let router: Router;
+  let ngZone: NgZone;
 
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RegisterBaseComponent, HttpClientTestingModule],
+      imports: [RegisterBaseComponent, HttpClientTestingModule, RouterModule.forRoot(routes)],
       providers: [RegisterBaseService]
     })
     .compileComponents();
@@ -30,6 +35,8 @@ describe('RegisterBaseComponent', () => {
     registerBaseService = TestBed.inject(RegisterBaseService);
     modalService = TestBed.inject(NgbModal);
     authState = TestBed.inject(AuthState);
+    router = TestBed.inject(Router);
+    ngZone = TestBed.inject(NgZone);
 
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -138,6 +145,17 @@ describe('RegisterBaseComponent', () => {
     expect(registerBaseService.cancelRegisterRequest).not.toHaveBeenCalled();
 
     expect(activeRequestSpy).not.toHaveBeenCalled();
+  });
+
+  it('should navigate back to settings section', async () => {
+    // given
+    jest.spyOn(router, 'navigate');
+
+    // when
+    await ngZone.run(async () => component.navigateBack());
+
+    // then
+    expect(router.navigate).toHaveBeenCalledWith(['/settings']);
   });
 
 });

@@ -9,6 +9,7 @@ import {ToastService} from "../../../shared/components/toast/toast.service";
 import { mdiAlert } from "@mdi/js";
 import { AuthState } from "../+state/auth.state";
 import {Router} from "@angular/router";
+import { OverlayService } from '../../../shared/services/overlay.service';
 
 
 @Injectable({
@@ -20,6 +21,7 @@ import {Router} from "@angular/router";
   private readonly http: HttpClient = inject(HttpClient);
   private readonly router: Router = inject(Router);
   private readonly authState = inject(AuthState);
+  private readonly overlayService: OverlayService = inject(OverlayService);
 
 
   async loadUserProfile(): Promise<void> {
@@ -32,11 +34,15 @@ import {Router} from "@angular/router";
 
   async login(authRequest: AuthRequestDto): Promise<void> {
     this.authState.loading(true);
+    this.overlayService.show();
     const jwt = await firstValueFrom(this.http.post<JwtDto>(`${this.baseUrl}/user/login`, authRequest)
       .pipe(catchError((err) => {
         this.toastService.show({classname: "bg-danger text-light", header: '', body: "Username or Password not correct", icon: mdiAlert, iconColor: "white"});
         return throwError(() => err);
-      }), finalize(() => this.authState.loading(false))));
+      }), finalize(() => {
+        this.authState.loading(false);
+        this.overlayService.hide();
+      })));
 
     if (jwt) {
       localStorage.setItem("access_token", jwt.accessToken);
@@ -59,9 +65,6 @@ import {Router} from "@angular/router";
   }
 
   async logout(): Promise<void> {
-    // if (this.authState.isLoggedIn()) {
-    //   await firstValueFrom(this.http.post<void>(`${this.baseUrl}/user/logout`, {}));
-    // }
     localStorage.removeItem("access_token");
     localStorage.removeItem("token");
     this.authState.logout();

@@ -1,0 +1,31 @@
+<div class="account-container">
+  <h1> Account </h1>
+  <form [formGroup]="accountForm" class="aq-account-form" aria-label="aq-account-form">
+    <div class="input-container">
+      <app-icon [path]="accountIcon"></app-icon>
+      <input class="form-control"
+             id="change-username-input"
+             type="text" formControlName="username" aria-label="aq-change-username-input" />
+    </div>
+    <div class="input-container">
+      <app-icon [path]="emailIcon"></app-icon>
+      <input class="form-control"
+             id="change-email-input"
+             type="text" formControlName="email" aria-label="aq-change-email-input" />
+    </div>
+
+    @if(editState() === EditState.edit) {
+      <button id="saveData-button" type="button" class="btn btn-primary" (click)="saveData()"
+              [disabled]="!accountForm.valid || !dataHasChanged()"
+              aria-label="account-save-button">Save</button>
+    }
+    @else {
+      <button id="changeData-button" type="button" class="btn btn-primary" (click)="changeData()" aria-label="account-change-data-button">Change</button>
+    }
+  </form>
+  @if(editState() === EditState.edit) {
+    <button id="cancel-button" type="button" class="btn btn-outline-danger" (click)="cancelChange()" aria-label="change-pw-button">Cancel</button>
+  } @else {
+    <button id="changePW-button" type="button" class="btn btn-outline-danger" (click)="changePw()" aria-label="change-pw-button">Change Password</button>
+  }
+</div>

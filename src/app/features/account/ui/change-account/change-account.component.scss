@@ -1,25 +1,28 @@
 :host {
   display: block;
-  height: calc(100vh - 187px);
+  padding: 10px;
 }
 
-div.login-form {
+h1 {
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.account-container {
   display: flex;
-  flex-grow: 1;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-
-  & > form > div {
-    margin-bottom: 20px;
-  }
 }
 
-form {
+.aq-account-form {
   width: 80%;
   max-width: 500px;
+
+  & > button {
+    width: 100%;
+    margin-top: 50px;
+    max-width: 500px;
+  }
 }
 
 .input-container {
@@ -36,12 +39,14 @@ form {
 }
 
 .input-container input {
+  margin-top: 20px;
   width: 100%;
   padding: 10px 10px 10px 35px;
   box-sizing: border-box;
 }
 
-button {
+button#changePW-button, button#cancel-button {
+  margin-top: 10px;
   width: 80%;
   max-width: 500px;
 }

@@ -61,7 +61,7 @@ describe("AuthService Test", () => {
   }));
 
   it('should login user without error', async () => {
-    const loadingSpy = jest.spyOn(authState, 'loading').mockResolvedValue(undefined);
+    const loadingSpy = jest.spyOn(authState, 'loading');
     const navigateSpy = jest.spyOn(router, 'navigate');
     const loadProfileSpy = jest.spyOn(service, 'loadUserProfile').mockResolvedValue(undefined);
     jest.spyOn(Storage.prototype, 'setItem');
@@ -90,7 +90,7 @@ describe("AuthService Test", () => {
   });
 
   it('should call login user and show error', async () => {
-    const loadingSpy = jest.spyOn(authState, 'loading').mockResolvedValue(undefined);
+    const loadingSpy = jest.spyOn(authState, 'loading');
     const navigateSpy = jest.spyOn(router, 'navigate');
     const loadProfileSpy = jest.spyOn(service, 'loadUserProfile').mockResolvedValue(undefined);
     const toastServiceSpy = jest.spyOn(toastService, 'show');

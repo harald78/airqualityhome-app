@@ -8,6 +8,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {RegisterModalComponent} from "../register-modal/register-modal.component";
 import {AuthState} from "../../../../core/auth/+state/auth.state";
 import {ConfirmModalComponent} from "../../../../shared/components/confirm-modal/confirm-modal.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-base',
@@ -21,8 +22,9 @@ import {ConfirmModalComponent} from "../../../../shared/components/confirm-modal
 export class RegisterBaseComponent implements OnInit {
 
   private readonly registerBaseService = inject(RegisterBaseService);
-  private modalService = inject(NgbModal);
-  private authState = inject(AuthState);
+  private readonly modalService = inject(NgbModal);
+  private readonly authState = inject(AuthState);
+  private readonly router = inject(Router);
 
   sensorBases: Signal<SensorBase[]> = toSignal(this.registerBaseService.getAvailableSensorBases(), {initialValue: []});
   activeRequest: WritableSignal<RegisterRequest | undefined> = signal(undefined);
@@ -62,5 +64,9 @@ export class RegisterBaseComponent implements OnInit {
         }
       }
     })
+  }
+
+  async navigateBack() {
+    await this.router.navigate(['/settings']);
   }
 }

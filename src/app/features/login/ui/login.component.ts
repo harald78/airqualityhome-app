@@ -4,12 +4,13 @@ import {IconComponent} from "../../../shared/components/icon/icon/icon.component
 import {mdiAccount, mdiLock} from "@mdi/js";
 import {AuthRequestDto} from "../../../core/auth/model/auth-request.model";
 import {AuthService} from "../../../core/auth/service/auth.service";
+import { PasswordInputComponent } from '../../../shared/components/password-input/password-input.component';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, IconComponent],
+  imports: [ReactiveFormsModule, IconComponent, PasswordInputComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

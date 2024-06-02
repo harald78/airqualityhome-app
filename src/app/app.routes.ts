@@ -6,14 +6,22 @@ import {SettingsHomeComponent} from "./features/settings/ui/settings-home/settin
 import {isAuthenticated} from "./core/guards/auth.guard";
 import {LoginComponent} from "./features/login/ui/login.component";
 import {RegisterBaseComponent} from "./features/settings/ui/register-base/register-base.component";
+import { ChangeAccountComponent } from './features/account/ui/change-account/change-account.component';
+import { ChangePasswordComponent } from './features/account/ui/change-password/change-password.component';
+import { SensorSettingsComponent } from './features/settings/ui/sensor-settings/sensor-settings.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardHomeComponent, canActivate: [isAuthenticated] },
   { path: 'notifications', component: NotificationsHomeComponent, canActivate: [isAuthenticated] },
-  { path: 'account', component: AccountHomeComponent, canActivate: [isAuthenticated] },
-  { path: 'settings', component: SettingsHomeComponent, canActivate: [isAuthenticated] },
-  { path: 'register', component: RegisterBaseComponent, canActivate: [isAuthenticated] },
+  { path: 'account', component: AccountHomeComponent, canActivate: [isAuthenticated], children: [
+      {path: '', component: ChangeAccountComponent, canActivate: [isAuthenticated] },
+      {path: 'change-pw', component: ChangePasswordComponent, canActivate: [isAuthenticated] },
+    ]},
+  { path: 'settings', component: SettingsHomeComponent, canActivate: [isAuthenticated], children: [
+    {path: '', component: SensorSettingsComponent, canActivate: [isAuthenticated] },
+    {path: 'register', component: RegisterBaseComponent, canActivate: [isAuthenticated] },
+    ]},
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: 'dashboard' }
 ];
