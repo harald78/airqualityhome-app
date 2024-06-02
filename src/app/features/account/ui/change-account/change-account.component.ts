@@ -75,7 +75,7 @@ export class ChangeAccountComponent implements OnInit {
     const user = this.authState.user();
     const username = this.accountForm.get('username')?.value as string;
     const email = this.accountForm.get('email')?.value as string;
-    return user.username !== username || email !== email;
+    return user.username !== username || user.email !== email;
   }
 
   cancelChange() {
