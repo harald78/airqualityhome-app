@@ -8,7 +8,7 @@ import {unauthorizedInterceptor} from "./core/interceptor/unauthorized.intercept
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(withInterceptors([jwtInterceptor, unauthorizedInterceptor])),
-    provideRouter(routes)
+    provideRouter(routes),
+    provideHttpClient(withInterceptors([jwtInterceptor, unauthorizedInterceptor]))
   ]
 };
