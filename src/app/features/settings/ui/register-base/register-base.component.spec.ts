@@ -1,4 +1,4 @@
-import {ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
 
 import { RegisterBaseComponent } from './register-base.component';
 import {RegisterBaseService} from "../../service/register-base.service";
@@ -16,7 +16,7 @@ describe('RegisterBaseComponent', () => {
   let fixture: ComponentFixture<RegisterBaseComponent>;
   let registerBaseService: RegisterBaseService;
   let modalService: NgbModal;
-  let authState: any;
+  let authState: AuthState;
 
 
   beforeEach(async () => {

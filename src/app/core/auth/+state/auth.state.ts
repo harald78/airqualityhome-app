@@ -35,3 +35,5 @@ export const AuthState = signalStore(
       isLoading: computed(() => loadingProfile())
   }))
 );
+
+export type AuthState = InstanceType<typeof AuthState>;

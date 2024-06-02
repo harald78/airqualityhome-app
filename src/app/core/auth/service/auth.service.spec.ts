@@ -15,7 +15,7 @@ import {environment} from "../../../../environments/environment";
 describe("AuthService Test", () => {
   let service: AuthService;
   let httpMock: HttpTestingController;
-  let authState: any;
+  let authState: AuthState;
   let router: Router;
   let toastService: ToastService;
 

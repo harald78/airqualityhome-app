@@ -5,7 +5,7 @@ import {SensorBase} from "../../../shared/model/sensor-base.model";
 import {Toast, ToastService} from "../../../shared/components/toast/toast.service";
 import {catchError} from "rxjs/operators";
 import {mdiAlert} from "@mdi/js";
-import {firstValueFrom, Observable, of, throwError} from "rxjs";
+import {firstValueFrom, Observable, of} from "rxjs";
 import {AuthState} from "../../../core/auth/+state/auth.state";
 import {RegisterRequest} from "../model/register-request.model";
 import {ErrorResponseService} from "../../../shared/services/error-response.service";
