@@ -24,6 +24,11 @@ export class AccountService {
   saveUserData(userChangeRequest: UserChangeRequest): Promise<User> {
     this.overlayService.show();
     return firstValueFrom(this.httpClient.post<User>(`${environment.baseUrl}/user/save`, userChangeRequest).pipe(
+      tap(() => {
+        const successToast: Toast = {classname: "bg-success text-light", header: '',
+          body: "Saved changes successfully", icon: mdiCheck, iconColor: "white"};
+        this.toastService.show(successToast);
+      }),
       catchError(err => {
         const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
         const errorToast: Toast = {classname: "bg-danger text-light", header: 'Could not save user data',

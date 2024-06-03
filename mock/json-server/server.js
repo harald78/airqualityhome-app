@@ -7,7 +7,7 @@ server.use(jsonServer.bodyParser);
 
 const userData = require('./data/user');
 const registerData = require('./data/register');
-const {userProfileBalu, userProfileBaluChanged } = require("./data/user");
+const {userProfileBalu, userProfileBaluChanged, userProfileBaluNewName } = require("./data/user");
 const {userProfileMogli} = require("./data/user");
 
 
@@ -35,7 +35,9 @@ server.post('/api/user/save', (req, res) => {
   console.log("Server received save-request: ", req.body);
   setTimeout(() => {
     const token = req.headers.authorization;
-    if (token && token.includes('balu')) {
+    if (token && token.includes('balu') && req.body.username === 'newUsername') {
+      res.status(200).send(userProfileBaluNewName);
+    } else if (token && token.includes('balu')) {
       res.status(200).send(userProfileBaluChanged);
     } else if (token && token.includes('mogli')) {
       res.status(200).send(userProfileMogli);
@@ -65,7 +67,9 @@ server.get('/api/user/profile', (req, res) => {
   console.log("Server received profile-request: ", req.body);
   setTimeout(() => {
     const token = req.headers.authorization;
-    if (token && token.includes('balu')) {
+    if (token && token.includes('balu') && req.body.username === 'newUsername') {
+      res.status(200).send(userProfileBaluNewName);
+    } else if (token && token.includes('balu')) {
       res.status(200).send(userProfileBalu);
     } else if (token && token.includes('mogli')) {
       res.status(200).send(userProfileMogli);

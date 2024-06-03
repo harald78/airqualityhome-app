@@ -68,6 +68,29 @@ test.describe("Account tests", () => {
       await expect(page.locator('#change-email-input')).toHaveValue("balu@dschungel.de");
     });
 
+    test("Should change username and logout", async ({page}) => {
+      await expect(page.locator('#changeData-button')).toBeVisible();
+      await expect(page.locator('#changeData-button')).toBeVisible();
+      await expect(page.locator('#saveData-button')).not.toBeVisible();
+      await expect(page.locator('#change-username-input')).toBeDisabled();
+      await expect(page.locator('#change-email-input')).toBeDisabled();
+      await expect(page.locator('#current-password-input')).toBeDisabled();
+      await page.locator('#changeData-button').click();
+      await expect(page.locator('#changeData-button')).not.toBeVisible();
+      await expect(page.locator('#saveData-button')).toBeVisible();
+      await expect(page.locator('#saveData-button')).toBeDisabled();
+      await expect(page.locator('#change-username-input')).toBeEnabled();
+      await expect(page.locator('#current-password-input')).toBeEnabled();
+      await expect(page.locator('#change-email-input')).toBeEnabled();
+      await page.locator('#change-username-input').fill("newUsername");
+      await page.locator('#current-password-input').fill("currentPassword");
+      await expect(page.locator('#saveData-button')).toBeEnabled();
+      await page.locator('#saveData-button').click();
+      await expect(page.locator(selectByAriaLabel('aq-toast'))).toBeVisible();
+      await expect(page.locator(selectByAriaLabel('aq-toast'))).toContainText("Saved changes successfully");
+      await page.waitForURL('http://localhost:4200/login');
+    });
+
   });
 
   test.describe("Change Password", () => {
@@ -101,6 +124,7 @@ test.describe("Account tests", () => {
       await page.locator('#savePassword-button').click();
       await expect(page.locator(selectByAriaLabel('aq-toast'))).toBeVisible();
       await expect(page.locator(selectByAriaLabel('aq-toast'))).toContainText("Password changed successfully");
+      await page.waitForURL('http://localhost:4200/login');
     });
 
     test("Should navigate to change password and fail on password change", async ({page}) => {

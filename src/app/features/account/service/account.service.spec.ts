@@ -45,7 +45,8 @@ describe('AccountService', () => {
     const overlayHideSpy = jest.spyOn(overlayService, 'hide');
     const toastSpy = jest.spyOn(toastService, 'show');
     const expectedUrl = '/api/user/save';
-
+    const expectedToast = {classname: "bg-success text-light", header: '',
+      body: "Saved changes successfully", icon: mdiCheck, iconColor: "white"};
 
     const promise = service.saveUserData(userChangeRequest);
     const request = httpMock.expectOne(expectedUrl);
@@ -57,7 +58,7 @@ describe('AccountService', () => {
     expect(overlayShowSpy).toHaveBeenCalledTimes(1);
     expect(overlayHideSpy).toHaveBeenCalledTimes(1);
     expect(result).toEqual(userMock);
-    expect(toastSpy).not.toHaveBeenCalled();
+    expect(toastSpy).toHaveBeenCalledWith(expectedToast);
   });
 
   it('should handle error UserChangeRequest correctly', async () => {

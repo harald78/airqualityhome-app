@@ -1,14 +1,14 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { mdiAccount, mdiCheck, mdiEmail, mdiLock } from '@mdi/js';
+import { mdiAccount, mdiEmail, mdiLock } from '@mdi/js';
 import { IconComponent } from '../../../../shared/components/icon/icon/icon.component';
 import { AuthState } from '../../../../core/auth/+state/auth.state';
 import { EditState } from '../../../../shared/model/edit-state.model';
 import { Router } from '@angular/router';
 import { AccountService } from '../../service/account.service';
-import { UserChangeRequest } from '../../../../shared/model/user.model';
-import { Toast, ToastService } from '../../../../shared/components/toast/toast.service';
+import { User, UserChangeRequest } from '../../../../shared/model/user.model';
 import { PasswordInputComponent } from '../../../../shared/components/password-input/password-input.component';
+import { AuthService } from '../../../../core/auth/service/auth.service';
 
 @Component({
   selector: 'app-change-account',
@@ -23,11 +23,11 @@ import { PasswordInputComponent } from '../../../../shared/components/password-i
 })
 export class ChangeAccountComponent implements OnInit {
 
-  readonly authState = inject(AuthState);
-  readonly router = inject(Router);
+  private readonly authState = inject(AuthState);
+  private readonly authService: AuthService = inject(AuthService);
+  private readonly router = inject(Router);
   private readonly fb: FormBuilder = inject(FormBuilder);
-  readonly accountService: AccountService = inject(AccountService);
-  readonly toastService: ToastService = inject(ToastService);
+  private readonly accountService: AccountService = inject(AccountService);
 
   accountIcon = mdiAccount;
   emailIcon = mdiEmail;
@@ -64,13 +64,19 @@ export class ChangeAccountComponent implements OnInit {
         password
       }
       const user = await this.accountService.saveUserData(changeUserRequest);
-      await this.authState.setUser(user);
-      this.accountForm.patchValue(user);
-      const successToast: Toast = {classname: "bg-success text-light", header: '',
-        body: "Saved changes successfully", icon: mdiCheck, iconColor: "white"};
+      await this.maybeLogoutOrSetUserState(user);
       this.disableControls();
-      this.toastService.show(successToast);
     }
+  }
+
+  async maybeLogoutOrSetUserState(user: User) {
+    const currentStateUser = this.authState.user();
+    if (currentStateUser.username !== user.username) {
+      await this.authService.logout();
+      return;
+    }
+    this.accountForm.patchValue(user);
+    await this.authState.setUser(user);
   }
 
   dataHasChanged(): boolean {

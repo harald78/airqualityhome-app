@@ -8,6 +8,7 @@ import { AccountService } from '../../service/account.service';
 import { samePasswordValidator } from '../../util/form-validator.util';
 import { PasswordChangeRequest } from '../../../../shared/model/user.model';
 import { PasswordInputComponent } from '../../../../shared/components/password-input/password-input.component';
+import { AuthService } from '../../../../core/auth/service/auth.service';
 
 @Component({
   selector: 'app-change-password',
@@ -23,6 +24,7 @@ import { PasswordInputComponent } from '../../../../shared/components/password-i
 export class ChangePasswordComponent implements OnInit {
 
   private readonly authState = inject(AuthState);
+  private readonly authService: AuthService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly fb: FormBuilder = inject(FormBuilder);
   protected readonly accountService: AccountService = inject(AccountService);
@@ -48,6 +50,7 @@ export class ChangePasswordComponent implements OnInit {
       oldPassword
     }
     await this.accountService.savePassword(passwordChangeRequest);
+    await this.authService.logout();
   }
 
   async navigateBack() {

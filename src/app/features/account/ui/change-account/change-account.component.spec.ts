@@ -10,7 +10,6 @@ import { ToastService } from '../../../../shared/components/toast/toast.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
 import { changedUserMock, userMock } from '../../../../../../mock/user-mock';
-import { mdiCheck } from '@mdi/js';
 import { NgZone } from '@angular/core';
 
 describe('ChangeAccountComponent Test', () => {
@@ -18,7 +17,6 @@ describe('ChangeAccountComponent Test', () => {
   let fixture: ComponentFixture<ChangeAccountComponent>;
   let authState: AuthState;
   let accountService: AccountService;
-  let toastService: ToastService;
   let router: Router;
   let ngZone: NgZone;
 
@@ -36,7 +34,6 @@ describe('ChangeAccountComponent Test', () => {
     fixture = TestBed.createComponent(ChangeAccountComponent);
     authState = TestBed.inject(AuthState);
     accountService = TestBed.inject(AccountService);
-    toastService = TestBed.inject(ToastService);
     router = TestBed.inject(Router);
     ngZone = TestBed.inject(NgZone);
 
@@ -79,28 +76,33 @@ describe('ChangeAccountComponent Test', () => {
     // given
     authState.setUser(userMock);
     component.ngOnInit(); // patch form
-    jest.spyOn(accountService, 'saveUserData').mockResolvedValue(changedUserMock);
+    const userChangeRequest = {
+      id: userMock.id,
+      username: "newUsername",
+      email: userMock.email,
+      password: "currentPassword",
+    };
+    const expectedUserReturn = {
+      ...changedUserMock,
+      ...userChangeRequest
+    }
+    jest.spyOn(accountService, 'saveUserData').mockResolvedValue(expectedUserReturn);
     jest.spyOn(authState, 'setUser');
-    const expectedToast = {classname: "bg-success text-light", header: '',
-      body: "Saved changes successfully", icon: mdiCheck, iconColor: "white"};
-    jest.spyOn(toastService, 'show');
     jest.spyOn(component.accountForm, 'patchValue');
+    jest.spyOn(authState, 'logout');
     component.accountForm.get('username')?.setValue('newUsername');
     component.accountForm.get('password')?.setValue('currentPassword');
 
     // when
-    await component.saveData();
+    await ngZone.run( async () => component.saveData());
+
 
     // then
-    expect(accountService.saveUserData).toHaveBeenCalledWith({
-      id: userMock.id,
-      username: "newUsername",
-      email: userMock.email,
-      password: "currentPassword"
-    });
-    expect(authState.setUser).toHaveBeenCalledWith(changedUserMock);
-    expect(toastService.show).toHaveBeenCalledWith(expectedToast);
-    expect(component.accountForm.patchValue).toHaveBeenCalledWith(changedUserMock);
+    expect(accountService.saveUserData).toHaveBeenCalledWith(userChangeRequest);
+
+    expect(authState.logout).toHaveBeenCalled();
+    expect(authState.setUser).not.toHaveBeenCalled();
+    expect(component.accountForm.patchValue).not.toHaveBeenCalled();
   });
 
   it('should navigate to change password section', async () => {
