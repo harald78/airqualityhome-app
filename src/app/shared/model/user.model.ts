@@ -16,4 +16,5 @@ export interface PasswordChangeRequest {
   id: number;
   username: string;
   password: string;
+  oldPassword: string;
 }

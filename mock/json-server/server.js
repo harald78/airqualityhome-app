@@ -49,8 +49,10 @@ server.post('/api/user/save-password', (req, res) => {
   console.log("Server received save-request: ", req.body);
   setTimeout(() => {
     const token = req.headers.authorization;
-    if (token && token.includes('balu')) {
+    if (token && token.includes('balu') && req.body.oldPassword === '9876') {
       res.status(200).send(userProfileBalu);
+    } else if(token && token.includes('balu') && req.body.oldPassword === 'wrong-old-password') {
+      res.status(400).send();
     } else if (token && token.includes('mogli')) {
       res.status(200).send(userProfileMogli);
     } else {

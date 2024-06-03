@@ -7,7 +7,7 @@ import { ErrorResponseService } from '../../../shared/services/error-response.se
 import { AuthState } from '../../../core/auth/+state/auth.state';
 import { OverlayService } from '../../../shared/services/overlay.service';
 import { changedUserMock, userMock } from '../../../../../mock/user-mock';
-import { mdiAlert } from '@mdi/js';
+import { mdiAlert, mdiCheck } from '@mdi/js';
 
 describe('AccountService', () => {
   let service: AccountService;
@@ -93,11 +93,14 @@ describe('AccountService', () => {
       id: 1,
       username: 'Balu',
       password: 'secret-password',
+      oldPassword: "987"
     };
     const overlayShowSpy = jest.spyOn(overlayService, 'show');
     const overlayHideSpy = jest.spyOn(overlayService, 'hide');
     const toastSpy = jest.spyOn(toastService, 'show');
     const expectedUrl = '/api/user/save-password';
+    const expectedSuccessToast = {classname: "bg-success text-light", header: '',
+      body: "Password changed successfully", icon: mdiCheck, iconColor: "white"};
 
 
     const promise = service.savePassword(passwordChangeRequest);
@@ -110,7 +113,7 @@ describe('AccountService', () => {
     expect(overlayShowSpy).toHaveBeenCalledTimes(1);
     expect(overlayHideSpy).toHaveBeenCalledTimes(1);
     expect(result).toEqual(userMock);
-    expect(toastSpy).not.toHaveBeenCalled();
+    expect(toastSpy).toHaveBeenCalledWith(expectedSuccessToast);
   });
 
   it('should handle error PasswordChangeRequest correctly', async () => {
@@ -118,6 +121,7 @@ describe('AccountService', () => {
       id: 1,
       username: 'Balu',
       password: 'secret-password',
+      oldPassword: 'not-so-secret'
     };
     authState.setUser(userMock);
     const overlayShowSpy = jest.spyOn(overlayService, 'show');
@@ -125,7 +129,7 @@ describe('AccountService', () => {
     const toastSpy = jest.spyOn(toastService, 'show');
     const expectedUrl = '/api/user/save-password';
     const errorStatusSpy = jest.spyOn(errorStatusService, 'getHttpErrorResponseTextByStatus');
-    const expectedToast = {classname: "bg-danger text-light", header: 'Could not change password',
+    const expectedToast = {classname: "bg-danger text-light", header: 'Password could not be changed',
       body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
 
     const promise = service.savePassword(passwordChangeRequest);

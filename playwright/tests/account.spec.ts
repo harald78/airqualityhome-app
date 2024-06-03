@@ -76,10 +76,12 @@ test.describe("Account tests", () => {
       await expect(page.locator('#changePW-button')).toBeVisible();
       await page.locator('#changePW-button').click();
       await page.waitForURL('http://localhost:4200/account/change-pw');
+      await expect(page.locator('#old-password-input')).toBeVisible();
       await expect(page.locator('#password-input')).toBeVisible();
       await expect(page.locator('#password-repeat-input')).toBeVisible();
       await expect(page.locator('#password-error')).not.toBeVisible();
       await expect(page.locator('#savePassword-button')).toBeDisabled();
+      await page.locator('#old-password-input').fill("9876");
       await page.locator('#password-input').fill("1234");
       await page.locator('#password-repeat-input').fill("123");
       await expect(page.locator('#password-error')).toBeVisible();
@@ -89,6 +91,27 @@ test.describe("Account tests", () => {
       await page.locator('#savePassword-button').click();
       await expect(page.locator(selectByAriaLabel('aq-toast'))).toBeVisible();
       await expect(page.locator(selectByAriaLabel('aq-toast'))).toContainText("Password changed successfully");
+    });
+
+    test("Should navigate to change password and fail on password change", async ({page}) => {
+      await expect(page.locator('#changePW-button')).toBeVisible();
+      await page.locator('#changePW-button').click();
+      await page.waitForURL('http://localhost:4200/account/change-pw');
+      await expect(page.locator('#old-password-input')).toBeVisible();
+      await expect(page.locator('#password-input')).toBeVisible();
+      await expect(page.locator('#password-repeat-input')).toBeVisible();
+      await expect(page.locator('#password-error')).not.toBeVisible();
+      await expect(page.locator('#savePassword-button')).toBeDisabled();
+      await page.locator('#old-password-input').fill("wrong-old-password");
+      await page.locator('#password-input').fill("1234");
+      await page.locator('#password-repeat-input').fill("123");
+      await expect(page.locator('#password-error')).toBeVisible();
+      await page.locator('#password-repeat-input').fill("1234");
+      await expect(page.locator('#password-error')).not.toBeVisible();
+      await expect(page.locator('#savePassword-button')).toBeEnabled();
+      await page.locator('#savePassword-button').click();
+      await expect(page.locator(selectByAriaLabel('aq-toast'))).toBeVisible();
+      await expect(page.locator(selectByAriaLabel('aq-toast'))).toContainText("Password could not be changed");
     });
 
 

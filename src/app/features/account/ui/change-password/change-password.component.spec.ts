@@ -3,20 +3,16 @@ import { ChangePasswordComponent } from './change-password.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
 import { AccountService } from '../../service/account.service';
-import { ToastService } from '../../../../shared/components/toast/toast.service';
-import { mdiCheck } from '@mdi/js';
 import { userMock } from '../../../../../../mock/user-mock';
 import { AuthState } from '../../../../core/auth/+state/auth.state';
 import { Router, RouterModule } from '@angular/router';
 import { routes } from '../../../../app.routes';
 import { NgZone } from '@angular/core';
-import { IconComponent } from '../../../../shared/components/icon/icon/icon.component';
 
 describe('ChangePasswordComponent Test', () => {
   let component: ChangePasswordComponent;
   let fixture: ComponentFixture<ChangePasswordComponent>;
   let accountService: AccountService;
-  let toastService: ToastService;
   let authState: AuthState;
   let router: Router;
   let ngZone: NgZone;
@@ -34,7 +30,6 @@ describe('ChangePasswordComponent Test', () => {
     fixture = TestBed.createComponent(ChangePasswordComponent);
     component = fixture.componentInstance;
     accountService = TestBed.inject(AccountService);
-    toastService = TestBed.inject(ToastService);
     authState = TestBed.inject(AuthState);
     router = TestBed.inject(Router);
     ngZone = TestBed.inject(NgZone);
@@ -48,9 +43,12 @@ describe('ChangePasswordComponent Test', () => {
   it('should show error on different passwords', fakeAsync(() => {
     const debugElement = fixture.debugElement;
     const passwordInput = debugElement.query(By.css('#password-input')).nativeElement as HTMLInputElement;
+    const oldPasswordInput = debugElement.query(By.css('#old-password-input')).nativeElement as HTMLInputElement;
     const passwordRepeatInput = debugElement.query(By.css('#password-repeat-input')).nativeElement as HTMLInputElement;
     const saveButton = debugElement.query(By.css('#savePassword-button')).nativeElement as HTMLButtonElement;
 
+    oldPasswordInput.value = "9876";
+    oldPasswordInput.dispatchEvent(new Event('input'));
     passwordInput.value = "1234";
     passwordInput.dispatchEvent(new Event('input'));
     passwordRepeatInput.value = "123";
@@ -69,9 +67,12 @@ describe('ChangePasswordComponent Test', () => {
   it('should show no error when passwords match', fakeAsync(() => {
     const debugElement = fixture.debugElement;
     const passwordInput = debugElement.query(By.css('#password-input')).nativeElement as HTMLInputElement;
+    const oldPasswordInput = debugElement.query(By.css('#old-password-input')).nativeElement as HTMLInputElement;
     const passwordRepeatInput = debugElement.query(By.css('#password-repeat-input')).nativeElement as HTMLInputElement;
     const saveButton = debugElement.query(By.css('#savePassword-button')).nativeElement as HTMLButtonElement;
 
+    oldPasswordInput.value = "9876";
+    oldPasswordInput.dispatchEvent(new Event('input'));
     passwordInput.value = "1234";
     passwordInput.dispatchEvent(new Event('input'));
     passwordRepeatInput.value = "1234";
@@ -89,22 +90,21 @@ describe('ChangePasswordComponent Test', () => {
   it('should handle saveData method correctly', async () => {
     const accountServiceSpy = jest.spyOn(accountService, 'savePassword')
       .mockResolvedValue(userMock);
-    const toastSpy = jest.spyOn(toastService, 'show');
-    const expectedToast = {classname: "bg-success text-light", header: '',
-      body: "Password changed successfully", icon: mdiCheck, iconColor: "white"};
+
     component.passwordForm.get('password')?.setValue('123');
+    component.passwordForm.get('oldPassword')?.setValue('987');
     authState.setUser(userMock);
     const expectedChangeRequest = {
       id: userMock.id,
       username: userMock.username,
-      password: '123'
+      password: '123',
+      oldPassword: "987"
     };
     fixture.detectChanges();
 
     await component.saveData();
 
     expect(accountServiceSpy).toHaveBeenCalledWith(expectedChangeRequest);
-    expect(toastSpy).toHaveBeenCalledWith(expectedToast);
   });
 
   it('should navigate back', async () => {

@@ -1,13 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
-import { mdiCheck, mdiLock } from '@mdi/js';
+import { mdiLock } from '@mdi/js';
 import {IconComponent} from "../../../../shared/components/icon/icon/icon.component";
 import {AuthState} from "../../../../core/auth/+state/auth.state";
 import { Router } from '@angular/router';
 import { AccountService } from '../../service/account.service';
 import { samePasswordValidator } from '../../util/form-validator.util';
 import { PasswordChangeRequest } from '../../../../shared/model/user.model';
-import { Toast, ToastService } from '../../../../shared/components/toast/toast.service';
 import { PasswordInputComponent } from '../../../../shared/components/password-input/password-input.component';
 
 @Component({
@@ -27,10 +26,10 @@ export class ChangePasswordComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly fb: FormBuilder = inject(FormBuilder);
   protected readonly accountService: AccountService = inject(AccountService);
-  protected readonly toastService: ToastService = inject(ToastService);
   protected readonly lockIcon = mdiLock;
 
   passwordForm = this.fb.group({
+    oldPassword: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     passwordRepeat: new FormControl('', Validators.required)
   });
@@ -41,15 +40,14 @@ export class ChangePasswordComponent implements OnInit {
 
   async saveData() {
     const password = this.passwordForm.get('password')?.value!;
+    const oldPassword = this.passwordForm.get('oldPassword')?.value!;
     const passwordChangeRequest: PasswordChangeRequest = {
       id: this.authState.user().id!,
       username: this.authState.user().username!,
-      password
+      password,
+      oldPassword
     }
     await this.accountService.savePassword(passwordChangeRequest);
-    const successToast: Toast = {classname: "bg-success text-light", header: '',
-      body: "Password changed successfully", icon: mdiCheck, iconColor: "white"};
-    this.toastService.show(successToast);
   }
 
   async navigateBack() {
