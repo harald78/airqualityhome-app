@@ -1,6 +1,6 @@
-import {Component, inject} from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {IconComponent} from "../../icon/icon/icon.component";
-import {Router, RouterModule} from "@angular/router";
+import { Router, RouterEvent, RouterModule } from '@angular/router';
 import {mdiAccount, mdiBell, mdiCog, mdiTabletDashboard} from '@mdi/js';
 import {AuthState} from "../../../../core/auth/+state/auth.state";
 
