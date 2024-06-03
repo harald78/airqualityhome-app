@@ -1,10 +1,10 @@
 <footer>
   @if (authState.isLoggedIn()) {
     <ul>
-      <li><a id="home-link" routerLink="dashboard" aria-label="footer-dashboard-link"><app-icon [path]="iconDashboard" color="white" width="2rem" ></app-icon></a></li>
-      <li><a id="notifications-link" routerLink="notifications" aria-label="footer-notifications-link"><app-icon [path]="iconNotification" color="white" width="2rem"></app-icon></a></li>
-      <li><a id="account-link" routerLink="account" aria-label="footer-account-link"><app-icon [path]="iconAccount" color="white" width="2rem"></app-icon></a></li>
-      <li><a id="settings-link" routerLink="settings" aria-label="footer-settings-link"><app-icon id="settings-icon" [path]="iconSettings" color="white" width="2rem"></app-icon></a></li>
+      <li><a id="home-link" routerLink="dashboard" aria-label="footer-dashboard-link"><app-icon [path]="iconDashboard" [color]="router.url.includes('dashboard') ? '#3f974f' : 'white'" width="2rem" ></app-icon></a></li>
+      <li><a id="notifications-link" routerLink="notifications" aria-label="footer-notifications-link"><app-icon [path]="iconNotification" [color]="router.url.includes('notifications') ? '#3f974f' : 'white'" width="2rem"></app-icon></a></li>
+      <li><a id="account-link" routerLink="account" aria-label="footer-account-link"><app-icon [path]="iconAccount" [color]="router.url.includes('account') ? '#3f974f' : 'white'" width="2rem"></app-icon></a></li>
+      <li><a id="settings-link" routerLink="settings" aria-label="footer-settings-link"><app-icon id="settings-icon" [path]="iconSettings" [color]="router.url.includes('settings') ? '#3f974f' : 'white'" width="2rem"></app-icon></a></li>
     </ul>
   }
 </footer>
