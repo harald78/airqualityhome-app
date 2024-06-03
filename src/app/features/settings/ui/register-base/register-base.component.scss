@@ -10,6 +10,7 @@
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   width: 80%;
+  max-width: 500px;
 
   &--header {
     border-bottom: 1px solid #C2C0C0FF;
@@ -33,4 +34,10 @@
   position: absolute;
   top: 5px;
   right: 5px;
+}
+
+button.back-button {
+  margin-top: 10px;
+  width: 80%;
+  max-width: 500px;
 }

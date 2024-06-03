@@ -8,6 +8,9 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {RegisterModalComponent} from "../register-modal/register-modal.component";
 import {AuthState} from "../../../../core/auth/+state/auth.state";
 import {ConfirmModalComponent} from "../../../../shared/components/confirm-modal/confirm-modal.component";
+import { Router } from '@angular/router';
+import { Toast, ToastService } from '../../../../shared/components/toast/toast.service';
+import { mdiCheck } from '@mdi/js';
 
 @Component({
   selector: 'app-register-base',
@@ -21,8 +24,10 @@ import {ConfirmModalComponent} from "../../../../shared/components/confirm-modal
 export class RegisterBaseComponent implements OnInit {
 
   private readonly registerBaseService = inject(RegisterBaseService);
-  private modalService = inject(NgbModal);
-  private authState = inject(AuthState);
+  private readonly modalService = inject(NgbModal);
+  private readonly authState = inject(AuthState);
+  private readonly router = inject(Router);
+  private readonly toastService = inject(ToastService);
 
   sensorBases: Signal<SensorBase[]> = toSignal(this.registerBaseService.getAvailableSensorBases(), {initialValue: []});
   activeRequest: WritableSignal<RegisterRequest | undefined> = signal(undefined);
@@ -43,6 +48,9 @@ export class RegisterBaseComponent implements OnInit {
         const requestResult = await this.registerBaseService.sendRegisterRequest(registerRequest);
         if (requestResult) {
           this.activeRequest.set(requestResult);
+          const successToast: Toast = {classname: "bg-success text-light", header: '',
+            body: "Created register request successfully", icon: mdiCheck, iconColor: "white"};
+          this.toastService.show(successToast);
         }
       }
     });
@@ -59,8 +67,15 @@ export class RegisterBaseComponent implements OnInit {
         const requestResult = await this.registerBaseService.cancelRegisterRequest(registerRequest);
         if (requestResult) {
           this.activeRequest.set(requestResult);
+          const successToast: Toast = {classname: "bg-success text-light", header: '',
+            body: "Canceled register request successfully", icon: mdiCheck, iconColor: "white"};
+          this.toastService.show(successToast);
         }
       }
     })
+  }
+
+  async navigateBack() {
+    await this.router.navigate(['/settings']);
   }
 }

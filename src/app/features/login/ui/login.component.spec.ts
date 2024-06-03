@@ -1,9 +1,11 @@
-import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import {MockProvider} from "ng-mocks";
 import {AuthService} from "../../../core/auth/service/auth.service";
 import {ReactiveFormsModule} from "@angular/forms";
+import { By } from '@angular/platform-browser';
+import { mdiEyeOutline } from '@mdi/js';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -47,5 +49,22 @@ describe('LoginComponent', () => {
     component.login();
 
     expect(authServiceSpy).toHaveBeenCalled();
+  }));
+
+  it('should not hide password when clicking on eye', fakeAsync(() => {
+    // given
+    const passwordInput = fixture.debugElement.query(By.css('#aq-password-input')).nativeElement as HTMLInputElement;
+    const eyeIcon = fixture.debugElement.query(By.css('.eye-icon')).nativeElement;
+
+    // when
+    passwordInput.value = "1234";
+    passwordInput.dispatchEvent(new Event('input'));
+    eyeIcon.click();
+
+    fixture.detectChanges();
+    tick(100);
+
+    // then
+    expect(passwordInput.value).toEqual('1234');
   }));
 });

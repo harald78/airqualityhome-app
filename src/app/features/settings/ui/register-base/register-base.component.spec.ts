@@ -10,6 +10,11 @@ import {AuthState} from "../../../../core/auth/+state/auth.state";
 import {userMock} from "../../../../../../mock/user-mock";
 import {RegisterModalComponent} from "../register-modal/register-modal.component";
 import {ConfirmModalComponent} from "../../../../shared/components/confirm-modal/confirm-modal.component";
+import { Router, RouterModule } from '@angular/router';
+import { NgZone } from '@angular/core';
+import { routes } from '../../../../app.routes';
+import { ToastService } from '../../../../shared/components/toast/toast.service';
+import { mdiCheck } from '@mdi/js';
 
 describe('RegisterBaseComponent', () => {
   let component: RegisterBaseComponent;
@@ -17,11 +22,14 @@ describe('RegisterBaseComponent', () => {
   let registerBaseService: RegisterBaseService;
   let modalService: NgbModal;
   let authState: AuthState;
+  let router: Router;
+  let ngZone: NgZone;
+  let toastService: ToastService;
 
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RegisterBaseComponent, HttpClientTestingModule],
+      imports: [RegisterBaseComponent, HttpClientTestingModule, RouterModule.forRoot(routes)],
       providers: [RegisterBaseService]
     })
     .compileComponents();
@@ -30,6 +38,9 @@ describe('RegisterBaseComponent', () => {
     registerBaseService = TestBed.inject(RegisterBaseService);
     modalService = TestBed.inject(NgbModal);
     authState = TestBed.inject(AuthState);
+    router = TestBed.inject(Router);
+    ngZone = TestBed.inject(NgZone);
+    toastService = TestBed.inject(ToastService);
 
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -56,6 +67,9 @@ describe('RegisterBaseComponent', () => {
     jest.spyOn(modalService, 'open').mockReturnValue(modalRef as NgbModalRef);
     jest.spyOn(registerBaseService, 'sendRegisterRequest')
       .mockReturnValue(Promise.resolve(activeRegisterRequest));
+    jest.spyOn(toastService, 'show');
+    const expectedToast = {classname: "bg-success text-light", header: '',
+      body: "Created register request successfully", icon: mdiCheck, iconColor: "white"};
     const sensorBase = availableSensorBaseMock[0];
     const activeRequestSpy = jest.spyOn(component.activeRequest, 'set');
 
@@ -71,6 +85,7 @@ describe('RegisterBaseComponent', () => {
     });
 
     expect(activeRequestSpy).toHaveBeenCalledWith(activeRegisterRequest);
+    expect(toastService.show).toHaveBeenCalledWith(expectedToast);
   });
 
   it('should handle dismiss request correctly', async () => {
@@ -102,6 +117,9 @@ describe('RegisterBaseComponent', () => {
     jest.spyOn(modalService, 'open').mockReturnValue(modalRef as NgbModalRef);
     jest.spyOn(registerBaseService, 'cancelRegisterRequest')
       .mockReturnValue(Promise.resolve(canceledRegisterRequest));
+    jest.spyOn(toastService, 'show');
+    const expectedToast = {classname: "bg-success text-light", header: '',
+      body: "Canceled register request successfully", icon: mdiCheck, iconColor: "white"};
     const sensorBase = availableSensorBaseMock[0];
     const activeRequestSpy = jest.spyOn(component.activeRequest, 'set');
 
@@ -117,6 +135,7 @@ describe('RegisterBaseComponent', () => {
     });
 
     expect(activeRequestSpy).toHaveBeenCalledWith(canceledRegisterRequest);
+    expect(toastService.show).toHaveBeenCalledWith(expectedToast);
   });
 
   it('should handle dismiss cancel request correctly', async () => {
@@ -138,6 +157,17 @@ describe('RegisterBaseComponent', () => {
     expect(registerBaseService.cancelRegisterRequest).not.toHaveBeenCalled();
 
     expect(activeRequestSpy).not.toHaveBeenCalled();
+  });
+
+  it('should navigate back to settings section', async () => {
+    // given
+    jest.spyOn(router, 'navigate');
+
+    // when
+    await ngZone.run(async () => component.navigateBack());
+
+    // then
+    expect(router.navigate).toHaveBeenCalledWith(['/settings']);
   });
 
 });

@@ -5,11 +5,12 @@ import {FooterComponent} from "./shared/components/footer/footer/footer.componen
 import {ToastsContainerComponent} from "./shared/components/toast/toasts-container.component";
 import {AuthService} from "./core/auth/service/auth.service";
 import {AuthState} from "./core/auth/+state/auth.state";
+import { OverlayComponent } from './shared/components/overlay/overlay.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, ToastsContainerComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, ToastsContainerComponent, OverlayComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

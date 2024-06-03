@@ -3,21 +3,3 @@
   padding: 10px;
 }
 
-.setting-home-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  & > button {
-    margin-top: 20px;
-    width: 80%;
-  }
-}
-
-@media screen and (min-width: 600px) {
-  .setting-home-container {
-     & > button {
-       width: 500px;
-     }
-  }
-}

@@ -7,3 +7,13 @@ export const userMock = {
     "APP_WRITE"
   ]
 }
+
+export const changedUserMock = {
+  "id": 1,
+  "username": "Balu",
+  "email": "balu@mountain.de",
+  "roles": [
+    "APP_READ",
+    "APP_WRITE"
+  ]
+}

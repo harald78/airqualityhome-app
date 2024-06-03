@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AccountHomeComponent } from './account-home.component';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { ChangeAccountComponent } from '../change-account/change-account.component';
+import { MockComponent } from 'ng-mocks';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AccountHomeComponent', () => {
   let component: AccountHomeComponent;
@@ -8,7 +12,8 @@ describe('AccountHomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AccountHomeComponent]
+      imports: [AccountHomeComponent,
+        MockComponent(ChangeAccountComponent), MockComponent(ChangePasswordComponent)]
     })
     .compileComponents();
     

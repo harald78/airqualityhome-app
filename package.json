@@ -11,6 +11,7 @@
     "watch": "ng build --watch --configuration development",
     "mock:server": "nodemon mock/json-server/server.js --ext js,ts,json,html",
     "test": "ng test",
+    "test:coverage": "ng test --coverage=true",
     "test:watch": "ng test --watch",
     "test:integration": "npx playwright test",
     "test:integration:open": "npx playwright test --headed",

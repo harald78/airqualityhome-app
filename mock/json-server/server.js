@@ -7,7 +7,7 @@ server.use(jsonServer.bodyParser);
 
 const userData = require('./data/user');
 const registerData = require('./data/register');
-const {userProfileBalu} = require("./data/user");
+const {userProfileBalu, userProfileBaluChanged } = require("./data/user");
 const {userProfileMogli} = require("./data/user");
 
 
@@ -24,6 +24,37 @@ server.post('/api/user/login', (req, res) => {
       res.status(200).send(userData.tokenMogli);
     } else {
       res.status(401).send(userData.token);
+    }
+  }, 200);
+});
+
+/**
+ * User related endpoint mocks
+ */
+server.post('/api/user/save', (req, res) => {
+  console.log("Server received save-request: ", req.body);
+  setTimeout(() => {
+    const token = req.headers.authorization;
+    if (token && token.includes('balu')) {
+      res.status(200).send(userProfileBaluChanged);
+    } else if (token && token.includes('mogli')) {
+      res.status(200).send(userProfileMogli);
+    } else {
+      res.status(401).send();
+    }
+  }, 200);
+});
+
+server.post('/api/user/save-password', (req, res) => {
+  console.log("Server received save-request: ", req.body);
+  setTimeout(() => {
+    const token = req.headers.authorization;
+    if (token && token.includes('balu')) {
+      res.status(200).send(userProfileBalu);
+    } else if (token && token.includes('mogli')) {
+      res.status(200).send(userProfileMogli);
+    } else {
+      res.status(401).send();
     }
   }, 200);
 });
@@ -59,7 +90,7 @@ server.get('/api/register/requests/:id', (req, res) => {
   setTimeout(() => {
     const token = req.headers.authorization;
     if (token && token.includes('balu')) {
-      res.status(200).send(registerData.registerRequest);
+      res.status(200).send(registerData.registerRequestBalu);
     } else if (token && token.includes('mogli')) {
       res.status(204).send();
     } else {
