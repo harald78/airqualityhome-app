@@ -39,6 +39,7 @@ describe('AccountService', () => {
       id: 1,
       username: 'Balu',
       email: 'balu@gmail.com',
+      password: '123456',
     };
     const overlayShowSpy = jest.spyOn(overlayService, 'show');
     const overlayHideSpy = jest.spyOn(overlayService, 'hide');
@@ -64,6 +65,7 @@ describe('AccountService', () => {
       id: 1,
       username: 'Balu',
       email: 'balu@gmail.com',
+      password: '123456',
     };
     await authState.setUser(changedUserMock);
     const overlayShowSpy = jest.spyOn(overlayService, 'show');

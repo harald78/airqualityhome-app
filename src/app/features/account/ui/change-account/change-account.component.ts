@@ -8,13 +8,15 @@ import { Router } from '@angular/router';
 import { AccountService } from '../../service/account.service';
 import { UserChangeRequest } from '../../../../shared/model/user.model';
 import { Toast, ToastService } from '../../../../shared/components/toast/toast.service';
+import { PasswordInputComponent } from '../../../../shared/components/password-input/password-input.component';
 
 @Component({
   selector: 'app-change-account',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    IconComponent
+    IconComponent,
+    PasswordInputComponent
   ],
   templateUrl: './change-account.component.html',
   styleUrl: './change-account.component.scss'
@@ -35,18 +37,17 @@ export class ChangeAccountComponent implements OnInit {
 
   public accountForm = this.fb.group({
     username: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required)
+    email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
   });
 
   ngOnInit() {
     this.accountForm.patchValue(this.authState.user())
-    this.accountForm.get('username')?.disable();
-    this.accountForm.get('email')?.disable();
+    this.disableControls();
   }
 
   changeData() {
-    this.accountForm.get('username')?.enable();
-    this.accountForm.get('email')?.enable();
+    this.enableControls();
     this.editState.set(EditState.edit);
   }
 
@@ -55,18 +56,19 @@ export class ChangeAccountComponent implements OnInit {
       this.editState.set(EditState.view);
       const username = this.accountForm.get('username')?.value as string;
       const email = this.accountForm.get('email')?.value as string;
+      const password = this.accountForm.get('password')?.value as string;
       const changeUserRequest: UserChangeRequest = {
         id: this.authState.user().id!,
         username,
-        email
+        email,
+        password
       }
       const user = await this.accountService.saveUserData(changeUserRequest);
       await this.authState.setUser(user);
       this.accountForm.patchValue(user);
       const successToast: Toast = {classname: "bg-success text-light", header: '',
         body: "Saved changes successfully", icon: mdiCheck, iconColor: "white"};
-      this.accountForm.get('username')?.disable();
-      this.accountForm.get('email')?.disable();
+      this.disableControls();
       this.toastService.show(successToast);
     }
   }
@@ -81,13 +83,24 @@ export class ChangeAccountComponent implements OnInit {
   cancelChange() {
     const user = this.authState.user();
     this.accountForm.patchValue(user);
-    this.accountForm.get('username')?.disable();
-    this.accountForm.get('email')?.disable();
+    this.disableControls();
     this.editState.set(EditState.view);
   }
 
   async changePw() {
     await this.router.navigate(['account/change-pw']);
+  }
+
+  private disableControls(): void {
+    this.accountForm.get('username')?.disable();
+    this.accountForm.get('email')?.disable();
+    this.accountForm.get('password')?.disable();
+  }
+
+  private enableControls(): void {
+    this.accountForm.get('username')?.enable();
+    this.accountForm.get('email')?.enable();
+    this.accountForm.get('password')?.enable();
   }
 
 

@@ -12,6 +12,20 @@
              id="change-email-input"
              type="text" formControlName="email" aria-label="aq-change-email-input" />
     </div>
+    <app-password-input>
+      <ng-template #password let-type>
+        <input class="form-control" [type]="type"
+               id="current-password-input"
+               placeholder="Current password"
+               formControlName="password" aria-label="aq-current-password-input" />
+      </ng-template>
+    </app-password-input>
+    @if(accountForm.get('password')?.errors && accountForm.get('password')?.getError('required') &&
+      (accountForm.get('username')?.touched || accountForm.get('email')?.touched) && dataHasChanged()) {
+      <p class="text-danger" id="password-required-error">Password required to change data</p>
+    } @else if (!accountForm.get('password')?.errors && !dataHasChanged() && editState() === EditState.edit) {
+      <p class="text-danger" id="data-not-changed-error">Data has not been changed</p>
+    }
 
     @if(editState() === EditState.edit) {
       <button id="saveData-button" type="button" class="btn btn-primary" (click)="saveData()"
@@ -23,7 +37,7 @@
     }
   </form>
   @if(editState() === EditState.edit) {
-    <button id="cancel-button" type="button" class="btn btn-outline-danger" (click)="cancelChange()" aria-label="change-pw-button">Cancel</button>
+    <button id="cancel-button" type="button" class="btn btn-outline-danger" (click)="cancelChange()" aria-label="cancel-change-button">Cancel</button>
   } @else {
     <button id="changePW-button" type="button" class="btn btn-outline-danger" (click)="changePw()" aria-label="change-pw-button">Change Password</button>
   }

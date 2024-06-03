@@ -86,6 +86,7 @@ describe('ChangeAccountComponent Test', () => {
     jest.spyOn(toastService, 'show');
     jest.spyOn(component.accountForm, 'patchValue');
     component.accountForm.get('username')?.setValue('newUsername');
+    component.accountForm.get('password')?.setValue('currentPassword');
 
     // when
     await component.saveData();
@@ -94,7 +95,8 @@ describe('ChangeAccountComponent Test', () => {
     expect(accountService.saveUserData).toHaveBeenCalledWith({
       id: userMock.id,
       username: "newUsername",
-      email: userMock.email
+      email: userMock.email,
+      password: "currentPassword"
     });
     expect(authState.setUser).toHaveBeenCalledWith(changedUserMock);
     expect(toastService.show).toHaveBeenCalledWith(expectedToast);
@@ -135,16 +137,65 @@ describe('ChangeAccountComponent Test', () => {
     const debugElement = fixture.debugElement;
     const changeButton = debugElement.query(By.css('#changeData-button')).nativeElement as HTMLButtonElement;
     const usernameInput = debugElement.query(By.css('#change-username-input')).nativeElement as HTMLInputElement;
+    const currentPassword = debugElement.query(By.css('#current-password-input')).nativeElement as HTMLInputElement;
     changeButton.click();
 
     usernameInput.value = 'newUsername';
     usernameInput.dispatchEvent(new Event('input'));
+    currentPassword.value = 'currentPassword';
+    currentPassword.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     tick(100);
 
     const saveButton = debugElement.query(By.css('#saveData-button')).nativeElement as HTMLButtonElement;
     expect(component.dataHasChanged()).toBeTruthy();
     expect(saveButton.disabled).toBeFalsy();
+  }));
+
+  it('should show error password required for changes', fakeAsync(() =>  {
+    authState.setUser(userMock);
+    component.ngOnInit();
+
+    const debugElement = fixture.debugElement;
+    const changeButton = debugElement.query(By.css('#changeData-button')).nativeElement as HTMLButtonElement;
+    const usernameInput = debugElement.query(By.css('#change-username-input')).nativeElement as HTMLInputElement;
+    changeButton.click();
+
+    usernameInput.value = 'newUsername';
+    usernameInput.dispatchEvent(new Event('input'));
+    usernameInput.dispatchEvent(new Event('blur'));
+
+    fixture.detectChanges();
+    tick(100);
+
+    const passwordRequiredError = debugElement.query(By.css('#password-required-error')).nativeElement;
+    const saveButton = debugElement.query(By.css('#saveData-button')).nativeElement as HTMLButtonElement;
+    expect(component.dataHasChanged()).toBeTruthy();
+    expect(saveButton.disabled).toBeTruthy();
+    expect(passwordRequiredError.innerHTML).toContain("Password required to change data");
+  }));
+
+  it('should show data not changed error', fakeAsync(() =>  {
+    authState.setUser(userMock);
+    component.ngOnInit();
+
+    const debugElement = fixture.debugElement;
+    const changeButton = debugElement.query(By.css('#changeData-button')).nativeElement as HTMLButtonElement;
+    const currentPassword = debugElement.query(By.css('#current-password-input')).nativeElement as HTMLInputElement;
+    changeButton.click();
+
+    currentPassword.value = 'currentPassword';
+    currentPassword.dispatchEvent(new Event('input'));
+    currentPassword.dispatchEvent(new Event('blur'));
+
+    fixture.detectChanges();
+    tick(100);
+
+    const passwordRequiredError = debugElement.query(By.css('#data-not-changed-error')).nativeElement;
+    const saveButton = debugElement.query(By.css('#saveData-button')).nativeElement as HTMLButtonElement;
+    expect(component.dataHasChanged()).toBeFalsy();
+    expect(saveButton.disabled).toBeTruthy();
+    expect(passwordRequiredError.innerHTML).toContain("Data has not been changed");
   }));
 
   it('should cancel data change', fakeAsync(() =>  {
