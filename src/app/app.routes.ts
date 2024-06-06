@@ -9,10 +9,15 @@ import {RegisterBaseComponent} from "./features/settings/ui/register-base/regist
 import { ChangeAccountComponent } from './features/account/ui/change-account/change-account.component';
 import { ChangePasswordComponent } from './features/account/ui/change-password/change-password.component';
 import { SensorSettingsComponent } from './features/settings/ui/sensor-settings/sensor-settings.component';
+import {DashboardOverviewComponent} from "./features/dashboard/ui/dashboard-overview/dashboard-overview.component";
+import {DashboardDetailComponent} from "./features/dashboard/ui/dashboard-detail/dashboard-detail.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardHomeComponent, canActivate: [isAuthenticated] },
+  { path: 'dashboard', component: DashboardHomeComponent, canActivate: [isAuthenticated], children: [
+      {path: "", component: DashboardOverviewComponent, canActivate: [isAuthenticated]},
+      {path: "sensor", component: DashboardDetailComponent, canActivate: [isAuthenticated]},
+    ]},
   { path: 'notifications', component: NotificationsHomeComponent, canActivate: [isAuthenticated] },
   { path: 'account', component: AccountHomeComponent, canActivate: [isAuthenticated], children: [
       {path: '', component: ChangeAccountComponent, canActivate: [isAuthenticated] },

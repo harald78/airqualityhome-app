@@ -1,4 +1,4 @@
-import { Component, computed, ContentChild, input, Signal, signal, TemplateRef, ViewEncapsulation, WritableSignal } from '@angular/core';
+import { Component, computed, ContentChild, Signal, signal, TemplateRef, ViewEncapsulation, WritableSignal } from '@angular/core';
 import { mdiEyeOffOutline, mdiEyeOutline, mdiLock } from '@mdi/js';
 import { IconComponent } from '../icon/icon/icon.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -21,8 +21,6 @@ export class PasswordInputComponent {
   @ContentChild('password') tmplRef: TemplateRef<any>;
 
   protected readonly lockIcon = mdiLock;
-  formControlName = input<string>('');
-  placeholder = input('Password');
 
   showPassword: WritableSignal<boolean> = signal(false);
   showPasswordType: Signal<string> = computed(() => this.showPassword() ? 'text' : 'password');

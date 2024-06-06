@@ -7,8 +7,9 @@ import {PhysicalType, SensorType} from "../model/sensor-type.model";
 })
 export class UnitPipe implements PipeTransform {
 
-  transform(sensorType: SensorType): unknown {
-    switch (sensorType.type) {
+  transform(type: SensorType | string): unknown {
+    const switchType = typeof type === 'string' ? type : type.type;
+    switch (switchType) {
       case PhysicalType.TEMPERATURE:
         return '°C';
       case PhysicalType.PARTICLE:

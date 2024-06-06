@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start:standalone": "ng serve --configuration=standalone",
+    "start:server": "ng serve --configuration=server",
     "start:standalone:mock": "npm run mock:server & npm run start:standalone",
     "start:local": "ng serve --configuration=local",
     "build": "ng build",
