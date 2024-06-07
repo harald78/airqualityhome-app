@@ -8,3 +8,8 @@ export interface FilterEvent {
   item: string;
   mode: 'add' | 'remove';
 }
+
+export interface BaseEntity {
+  id: number,
+  [key: string]: any;
+}

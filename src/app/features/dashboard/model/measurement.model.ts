@@ -1,6 +1,6 @@
+import {BaseEntity} from "./filter.model";
 
-export interface LatestMeasurement {
-  id: number;
+export interface LatestMeasurement extends BaseEntity{
   uuid: string;
   sensorBaseName: string;
   sensorName: string;
@@ -11,5 +11,4 @@ export interface LatestMeasurement {
   timestamp: Date;
   unit: string;
   value: number;
-  [key: string]: any;
 }

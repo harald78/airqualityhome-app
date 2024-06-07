@@ -17,8 +17,8 @@
               <span class="badge bg-dark text-light ms-1">{{ sensorType.type }}</span>
             </div>
             <div class="d-flex p-2">
-              <span class="badge bg-info ms-1">min: {{ sensorType.minValue }} {{ sensorType | unit }}</span>
-              <span class="badge bg-danger ms-1">max: {{ sensorType.maxValue }} {{ sensorType | unit }}</span>
+              <span class="badge bg-info ms-1">min: {{ sensorType.minValue }} {{ sensorType.type | unit }}</span>
+              <span class="badge bg-danger ms-1">max: {{ sensorType.maxValue }} {{ sensorType.type | unit }}</span>
             </div>
           </div>
         }

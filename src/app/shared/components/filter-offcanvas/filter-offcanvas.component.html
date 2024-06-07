@@ -1,0 +1,23 @@
+<div class="offcanvas-header" id="offcanvas-component">
+  <h2 class="offcanvas-title d-flex align-items-center"><app-icon [path]="mdiFilter" color="white" width="24px" class="me-2"></app-icon>Filter Options</h2>
+</div>
+<div class="offcanvas-body">
+
+  @for (option of filterOptions.keys(); track option; let i=$index) {
+    <div class="mb-4">
+      <h6 class="font-monospace" id="option-header-{{i}}"><u>{{ option | prettyName }}</u></h6>
+      @for (value of filterOptions.get(option); track value; let index=$index) {
+        <div class="d-flex flex-column">
+          <div class="form-check">
+            <input id="filter-checkbox-{{index}}" class="form-check-input"
+                   [checked]="isChecked(option, value)"
+                   type="checkbox" (change)="setFilter($event, option, value)"/>
+            <label class="form-check-label ms-2" for="{{index}}">{{ value | uppercase }}</label>
+          </div>
+        </div>
+      }
+    </div>
+  }
+  <button type="button" id="canvas-close-button" class="btn btn-outline-light close-button" (click)="activeOffcanvas.close('Close click')">Close</button>
+</div>
+
