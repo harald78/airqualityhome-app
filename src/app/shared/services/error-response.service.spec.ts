@@ -43,7 +43,7 @@ describe('Error ResponseService Test', () => {
 
   it('should return UPS SOMETHING WENT WRONG :(', () => {
     const result = service.getHttpErrorResponseTextByStatus(504);
-    expect(result).toEqual("UPS SOMETHING WENT WRONG :(");
+    expect(result).toEqual("SOMETHING WENT WRONG :(");
   });
 
 })

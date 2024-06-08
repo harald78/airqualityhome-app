@@ -27,6 +27,8 @@ export class MeasurementTileComponent implements OnInit {
   value: InputSignal<number> = input(0.0);
   alarmActive: InputSignal<boolean> = input(false);
   type: InputSignal<string> = input('');
+  warningThreshold: InputSignal<number> = input(0.0);
+  linearCorrectionValue: InputSignal<number> = input(0.0);
   name: InputSignal<string> = input('');
   base: InputSignal<string> = input('');
   alarmMin: InputSignal<number> = input(0.0);
@@ -35,7 +37,7 @@ export class MeasurementTileComponent implements OnInit {
   location: InputSignal<string> = input('');
 
   ngOnInit() {
-    const severity = this.alarmActive() ? this.severityService.getSeverity(this.type(), this.value(), this.alarmMin(), this.alarmMax()): 'success';
+    const severity = this.alarmActive() ? this.severityService.getSeverity(this.warningThreshold(), this.value(), this.alarmMin(), this.alarmMax()): 'success';
     this.severity.set(severity);
   }
 }

@@ -11,4 +11,7 @@ export interface LatestMeasurement extends BaseEntity{
   timestamp: Date;
   unit: string;
   value: number;
+  warningThreshold: number;
+  linearCorrectionValue: number;
+  alarmActive: boolean;
 }

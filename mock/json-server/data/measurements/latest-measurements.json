@@ -10,7 +10,10 @@
     "alarmMin": 19.0,
     "timestamp": "2024-06-05T06:05:00.000Z",
     "unit": "CELSIUS",
-    "value": 26.5
+    "value": 26.5,
+    "warningThreshold": 0.0,
+    "linearCorrectionValue": 0.0,
+    "alarmActive": false
   },
   {
     "uuid": "F0F0F0",
@@ -23,7 +26,10 @@
     "alarmMin": 45.0,
     "timestamp": "2024-06-05T06:05:00.000Z",
     "unit": "PERCENT",
-    "value": 45.5
+    "value": 45.5,
+    "warningThreshold": 0.0,
+    "linearCorrectionValue": 0.0,
+    "alarmActive": false
   },
   {
     "uuid": "F0F0F0",
@@ -36,7 +42,10 @@
     "alarmMin": 0.0,
     "timestamp": "2024-06-05T06:05:00.000Z",
     "unit": "PPM",
-    "value": 201.0
+    "value": 201.0,
+    "warningThreshold": 0.0,
+    "linearCorrectionValue": 0.0,
+    "alarmActive": false
   },
   {
     "uuid": "F0F0F1",
@@ -49,7 +58,10 @@
     "alarmMin": 17.0,
     "timestamp": "2024-06-05T06:05:00.000Z",
     "unit": "CELSIUS",
-    "value": 26.5
+    "value": 26.5,
+    "warningThreshold": 0.0,
+    "linearCorrectionValue": 0.0,
+    "alarmActive": false
   },
   {
     "uuid": "F0F0F1",
@@ -62,7 +74,10 @@
     "alarmMin": 45.0,
     "timestamp": "2024-06-05T06:05:00.000Z",
     "unit": "PERCENT",
-    "value": 55.5
+    "value": 55.5,
+    "warningThreshold": 0.0,
+    "linearCorrectionValue": 0.0,
+    "alarmActive": false
   },
   {
   "uuid": "F0F0F1",
@@ -75,6 +90,9 @@
   "alarmMin": 0.0,
   "timestamp": "2024-06-05T06:05:00.000Z",
   "unit": "PPM",
-  "value": 260.5
+  "value": 260.5,
+  "warningThreshold": 0.0,
+  "linearCorrectionValue": 0.0,
+  "alarmActive": false
 }
 ]

@@ -28,6 +28,10 @@ export class FilterService {
     return fe;
   });
 
+  public async setEntitiesForFilter(entities: BaseEntity[]): Promise<void> {
+    this.entities.set(entities);
+  }
+
   public async initData(entities: BaseEntity[]): Promise<void> {
     this.entities.set(entities);
     this.FILTER_PROPERTIES.forEach((prop) => {

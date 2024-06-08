@@ -10,10 +10,11 @@ export const MeasurementState = signalStore(
   withMethods((store) => {
     const measurementService = inject(MeasurementService);
     return {
+      async clearAllMeasurements() {
+        patchState(store, removeAllEntities());
+      },
       async loadLatestMeasurements() {
         const latestMeasurements = await measurementService.getLatestMeasurements();
-        const state = removeAllEntities()
-        patchState(store, state);
         patchState(store, setEntities(latestMeasurements));
       }
     }

@@ -12,7 +12,10 @@ export const latestMeasurements: LatestMeasurement[] = [
     "alarmMin": 19.0,
     "timestamp": new Date(2024, 5, 5, 6, 5),
     "unit": "CELSIUS",
-    "value": 26.5
+    "value": 26.5,
+    "warningThreshold": 0.0,
+    "linearCorrectionValue": 0.0,
+    "alarmActive": false
   },
   {
     "uuid": "F0F0F0",
@@ -25,7 +28,10 @@ export const latestMeasurements: LatestMeasurement[] = [
     "alarmMin": 45.0,
     "timestamp": new Date(2024, 5, 5, 6, 5),
     "unit": "PERCENT",
-    "value": 45.5
+    "value": 45.5,
+    "warningThreshold": 0.0,
+    "linearCorrectionValue": 0.0,
+    "alarmActive": false
   },
   {
     "uuid": "F0F0F0",
@@ -38,7 +44,10 @@ export const latestMeasurements: LatestMeasurement[] = [
     "alarmMin": 0.0,
     "timestamp": new Date(2024, 5, 5, 6, 5),
     "unit": "PPM",
-    "value": 201.0
+    "value": 201.0,
+    "warningThreshold": 0.0,
+    "linearCorrectionValue": 0.0,
+    "alarmActive": false
   },
   {
     "uuid": "F0F0F1",
@@ -51,7 +60,10 @@ export const latestMeasurements: LatestMeasurement[] = [
     "alarmMin": 17.0,
     "timestamp": new Date(2024, 5, 5, 6, 5),
     "unit": "CELSIUS",
-    "value": 26.5
+    "value": 26.5,
+    "warningThreshold": 0.0,
+    "linearCorrectionValue": 0.0,
+    "alarmActive": false
   },
   {
     "uuid": "F0F0F1",
@@ -64,7 +76,10 @@ export const latestMeasurements: LatestMeasurement[] = [
     "alarmMin": 45.0,
     "timestamp": new Date(2024, 5, 5, 6, 5),
     "unit": "PERCENT",
-    "value": 55.5
+    "value": 55.5,
+    "warningThreshold": 0.0,
+    "linearCorrectionValue": 0.0,
+    "alarmActive": false
   },
   {
     "uuid": "F0F0F1",
@@ -77,6 +92,9 @@ export const latestMeasurements: LatestMeasurement[] = [
     "alarmMin": 0.0,
     "timestamp": new Date(2024, 5, 5, 6, 5),
     "unit": "PPM",
-    "value": 260.5
+    "value": 260.5,
+    "warningThreshold": 0.0,
+    "linearCorrectionValue": 0.0,
+    "alarmActive": false
   }
 ];

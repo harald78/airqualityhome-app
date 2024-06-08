@@ -52,7 +52,10 @@ describe('FilterServiceService', () => {
       "alarmMin": 19.0,
       "timestamp": new Date(2024, 5, 5, 6, 5),
       "unit": "CELSIUS",
-      "value": 26.5
+      "value": 26.5,
+      "warningThreshold": 0.0,
+      "linearCorrectionValue": 0.0,
+      "alarmActive": false
     },
       {
         "uuid": "F0F0F0",
@@ -65,7 +68,10 @@ describe('FilterServiceService', () => {
         "alarmMin": 45.0,
         "timestamp": new Date(2024, 5, 5, 6, 5),
         "unit": "PERCENT",
-        "value": 45.5
+        "value": 45.5,
+        "warningThreshold": 0.0,
+        "linearCorrectionValue": 0.0,
+        "alarmActive": false
       },
       {
         "uuid": "F0F0F0",
@@ -78,7 +84,10 @@ describe('FilterServiceService', () => {
         "alarmMin": 0.0,
         "timestamp": new Date(2024, 5, 5, 6, 5),
         "unit": "PPM",
-        "value": 201.0
+        "value": 201.0,
+        "warningThreshold": 0.0,
+        "linearCorrectionValue": 0.0,
+        "alarmActive": false
       }];
 
     // when
@@ -103,7 +112,10 @@ describe('FilterServiceService', () => {
       "alarmMin": 19.0,
       "timestamp": new Date(2024, 5, 5, 6, 5),
       "unit": "CELSIUS",
-      "value": 26.5
+      "value": 26.5,
+      "warningThreshold": 0.0,
+      "linearCorrectionValue": 0.0,
+      "alarmActive": false
     }];
     const expectedEndEntities = [  {
       "uuid": "F0F0F0",
@@ -116,7 +128,10 @@ describe('FilterServiceService', () => {
       "alarmMin": 19.0,
       "timestamp": new Date(2024, 5, 5, 6, 5),
       "unit": "CELSIUS",
-      "value": 26.5
+      "value": 26.5,
+      "warningThreshold": 0.0,
+      "linearCorrectionValue": 0.0,
+      "alarmActive": false
     },
       {
         "uuid": "F0F0F1",
@@ -129,7 +144,10 @@ describe('FilterServiceService', () => {
         "alarmMin": 17.0,
         "timestamp": new Date(2024, 5, 5, 6, 5),
         "unit": "CELSIUS",
-        "value": 26.5
+        "value": 26.5,
+        "warningThreshold": 0.0,
+        "linearCorrectionValue": 0.0,
+        "alarmActive": false
       }];
     service.setFilter({name: 'location', item: 'Wohnzimmer', mode: 'add'});
     service.setFilter({name: 'sensorType', item: 'TEMPERATURE', mode: 'add'});
