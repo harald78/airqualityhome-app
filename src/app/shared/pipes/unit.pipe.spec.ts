@@ -12,7 +12,7 @@ describe('UnitPipe', () => {
   it('should return temperature unit', () => {
     // when
     const pipe = new UnitPipe();
-    const result = pipe.transform(sensorTypeMock[0]);
+    const result = pipe.transform(sensorTypeMock[0].type);
 
     // then
     expect(result).toEqual("°C");
@@ -21,7 +21,7 @@ describe('UnitPipe', () => {
   it('should return humidity unit', () => {
     // when
     const pipe = new UnitPipe();
-    const result = pipe.transform(sensorTypeMock[1]);
+    const result = pipe.transform(sensorTypeMock[1].type);
 
     // then
     expect(result).toEqual("%");
@@ -30,7 +30,7 @@ describe('UnitPipe', () => {
   it('should return particle unit for gas sensor', () => {
     // when
     const pipe = new UnitPipe();
-    const result = pipe.transform(sensorTypeMock[2]);
+    const result = pipe.transform(sensorTypeMock[2].type);
 
     // then
     expect(result).toEqual("ppm");
@@ -39,7 +39,7 @@ describe('UnitPipe', () => {
   it('should return particle unit for particle', () => {
     // when
     const pipe = new UnitPipe();
-    const result = pipe.transform(sensorTypeMock[3]);
+    const result = pipe.transform(sensorTypeMock[3].type);
 
     // then
     expect(result).toEqual("ppm");
@@ -48,7 +48,7 @@ describe('UnitPipe', () => {
   it('should return pressure unit', () => {
     // when
     const pipe = new UnitPipe();
-    const result = pipe.transform(sensorTypeMock[4]);
+    const result = pipe.transform(sensorTypeMock[4].type);
 
     // then
     expect(result).toEqual("hPa");
@@ -57,7 +57,7 @@ describe('UnitPipe', () => {
   it('should return light unit', () => {
     // when
     const pipe = new UnitPipe();
-    const result = pipe.transform(sensorTypeMock[5]);
+    const result = pipe.transform(sensorTypeMock[5].type);
 
     // then
     expect(result).toEqual("lx");
@@ -72,7 +72,7 @@ describe('UnitPipe', () => {
       maxValue: 100,
       minValue: 0
     };
-    const result = pipe.transform(type);
+    const result = pipe.transform(type.type);
     expect(result).toEqual("");
   })
 

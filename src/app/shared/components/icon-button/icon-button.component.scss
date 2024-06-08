@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+  flex-grow: 0;
+}
+
+.fixed-style {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+app-icon {
+  margin-right: 5px;
+  margin-top: -2px;
+}

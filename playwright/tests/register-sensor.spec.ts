@@ -3,7 +3,7 @@ import { logOut } from '../support/logout-helper';
 import { loginAsBalu, loginAsMogli } from '../support/login-helper';
 import { selectByAriaLabel } from '../support/playwright-utils';
 
-test.describe('Dashboard Home Tests', () => {
+test.describe('Register-Base Tests', () => {
 
   test('Check register base request works', async ({ context, page }) => {
     await logOut(page);
