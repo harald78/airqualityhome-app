@@ -8,6 +8,7 @@ import { environment } from '../../../../environments/environment';
 import { catchError } from 'rxjs/operators';
 import { mdiAlert } from '@mdi/js';
 import { firstValueFrom, of } from 'rxjs';
+import {MeasurementHistory} from "../model/measurementHistory.model";
 
 @Injectable({providedIn: 'root'})
 export class MeasurementService {
@@ -28,6 +29,15 @@ export class MeasurementService {
       })));
   }
 
-
+  getMeasurementHistory(id: number): Promise<MeasurementHistory[]> {
+    return firstValueFrom(this.httpService.get<MeasurementHistory[]>(`${environment.baseUrl}/measurements/sensor/${id}`)
+      .pipe(catchError(err => {
+        const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
+        const errorToast: Toast = {classname: "bg-danger text-light", header: 'Could not load measurements history',
+          body: `${err.status} ${statusText}`, icon: mdiAlert, iconColor: "white"};
+        this.toastService.show(errorToast);
+        return of([]);
+      })));
+  }
 
 }

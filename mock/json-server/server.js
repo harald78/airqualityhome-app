@@ -10,6 +10,7 @@ const registerData = require('./data/register');
 const {userProfileBalu, userProfileBaluChanged, userProfileBaluNewName } = require("./data/user");
 const {userProfileMogli} = require("./data/user");
 const {latestMeasurements} = require("./data/measurements");
+const {temperatureMeasurementsHistory} = require("./data/measurements");
 
 
 /**
@@ -160,6 +161,20 @@ server.get('/api/measurements/user/:id', (req, res) => {
       res.status(200).send(latestMeasurements);
     } else if (token && token.includes('mogli')) {
       res.status(200).send(latestMeasurements);
+    } else {
+      res.status(401).send();
+    }
+  }, 200);
+});
+
+server.get('/api/measurements/sensor/:id', (req, res) => {
+  console.log("Server received get latest measurements: ", req.body);
+  setTimeout(() => {
+    const token = req.headers.authorization;
+    if (token && token.includes('balu')) {
+      res.status(200).send(temperatureMeasurementsHistory);
+    } else if (token && token.includes('mogli')) {
+      res.status(200).send(temperatureMeasurementsHistory);
     } else {
       res.status(401).send();
     }
