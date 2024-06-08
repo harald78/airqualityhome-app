@@ -1,5 +1,5 @@
 import {patchState, signalStore, withMethods} from "@ngrx/signals";
-import {setEntities, withEntities} from "@ngrx/signals/entities";
+import {removeAllEntities, setEntities, withEntities} from "@ngrx/signals/entities";
 import {LatestMeasurement} from "../model/measurement.model";
 import {inject} from "@angular/core";
 import {MeasurementService} from "../service/measurement.service";
@@ -12,7 +12,9 @@ export const MeasurementState = signalStore(
     return {
       async loadLatestMeasurements() {
         const latestMeasurements = await measurementService.getLatestMeasurements();
-        patchState(store, setEntities(latestMeasurements))
+        const state = removeAllEntities()
+        patchState(store, state);
+        patchState(store, setEntities(latestMeasurements));
       }
     }
   })

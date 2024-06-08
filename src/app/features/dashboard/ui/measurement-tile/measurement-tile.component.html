@@ -1,7 +1,7 @@
 <div class="sensor-tile">
   <div class="header">
     <div class="temperature-container">
-      <div class="temperature-circle normal">
+      <div class="temperature-circle {{severity()}}">
         <span class="value">{{ value() }}</span>
       </div>
       <span class="unit">{{ type() | unit }}</span>
@@ -12,7 +12,7 @@
       <p>Base: {{ base() }}</p>
     </div>
     <div class="alarms">
-      <h2><span><app-icon [path]="mdiBell" width="14px" [color]="'#e7940f'"></app-icon></span>Alarms</h2>
+      <h2><span><app-icon [path]="mdiBell" width="14px" [color]="alarmActive() ? '#e7940f' : 'black'"></app-icon></span>Alarms</h2>
       <span class="badge bg-info">min {{ alarmMin() }}{{ type() | unit }}</span>
       <span class="badge bg-danger">max {{ alarmMax() }}{{ type() | unit }}</span>
     </div>
