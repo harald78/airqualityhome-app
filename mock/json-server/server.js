@@ -9,7 +9,8 @@ const userData = require('./data/user');
 const registerData = require('./data/register');
 const {userProfileBalu, userProfileBaluChanged, userProfileBaluNewName } = require("./data/user");
 const {userProfileMogli} = require("./data/user");
-
+const notificationData = require("./data/notification");
+let notifications = JSON.parse(JSON.stringify(notificationData.notification));
 
 /**
  * User related endpoint mocks
@@ -146,6 +147,31 @@ server.post('/api/register/sensor/cancel', (req, res) => {
       res.status(200).send(registerData.registerRequestMogliCanceled);
     }
     else {
+      res.status(401).send();
+    }
+  }, 200);
+});
+
+server.get('/api/notifications/user/:id', (req, res) => {
+  console.log("Server received notification: ", req.body);
+  setTimeout(() => {
+    const token = req.headers.authorization;
+    if (token) {
+      res.status(200).send(notifications)
+    } else {
+      res.status(401).send();
+    }
+  }, 200);
+});
+
+server.delete('/api/notifications/user/:id', (req, res) => {
+  console.log("Server received notification: ", req.body);
+  setTimeout(() => {
+    const token = req.headers.authorization;
+    if (token) {
+      notifications = [];
+      res.status(200).send()
+    } else {
       res.status(401).send();
     }
   }, 200);
