@@ -11,7 +11,8 @@ import {MeasurementState} from "../../+state/measurement.state";
 import {interval, tap} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {environment} from "../../../../../environments/environment";
-import {RouterLink, RouterLinkActive} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink, RouterLinkActive} from "@angular/router";
+import {id} from "@swimlane/ngx-charts";
 
 @Component({
   selector: 'app-dashboard-overview',
@@ -32,6 +33,8 @@ export class DashboardOverviewComponent implements OnInit {
   private readonly offCanvasService= inject(NgbOffcanvas);
   private readonly measurementState = inject(MeasurementState);
   private readonly filterService = inject(FilterService);
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
 
   public measurementItems: Signal<LatestMeasurement[]> = computed( () => {
     return this.filterService.filteredEntities() as LatestMeasurement[]; });
@@ -52,6 +55,9 @@ export class DashboardOverviewComponent implements OnInit {
     console.log(this.measurementState.entities());
   }
 
+  async showHistory(id: number) {
+    await this.router.navigate(['sensor', id], {relativeTo: this.activatedRoute});
+  }
 
   openOverlay() {
     this.offCanvasService.open(FilterOffcanvasComponent, { position: 'end', panelClass: 'canvas' });

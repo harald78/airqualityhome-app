@@ -6,11 +6,15 @@ import {colorSets, LegendPosition, NgxChartsModule} from "@swimlane/ngx-charts";
 import {ActivatedRoute} from "@angular/router";
 import {MeasurementState} from "../../+state/measurement.state";
 import {LatestMeasurement} from "../../model/measurement.model";
+import {mdiFilter} from "@mdi/js";
+import {IconButtonComponent} from "../../../../shared/components/icon-button/icon-button.component";
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-dashboard-detail',
   standalone: true,
-  imports: [NgxChartsModule],
+  imports: [NgxChartsModule, IconButtonComponent],
   templateUrl: './dashboard-detail.component.html',
   styleUrl: './dashboard-detail.component.scss'
 })
@@ -38,6 +42,7 @@ export class DashboardDetailComponent implements OnInit {
   private readonly measurementService: MeasurementService = inject(MeasurementService);
   private readonly route = inject(ActivatedRoute);
   private readonly measurementState = inject(MeasurementState);
+  private readonly router = inject(Router);
   public latestMeasurement: LatestMeasurement | undefined;
 
   constructor() {
@@ -59,9 +64,15 @@ export class DashboardDetailComponent implements OnInit {
     }
   }
 
+  async navigateBack() {
+    await this.router.navigate(['dashboard']);
+  }
+
   prepareChartData() {
     if (this.historyData) {
       this.chartData = this.historyData.data;
     }
   }
+
+  protected readonly mdiFilter = mdiFilter;
 }
