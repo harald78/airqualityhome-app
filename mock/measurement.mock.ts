@@ -3,6 +3,7 @@ import {LatestMeasurement} from "../src/app/features/dashboard/model/measurement
 export const latestMeasurements: LatestMeasurement[] = [
   {
     "uuid": "F0F0F0",
+    "sensorId": 1,
     "id": 1,
     "sensorBaseName": "AZEnvy",
     "sensorName": "SHT30",
@@ -19,6 +20,7 @@ export const latestMeasurements: LatestMeasurement[] = [
   },
   {
     "uuid": "F0F0F0",
+    "sensorId": 1,
     "id": 2,
     "sensorBaseName": "AZEnvy",
     "sensorName": "SHT30",
@@ -35,6 +37,7 @@ export const latestMeasurements: LatestMeasurement[] = [
   },
   {
     "uuid": "F0F0F0",
+    "sensorId": 1,
     "id": 3,
     "sensorBaseName": "AZEnvy",
     "sensorName": "MQ-2",
@@ -51,6 +54,7 @@ export const latestMeasurements: LatestMeasurement[] = [
   },
   {
     "uuid": "F0F0F1",
+    "sensorId": 1,
     "id": 4,
     "sensorBaseName": "AZEnvy",
     "sensorName": "SHT30",
@@ -67,6 +71,7 @@ export const latestMeasurements: LatestMeasurement[] = [
   },
   {
     "uuid": "F0F0F1",
+    "sensorId": 1,
     "id": 5,
     "sensorBaseName": "AZEnvy",
     "sensorName": "SHT30",
@@ -83,6 +88,7 @@ export const latestMeasurements: LatestMeasurement[] = [
   },
   {
     "uuid": "F0F0F1",
+    "sensorId": 1,
     "id": 6,
     "sensorBaseName": "AZEnvy",
     "sensorName": "MQ-2",

@@ -7,18 +7,20 @@
 </div>
 <div>
   @for (measurementItem of measurementItems(); track measurementItem.id; let index=$index) {
-    <app-measurement-tile id="measurement-tile-{{index}}"
-      [value]="measurementItem.value"
-      [type]="measurementItem.sensorType"
-      [warningThreshold]="measurementItem.warningThreshold"
-      [linearCorrectionValue]="measurementItem.linearCorrectionValue"
-      [name]="measurementItem.sensorName"
-      [base]="measurementItem.sensorBaseName"
-      [alarmMin]="measurementItem.alarmMin"
-      [alarmMax]="measurementItem.alarmMax"
-      [timestamp]="measurementItem.timestamp"
-      [location]="measurementItem.location"
-      [alarmActive]="measurementItem.alarmActive"
-      ></app-measurement-tile>
+    <a [routerLink]="['/dashboard/sensor', measurementItem.id]">
+      <app-measurement-tile id="measurement-tile-{{index}}"
+        [value]="measurementItem.value"
+        [type]="measurementItem.sensorType"
+        [warningThreshold]="measurementItem.warningThreshold"
+        [linearCorrectionValue]="measurementItem.linearCorrectionValue"
+        [name]="measurementItem.sensorName"
+        [base]="measurementItem.sensorBaseName"
+        [alarmMin]="measurementItem.alarmMin"
+        [alarmMax]="measurementItem.alarmMax"
+        [timestamp]="measurementItem.timestamp"
+        [location]="measurementItem.location"
+        [alarmActive]="measurementItem.alarmActive"
+        ></app-measurement-tile>
+    </a>
   }
 </div>

@@ -2,6 +2,7 @@ import {BaseEntity} from "./filter.model";
 
 export interface LatestMeasurement extends BaseEntity{
   uuid: string;
+  sensorId: number;
   sensorBaseName: string;
   sensorName: string;
   sensorType: string;

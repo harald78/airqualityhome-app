@@ -1,1 +1,22 @@
-<p class="d-f">dashboard-detail works!</p>
+<div class="graph-container" *ngIf="historyData">
+  <h2>{{ latestMeasurement?.sensorBaseName }} - {{ latestMeasurement?.sensorName }} - {{ latestMeasurement?.location }}</h2>
+  <h2>{{ latestMeasurement?.sensorType }}</h2>
+  <ngx-charts-line-chart
+    [view]="view"
+    [results]="chartData"
+    [gradient]="gradient"
+    [xAxis]="showXAxis"
+    [yAxis]="showYAxis"
+    [legend]="showLegend"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [roundDomains]="roundDomains"
+    [autoScale]="autoScale"
+    [legendPosition]="legendPosition"
+  >
+  </ngx-charts-line-chart>
+</div>
+
+<div *ngIf="!historyData">
+  <p>Loading...</p>
+</div>
