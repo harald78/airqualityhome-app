@@ -1,4 +1,4 @@
-import {Component, computed, effect, inject, OnDestroy, OnInit, Signal, untracked} from '@angular/core';
+import {Component, computed, inject, OnDestroy, OnInit, Signal} from '@angular/core';
 import {MeasurementTileComponent} from "../measurement-tile/measurement-tile.component";
 import {IconComponent} from "../../../../shared/components/icon/icon/icon.component";
 import {mdiFilter} from "@mdi/js";
@@ -36,11 +36,10 @@ export class DashboardOverviewComponent implements OnInit, OnDestroy {
   constructor() {
     interval(environment.dashboardRefreshInterval).pipe(
       takeUntilDestroyed(),
-      tap(async () => this.measurementState.clearAllMeasurements()),
-      tap( async () => this.measurementState.loadLatestMeasurements()),
-      delay(100), // necessary delay for patching state
-      tap(async () => await this.filterService.setEntitiesForFilter(this.measurementState.entities())))
-      .subscribe();
+      tap( async () => {
+        await this.measurementState.loadLatestMeasurements();
+        await this.filterService.setEntitiesForFilter(this.measurementState.entities());
+      })).subscribe();
   }
 
   async ngOnInit() {
