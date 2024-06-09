@@ -1,17 +1,28 @@
+import {PhysicalType} from "../../../shared/model/sensor-type.model";
+
 export interface MeasurementHistory {
-  sensorId: number;
-  unit: string;
-  data: MeasurementHistorySensor[];
+  baseId: number;
+  baseName: string;
+  data: SensorMeasurementHistory[];
 }
 
-export interface MeasurementHistorySensor{
+export interface SensorMeasurementHistory {
+  type: PhysicalType;
+  sensorName: string;
   name: string;
+  minAlarm: number;
+  maxAlarm: number;
+  sensorMinValue: number;
+  sensorMaxValue: number;
   series: MeasurementHistorySeries[];
 }
 
 export interface MeasurementHistorySeries{
   value: number;
   name: Date;
-  min: number;
-  max: number;
+}
+
+export interface ReferenceLine {
+  name: string;
+  value: number;
 }

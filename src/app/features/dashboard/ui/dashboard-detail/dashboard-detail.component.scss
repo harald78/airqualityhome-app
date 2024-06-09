@@ -1,6 +1,8 @@
-/* Allgemeine Schriftarten und Schriftgrößen */
-body {
-  font-family: 'Roboto', sans-serif;
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Container für die Überschrift und den Graph */
@@ -9,8 +11,11 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 16px;
-  margin: 16px;
-  max-width: 390px;
+  width: 93vw;
+  max-width: 700px;
+  height: 50vh;
+  max-height: 400px;
+
 }
 
 /* Überschrift-Styling */
@@ -27,77 +32,6 @@ ngx-charts-line-chart {
   display: block;
   width: 100%;
   height: 400px;
-}
-
-/* Konsistente Abstände */
-.container {
-  padding: 16px;
-}
-
-/* Dashboard-Tile-Styling für Konsistenz */
-.dashboard-tile {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 16px;
-  padding: 16px;
-}
-
-/* Legend-Styling */
-.legend {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  margin-right: 16px;
-}
-
-.legend-item span {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  background-color: #5AA454;
-  margin-right: 8px;
-  border-radius: 2px;
-}/* Allgemeine Schriftarten und Schriftgrößen */
-body {
-  font-family: 'Roboto', sans-serif;
-}
-
-/* Container für die Überschrift und den Graph */
-.graph-container {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-  margin: 16px;
-}
-
-/* Überschrift-Styling */
-.graph-container h2 {
-  font-size: 1.25rem; /* Kleinere Schriftgröße */
-  font-weight: bold;
-  text-align: center; /* Zentriert die Überschrift */
-  margin-bottom: 16px;
-  color: #333; /* Optionale Anpassung der Farbe */
-}
-
-/* ngx-charts-Styling */
-ngx-charts-line-chart {
-  display: block;
-  width: 100%;
-  height: 400px;
-}
-
-/* Konsistente Abstände */
-.container {
-  padding: 16px;
 }
 
 /* Dashboard-Tile-Styling für Konsistenz */

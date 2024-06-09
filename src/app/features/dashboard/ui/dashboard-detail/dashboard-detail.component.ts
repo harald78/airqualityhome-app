@@ -1,11 +1,11 @@
 import {Component, inject, OnInit} from '@angular/core';
-//import {temperatureMeasurementsHistory} from "../../../../../../mock/temperatureMeasurementHistory.mock";
 import {MeasurementService} from "../../service/measurement.service";
-import {MeasurementHistory, MeasurementHistorySensor} from "../../model/measurementHistory.model";
+import {MeasurementHistory, SensorMeasurementHistory} from "../../model/measurementHistory.model";
 import {colorSets, LegendPosition, NgxChartsModule} from "@swimlane/ngx-charts";
 import {ActivatedRoute} from "@angular/router";
 import {MeasurementState} from "../../+state/measurement.state";
 import {LatestMeasurement} from "../../model/measurement.model";
+import {ChartService} from "../../service/chart.service";
 
 @Component({
   selector: 'app-dashboard-detail',
@@ -16,28 +16,33 @@ import {LatestMeasurement} from "../../model/measurement.model";
 })
 export class DashboardDetailComponent implements OnInit {
   public historyData: MeasurementHistory;
-  public chartData: MeasurementHistorySensor[];
+  public chartData: SensorMeasurementHistory[];
   public measurementItemName: string = '';
 
-  view: [number, number] = [370, 300];
+  // view: [number, number] = [370, 300];
   showXAxis = true;
   showYAxis = true;
   gradient = false;
   showLegend = true;
   showXAxisLabel = false;
   showYAxisLabel = false;
-  //yScaleMin = 0;
-  //yScaleMax = 40;
+  yScaleMin = 0;
+  yScaleMax = 40;
   roundDomains = true;
-  autoScale = true;
+  autoScale = false;
   legendPosition: LegendPosition = LegendPosition.Below
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
+  referenceLines = [
+    {name: "maxAlarm", value: 30.0},
+    {name: "minAlarm", value: 18.0},
+  ]
 
   private readonly measurementService: MeasurementService = inject(MeasurementService);
   private readonly route = inject(ActivatedRoute);
   private readonly measurementState = inject(MeasurementState);
+  private readonly chartService: ChartService = inject(ChartService);
   public latestMeasurement: LatestMeasurement | undefined;
 
   constructor() {
@@ -48,10 +53,7 @@ export class DashboardDetailComponent implements OnInit {
     const id = this.route.snapshot.params['id'];
     await this.measurementState.selectId(id);
     this.latestMeasurement = this.measurementState.filteredBySelection();
-    console.log(this.latestMeasurement);
-    console.log(this.measurementState.entities());
     if (this.latestMeasurement) {
-      console.log(this.latestMeasurement);
       this.historyData = await this.measurementService.getMeasurementHistory(this.latestMeasurement.sensorId);
       this.prepareChartData();
     } else {
@@ -61,6 +63,9 @@ export class DashboardDetailComponent implements OnInit {
 
   prepareChartData() {
     if (this.historyData) {
+      this.yScaleMax = this.chartService.calculateYScaleMax(this.historyData.data);
+      this.yScaleMin = this.chartService.calculateYScaleMin(this.historyData.data);
+      this.referenceLines = this.chartService.calculateReferenceLines(this.historyData.data);
       this.chartData = this.historyData.data;
     }
   }
