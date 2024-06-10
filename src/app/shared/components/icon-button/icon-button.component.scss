@@ -1,15 +1,13 @@
 :host {
   display: flex;
-  flex-grow: 0;
+  align-items: center;
 }
 
-.fixed-style {
-  margin: 10px 0;
-  display: flex;
-  align-items: center;
+button {
+  width: 100%;
 }
 
 app-icon {
   margin-right: 5px;
-  margin-top: -2px;
+  margin-top: -4px;
 }

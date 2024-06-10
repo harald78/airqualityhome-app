@@ -1,11 +1,12 @@
 import {Component, inject} from '@angular/core';
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {IconComponent} from "../../../shared/components/icon/icon/icon.component";
-import {mdiAccount, mdiLock} from "@mdi/js";
+import {mdiAccount, mdiCogTransferOutline, mdiLock} from "@mdi/js";
 import {AuthRequestDto} from "../../../core/auth/model/auth-request.model";
 import {AuthService} from "../../../core/auth/service/auth.service";
 import { PasswordInputComponent } from '../../../shared/components/password-input/password-input.component';
 import { IconButtonComponent } from '../../../shared/components/icon-button/icon-button.component';
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -18,6 +19,7 @@ import { IconButtonComponent } from '../../../shared/components/icon-button/icon
 export class LoginComponent {
 
   readonly authService = inject(AuthService);
+  private readonly router: Router = inject(Router);
   private readonly fb: FormBuilder = inject(FormBuilder);
 
   accountIcon = mdiAccount;
@@ -34,5 +36,11 @@ export class LoginComponent {
       await this.authService.login(authRequestDto);
     }
 
+  }
+
+  protected readonly mdiCogTransferOutline = mdiCogTransferOutline;
+
+  openGeneralSettings() {
+    this.router.navigate(['general-settings']);
   }
 }
