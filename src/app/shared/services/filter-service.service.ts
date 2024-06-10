@@ -103,12 +103,12 @@ export class FilterService {
   protected filterItems(): void {
     this.filteredIds.set([]);
     this.entities().forEach(filterEntity => {
-      this.maybeAddMeasurement(filterEntity)
+      this.mayBeAddEntityToFilteredIds(filterEntity)
     });
   }
 
-  protected maybeAddMeasurement(filterEntity: BaseEntity) {
-    let shouldAdd = true;
+  protected mayBeAddEntityToFilteredIds(filterEntity: BaseEntity) {
+    let shouldAdd = this.activeFilter.length > 0;
 
     this.activeFilter.forEach(filter => {
       const value: string = filterEntity[filter.name];

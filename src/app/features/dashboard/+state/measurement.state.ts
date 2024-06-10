@@ -1,4 +1,5 @@
 import {patchState, signalStore, withComputed, withMethods, withState} from "@ngrx/signals";
+import {removeAllEntities, setEntities, withEntities} from "@ngrx/signals/entities";
 import {LatestMeasurement} from "../model/measurement.model";
 import {computed, inject} from "@angular/core";
 import {MeasurementService} from "../service/measurement.service";
@@ -15,16 +16,17 @@ export const initialState: SelectedState = {
 
 export const MeasurementState = signalStore(
   {providedIn: 'root'},
-  withState(initialState),
+  withState(initialState), //DWS-54
+  withEntities<LatestMeasurement>(),
   withMethods((store) => {
     const measurementService = inject(MeasurementService);
     return {
       async clearAllMeasurements() {
-        patchState(store, {entities: []});
+        patchState(store, removeAllEntities());
       },
       async loadLatestMeasurements() {
         const latestMeasurements = await measurementService.getLatestMeasurements();
-        patchState(store, {entities: latestMeasurements});
+        patchState(store, setEntities(latestMeasurements));
       },
       async selectId(id: number | null) {
         patchState(store, {selectedId: id});
