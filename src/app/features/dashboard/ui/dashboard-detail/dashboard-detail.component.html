@@ -1,25 +1,17 @@
 <div class="d-flex justify-content-center w-100 sticky-top bg-white">
   <button type="button" id="back-button" class="btn btn-outline-dark back-button" (click)="navigateBack()">Back</button>
 </div>
-<div class="graph-container" *ngIf="historyData">
-  <h2>{{ latestMeasurement?.sensorBaseName }} - {{ latestMeasurement?.sensorName }} - {{ latestMeasurement?.location }}</h2>
-  <h2>{{ latestMeasurement?.sensorType }}</h2>
-  <ngx-charts-line-chart
-    [view]="view"
-    [results]="chartData"
-    [gradient]="gradient"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [legend]="showLegend"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [roundDomains]="roundDomains"
-    [autoScale]="autoScale"
-    [legendPosition]="legendPosition"
-  >
-  </ngx-charts-line-chart>
-</div>
+@if (historyData) {
+  <div class="graph-container">
+    <h2>{{ latestMeasurement?.sensorBaseName }} - {{ latestMeasurement?.sensorName }} - {{ latestMeasurement?.location }}</h2>
+    <h2>{{ latestMeasurement?.sensorType }}</h2>
+    <app-chart [chartData]="historyData.data"></app-chart>
+  </div>
+} @else {
+  <div class="graph-container">
+    <p>Loading...</p>
+  </div>
+}
 
-<div *ngIf="!historyData">
-  <p>Loading...</p>
-</div>
+
+

@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "types": [
-      "jest"
+      "jest", "node"
     ]
   },
   "include": [

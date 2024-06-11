@@ -44,6 +44,7 @@ describe('FilterServiceService', () => {
     const expectedEntities = [  {
       "uuid": "F0F0F0",
       "id": 1,
+      "sensorId": 1,
       "sensorBaseName": "AZEnvy",
       "sensorName": "SHT30",
       "sensorType": "TEMPERATURE",
@@ -60,6 +61,7 @@ describe('FilterServiceService', () => {
       {
         "uuid": "F0F0F0",
         "id": 2,
+        "sensorId": 1,
         "sensorBaseName": "AZEnvy",
         "sensorName": "SHT30",
         "sensorType": "Humidity",
@@ -76,6 +78,7 @@ describe('FilterServiceService', () => {
       {
         "uuid": "F0F0F0",
         "id": 3,
+        "sensorId": 1,
         "sensorBaseName": "AZEnvy",
         "sensorName": "MQ-2",
         "sensorType": "GAS",
@@ -104,6 +107,7 @@ describe('FilterServiceService', () => {
     const expectedStartEntity = [{
       "uuid": "F0F0F0",
       "id": 1,
+      "sensorId": 1,
       "sensorBaseName": "AZEnvy",
       "sensorName": "SHT30",
       "sensorType": "TEMPERATURE",
@@ -120,6 +124,7 @@ describe('FilterServiceService', () => {
     const expectedEndEntities = [  {
       "uuid": "F0F0F0",
       "id": 1,
+      "sensorId": 1,
       "sensorBaseName": "AZEnvy",
       "sensorName": "SHT30",
       "sensorType": "TEMPERATURE",
@@ -135,6 +140,7 @@ describe('FilterServiceService', () => {
     },
       {
         "uuid": "F0F0F1",
+        "sensorId": 1,
         "id": 4,
         "sensorBaseName": "AZEnvy",
         "sensorName": "SHT30",

@@ -14,9 +14,11 @@ export const unauthorizedInterceptor: HttpInterceptorFn = (req: HttpRequest<unkn
 
   return next(req).pipe(
     catchError(error => {
+
       if (error instanceof HttpErrorResponse && (error.status === 401 || error.status === 403)){
         return handle401Error(req, next, authService);
-
+      } else if (error instanceof HttpErrorResponse && (error.status === 0 && error.statusText === "Unknown Error")) {
+        return handleUnknownError(req, next, authService);
       } else {
         return throwError(() => error);
       }
@@ -30,8 +32,13 @@ const handle401Error = (request: HttpRequest<unknown>, next: HttpHandlerFn, auth
     return next(request);
 
   } else {
-
     authService.logout();
     return throwError(() => new Error('Unauthorized'));
   }
+}
+
+const handleUnknownError = (request: HttpRequest<unknown>, next: HttpHandlerFn, authService: AuthService)=> {
+  authService.showSettings();
+  return throwError(() => new Error('Unauthorized'));
+
 }

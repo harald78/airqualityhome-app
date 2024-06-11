@@ -26,8 +26,9 @@ export class IconButtonComponent implements OnInit {
   icon = input('');
   iconColor = input('');
   iconActiveColor = input('white');
-  width = input('14px')
-  classes = input('btn btn-primary')
+  width = input('14px');
+  classes = input('btn btn-primary');
+  disabled = input(false);
 
   currentColor: WritableSignal<string> = signal('');
 

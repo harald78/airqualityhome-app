@@ -10,10 +10,13 @@ import {jwtDtoMock} from "../../../../../mock/jwt-dto.mock";
 import {mdiAlert} from "@mdi/js";
 import {HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
+import { AppSettingsState, INITIAL_SETTINGS } from '../../app-settings/+state/app-settings.state';
+import { APP_SETTINGS_KEY } from '../../app-settings/model/app-settings.model';
 
 
 describe("AuthService Test", () => {
   let service: AuthService;
+  let appState: AppSettingsState;
   let httpMock: HttpTestingController;
   let authState: AuthState;
   let router: Router;
@@ -29,6 +32,7 @@ describe("AuthService Test", () => {
     service = TestBed.inject(AuthService);
     httpMock = TestBed.inject(HttpTestingController);
     authState = TestBed.inject(AuthState);
+    appState = TestBed.inject(AppSettingsState);
     router = TestBed.inject(Router);
     toastService = TestBed.inject(ToastService);
   }));
@@ -36,6 +40,7 @@ describe("AuthService Test", () => {
   afterEach(() => {
     jest.clearAllTimers();
     jest.useRealTimers();
+    jest.clearAllMocks();
   });
 
   it('should be created', () => {
@@ -50,7 +55,7 @@ describe("AuthService Test", () => {
     jest.useFakeTimers();
 
     const promise = service.loadUserProfile();
-    const request = httpMock.expectOne('/api/user/profile');
+    const request = httpMock.expectOne(appState.baseUrl() + '/user/profile');
     request.flush(userMock, {status: 200, statusText: 'OK'});
 
     await promise;
@@ -75,7 +80,7 @@ describe("AuthService Test", () => {
     };
 
     const promise = service.login(authRequest);
-    const request = httpMock.expectOne('/api/user/login');
+    const request = httpMock.expectOne(appState.baseUrl() + '/user/login');
     request.flush(jwtDtoMock, {status: 200, statusText: 'OK'});
 
     await promise;
@@ -98,13 +103,15 @@ describe("AuthService Test", () => {
     Storage.prototype.setItem = jest.fn();
     jest.spyOn(Storage.prototype, 'getItem');
     Storage.prototype.getItem = jest.fn();
-    const expectedToast = {classname: "bg-danger text-light", header: '', body: "Username or Password not correct", icon: mdiAlert, iconColor: "white"};
+    const expectedToast = {classname: "bg-danger text-light", header: '',
+      id: 'login-error',
+      body: "Username or Password not correct", icon: mdiAlert, iconColor: "white"};
     const expectedHttpError = new HttpErrorResponse({
       "error": {},
       "headers": new HttpHeaders(),
       "status": 403,
       "statusText": "NOT AUTHORIZED",
-      "url": "/api/user/login"
+      "url": appState.baseUrl() + "/user/login"
     })
 
     const authRequest: AuthRequestDto = {
@@ -113,7 +120,7 @@ describe("AuthService Test", () => {
     };
 
     const promise = service.login(authRequest);
-    const request = httpMock.expectOne('/api/user/login');
+    const request = httpMock.expectOne(appState.baseUrl() + '/user/login');
     request.flush({}, {status: 403, statusText: 'NOT AUTHORIZED'});
 
     await expect(promise).rejects.toEqual(expectedHttpError);
@@ -135,7 +142,7 @@ describe("AuthService Test", () => {
 
 
     const promise = service.refreshToken(jwtDtoMock.token);
-    const request = httpMock.expectOne('/api/user/refreshToken');
+    const request = httpMock.expectOne(appState.baseUrl() + '/user/refreshToken');
     request.flush(jwtDtoMock, {status: 200, statusText: 'OK'});
 
     await promise;
@@ -170,7 +177,12 @@ describe("AuthService Test", () => {
   it('should call refreshToken', fakeAsync( async () => {
     const refreshTokenSpy = jest.spyOn(service, 'refreshToken').mockResolvedValue(undefined);
     jest.spyOn(Storage.prototype, 'getItem');
-    Storage.prototype.getItem = jest.fn(() => jwtDtoMock.token);
+    Storage.prototype.getItem = jest.fn((key) => {
+      if (key === 'token') {
+        return jwtDtoMock.token;
+      }
+      return null;
+    });
 
     await service.tryRefresh();
 
@@ -180,7 +192,12 @@ describe("AuthService Test", () => {
   it('should not call refreshToken', fakeAsync( async () => {
     const refreshTokenSpy = jest.spyOn(service, 'refreshToken').mockResolvedValue(undefined);
     jest.spyOn(Storage.prototype, 'getItem');
-    Storage.prototype.getItem = jest.fn(() => null);
+    Storage.prototype.getItem = jest.fn((key) => {
+      if (key === APP_SETTINGS_KEY) {
+        return JSON.stringify(INITIAL_SETTINGS);
+      }
+      return null;
+    });
 
     await service.tryRefresh();
 
@@ -188,16 +205,20 @@ describe("AuthService Test", () => {
   }));
 
   it('should setRefreshTimeout', fakeAsync(async () => {
-    environment.tokenRefreshInterval = 1000;
     jest.spyOn(Storage.prototype, 'getItem');
-    Storage.prototype.getItem = jest.fn(() => jwtDtoMock.token);
+    Storage.prototype.getItem = jest.fn((key) => {
+      if (key === 'token') {
+        return jwtDtoMock.token;
+      }
+      return null;
+    });
     const refreshTokenSpy = jest.spyOn(service, 'refreshToken').mockResolvedValue(undefined);
     jest.useFakeTimers();
 
     await service.setRefreshTimeout();
     expect(refreshTokenSpy).not.toHaveBeenCalled();
 
-    jest.advanceTimersByTime(1000); // Simuliere den Timeout
+    jest.advanceTimersByTime(270000);
     expect(refreshTokenSpy).toHaveBeenCalled();
   }));
 

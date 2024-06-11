@@ -1,4 +1,4 @@
-import {Component, computed, inject, OnDestroy, OnInit, Signal} from '@angular/core';
+import {Component, computed, inject, OnInit, Signal} from '@angular/core';
 import {MeasurementTileComponent} from "../measurement-tile/measurement-tile.component";
 import {IconComponent} from "../../../../shared/components/icon/icon/icon.component";
 import {mdiFilter} from "@mdi/js";
@@ -10,9 +10,8 @@ import {LatestMeasurement} from "../../model/measurement.model";
 import {MeasurementState} from "../../+state/measurement.state";
 import {interval, tap} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {environment} from "../../../../../environments/environment";
+import { AppSettingsState } from '../../../../core/app-settings/+state/app-settings.state';
 import {ActivatedRoute, Router, RouterLink, RouterLinkActive} from "@angular/router";
-import {id} from "@swimlane/ngx-charts";
 
 @Component({
   selector: 'app-dashboard-overview',
@@ -33,14 +32,15 @@ export class DashboardOverviewComponent implements OnInit {
   private readonly offCanvasService= inject(NgbOffcanvas);
   private readonly measurementState = inject(MeasurementState);
   private readonly filterService = inject(FilterService);
-  private readonly router = inject(Router);
-  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly router: Router = inject(Router);
+  private readonly activeRoute: ActivatedRoute = inject(ActivatedRoute);
+  private readonly appSettingsState = inject(AppSettingsState);
 
   public measurementItems: Signal<LatestMeasurement[]> = computed( () => {
     return this.filterService.filteredEntities() as LatestMeasurement[]; });
 
   constructor() {
-    interval(environment.dashboardRefreshInterval).pipe(
+    interval(this.appSettingsState.appSettings().dashboardRefreshInterval).pipe(
       takeUntilDestroyed(),
       tap( async () => {
         await this.measurementState.loadLatestMeasurements();
@@ -56,10 +56,13 @@ export class DashboardOverviewComponent implements OnInit {
   }
 
   async showHistory(id: number) {
-    await this.router.navigate(['sensor', id], {relativeTo: this.activatedRoute});
+    await this.router.navigate(['sensor', id], {relativeTo: this.activeRoute});
   }
+
 
   openOverlay() {
     this.offCanvasService.open(FilterOffcanvasComponent, { position: 'end', panelClass: 'canvas' });
   }
+
+
 }
