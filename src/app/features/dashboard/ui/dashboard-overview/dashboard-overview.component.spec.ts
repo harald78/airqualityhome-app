@@ -6,6 +6,8 @@ import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {MeasurementState} from "../../+state/measurement.state";
 import {NgbOffcanvas} from "@ng-bootstrap/ng-bootstrap";
 import {FilterOffcanvasComponent} from "../../../../shared/components/filter-offcanvas/filter-offcanvas.component";
+import { RouterModule } from '@angular/router';
+import { routes } from '../../../../app.routes';
 
 describe('DashboardOverviewComponent', () => {
   let component: DashboardOverviewComponent;
@@ -16,7 +18,9 @@ describe('DashboardOverviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DashboardOverviewComponent, HttpClientTestingModule]
+      imports: [DashboardOverviewComponent,
+        HttpClientTestingModule, RouterModule.forRoot(routes)],
+      providers: []
     })
     .compileComponents();
 

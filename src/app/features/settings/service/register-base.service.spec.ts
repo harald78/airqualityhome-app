@@ -40,7 +40,7 @@ describe('RegisterBaseService', () => {
       done();
     })
 
-    const request = httpMock.expectOne('/api/register/sensorBase');
+    const request = httpMock.expectOne('/api/app/register/sensorBase');
     expect(request.request.method).toBe('GET');
     request.flush(availableSensorBaseMock, {status: 200, statusText: "OK"});
   });
@@ -55,7 +55,7 @@ describe('RegisterBaseService', () => {
         done();
       });
 
-    const request = httpMock.expectOne('/api/register/sensorBase');
+    const request = httpMock.expectOne('/api/app/register/sensorBase');
     expect(request.request.method).toBe('GET');
     request.flush({}, {status: 403, statusText: "FORBIDDEN"});
     expect(toastService.show).toHaveBeenCalledWith(expectedToast);
@@ -66,7 +66,7 @@ describe('RegisterBaseService', () => {
     jest.spyOn(toastService, 'show');
 
     const promise = service.getActiveRegistrationsByUser();
-    const request = httpMock.expectOne('/api/register/requests/1');
+    const request = httpMock.expectOne('/api/app/register/requests/1');
     expect(request.request.method).toBe('GET');
     request.flush(activeRegisterRequest, {status: 200, statusText: "OK"});
 
@@ -83,7 +83,7 @@ describe('RegisterBaseService', () => {
     jest.spyOn(toastService, 'show');
 
     const promise = service.getActiveRegistrationsByUser();
-    const request = httpMock.expectOne('/api/register/requests/1');
+    const request = httpMock.expectOne('/api/app/register/requests/1');
     expect(request.request.method).toBe('GET');
     request.flush(activeRegisterRequest, {status: 403, statusText: "OK"});
 
@@ -103,7 +103,7 @@ describe('RegisterBaseService', () => {
       userId: 1
     };
     const promise = service.sendRegisterRequest(registerRequest);
-    const request = httpMock.expectOne('/api/register/sensor');
+    const request = httpMock.expectOne('/api/app/register/sensor');
     expect(request.request.method).toBe('POST');
     request.flush(activeRegisterRequest, {status: 200, statusText: "OK"});
 
@@ -125,7 +125,7 @@ describe('RegisterBaseService', () => {
     jest.spyOn(toastService, 'show');
 
     const promise = service.sendRegisterRequest(registerRequest);
-    const request = httpMock.expectOne('/api/register/sensor');
+    const request = httpMock.expectOne('/api/app/register/sensor');
     expect(request.request.method).toBe('POST');
     request.flush(activeRegisterRequest, {status: 403, statusText: "OK"});
 
@@ -145,7 +145,7 @@ describe('RegisterBaseService', () => {
       userId: 1
     };
     const promise = service.cancelRegisterRequest(registerRequest);
-    const request = httpMock.expectOne('/api/register/sensor/cancel');
+    const request = httpMock.expectOne('/api/app/register/sensor/cancel');
     expect(request.request.method).toBe('POST');
     request.flush(canceledRegisterRequest, {status: 200, statusText: "OK"});
 
@@ -167,7 +167,7 @@ describe('RegisterBaseService', () => {
     jest.spyOn(toastService, 'show');
 
     const promise = service.cancelRegisterRequest(registerRequest);
-    const request = httpMock.expectOne('/api/register/sensor/cancel');
+    const request = httpMock.expectOne('/api/app/register/sensor/cancel');
     expect(request.request.method).toBe('POST');
     request.flush(canceledRegisterRequest, {status: 403, statusText: "OK"});
 

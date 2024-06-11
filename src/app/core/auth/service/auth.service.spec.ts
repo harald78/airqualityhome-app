@@ -50,7 +50,7 @@ describe("AuthService Test", () => {
     jest.useFakeTimers();
 
     const promise = service.loadUserProfile();
-    const request = httpMock.expectOne('/api/user/profile');
+    const request = httpMock.expectOne('/api/app/user/profile');
     request.flush(userMock, {status: 200, statusText: 'OK'});
 
     await promise;
@@ -75,7 +75,7 @@ describe("AuthService Test", () => {
     };
 
     const promise = service.login(authRequest);
-    const request = httpMock.expectOne('/api/user/login');
+    const request = httpMock.expectOne('/api/app/user/login');
     request.flush(jwtDtoMock, {status: 200, statusText: 'OK'});
 
     await promise;
@@ -104,7 +104,7 @@ describe("AuthService Test", () => {
       "headers": new HttpHeaders(),
       "status": 403,
       "statusText": "NOT AUTHORIZED",
-      "url": "/api/user/login"
+      "url": "/api/app/user/login"
     })
 
     const authRequest: AuthRequestDto = {
@@ -113,7 +113,7 @@ describe("AuthService Test", () => {
     };
 
     const promise = service.login(authRequest);
-    const request = httpMock.expectOne('/api/user/login');
+    const request = httpMock.expectOne('/api/app/user/login');
     request.flush({}, {status: 403, statusText: 'NOT AUTHORIZED'});
 
     await expect(promise).rejects.toEqual(expectedHttpError);
@@ -135,7 +135,7 @@ describe("AuthService Test", () => {
 
 
     const promise = service.refreshToken(jwtDtoMock.token);
-    const request = httpMock.expectOne('/api/user/refreshToken');
+    const request = httpMock.expectOne('/api/app/user/refreshToken');
     request.flush(jwtDtoMock, {status: 200, statusText: 'OK'});
 
     await promise;

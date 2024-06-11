@@ -44,7 +44,7 @@ describe('AccountService', () => {
     const overlayShowSpy = jest.spyOn(overlayService, 'show');
     const overlayHideSpy = jest.spyOn(overlayService, 'hide');
     const toastSpy = jest.spyOn(toastService, 'show');
-    const expectedUrl = '/api/user/save';
+    const expectedUrl = '/api/app/user/save';
     const expectedToast = {classname: "bg-success text-light", header: '',
       body: "Saved changes successfully", icon: mdiCheck, iconColor: "white"};
 
@@ -73,7 +73,7 @@ describe('AccountService', () => {
     const overlayHideSpy = jest.spyOn(overlayService, 'hide');
     const toastSpy = jest.spyOn(toastService, 'show');
     const errorStatusSpy = jest.spyOn(errorStatusService, 'getHttpErrorResponseTextByStatus');
-    const expectedUrl = '/api/user/save';
+    const expectedUrl = '/api/app/user/save';
     const expectedToast = {classname: "bg-danger text-light", header: 'Could not save user data',
       body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
 
@@ -101,7 +101,7 @@ describe('AccountService', () => {
     const overlayShowSpy = jest.spyOn(overlayService, 'show');
     const overlayHideSpy = jest.spyOn(overlayService, 'hide');
     const toastSpy = jest.spyOn(toastService, 'show');
-    const expectedUrl = '/api/user/save-password';
+    const expectedUrl = '/api/app/user/save-password';
     const expectedSuccessToast = {classname: "bg-success text-light", header: '',
       body: "Password changed successfully", icon: mdiCheck, iconColor: "white"};
 
@@ -130,7 +130,7 @@ describe('AccountService', () => {
     const overlayShowSpy = jest.spyOn(overlayService, 'show');
     const overlayHideSpy = jest.spyOn(overlayService, 'hide');
     const toastSpy = jest.spyOn(toastService, 'show');
-    const expectedUrl = '/api/user/save-password';
+    const expectedUrl = '/api/app/user/save-password';
     const errorStatusSpy = jest.spyOn(errorStatusService, 'getHttpErrorResponseTextByStatus');
     const expectedToast = {classname: "bg-danger text-light", header: 'Password could not be changed',
       body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
