@@ -5,7 +5,7 @@ import {computed, inject} from "@angular/core";
 
 export const INITIAL_SETTINGS: AppSettings = {
   host: 'localhost',
-  port: 8080,
+  port: 3001,
   api: '/api/app',
   https: false,
   tokenRefreshInterval: 1000 * 60 * 4.5,

@@ -11,7 +11,7 @@ import {IconComponent} from "../icon/icon/icon.component";
   imports: [NgbToastModule, NgTemplateOutlet, IconComponent],
   template: `
 		@for (toast of toastService.toasts; track toast) {
-			<ngb-toast aria-label="aq-toast"
+			<ngb-toast aria-label="aq-toast" [id]="toast.id"
 				[class]="toast.classname"
 				[autohide]="true"
         [header]="toast.header"

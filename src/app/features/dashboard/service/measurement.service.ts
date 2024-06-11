@@ -23,6 +23,7 @@ export class MeasurementService {
       .pipe(catchError(err => {
         const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
         const errorToast: Toast = {classname: "bg-danger text-light", header: 'Could not load latest measurements',
+          id: "dashboard-error",
           body: `${err.status} ${statusText}`, icon: mdiAlert, iconColor: "white"};
         this.toastService.show(errorToast);
         return of([]);

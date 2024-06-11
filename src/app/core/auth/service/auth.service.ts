@@ -1,7 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {User} from "../../../shared/model/user.model";
-import {environment} from "../../../../environments/environment";
 import {catchError, finalize, firstValueFrom, throwError} from "rxjs";
 import {AuthRequestDto} from "../model/auth-request.model";
 import {JwtDto, RefreshTokenRequestDto} from "../model/jtw.model";
@@ -39,7 +38,9 @@ import {AppSettingsState} from "../../app-settings/+state/app-settings.state";
     this.overlayService.show();
     const jwt = await firstValueFrom(this.http.post<JwtDto>(`${this.appSettingsState.baseUrl()}/user/login`, authRequest)
       .pipe(catchError((err) => {
-        this.toastService.show({classname: "bg-danger text-light", header: '', body: "Username or Password not correct", icon: mdiAlert, iconColor: "white"});
+        this.toastService.show({classname: "bg-danger text-light", header: '',
+          id: "login-error",
+          body: "Username or Password not correct", icon: mdiAlert, iconColor: "white"});
         return throwError(() => err);
       }), finalize(() => {
         this.authState.loading(false);
@@ -88,7 +89,7 @@ import {AppSettingsState} from "../../app-settings/+state/app-settings.state";
   }
 
   async setRefreshTimeout(): Promise<void> {
-    const interval = environment.tokenRefreshInterval;
+    const interval = this.appSettingsState.appSettings().tokenRefreshInterval;
     const token = localStorage.getItem("token");
     if (token) {
       setTimeout(async () => {

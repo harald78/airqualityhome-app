@@ -8,9 +8,11 @@ import { AuthState } from '../../../core/auth/+state/auth.state';
 import { OverlayService } from '../../../shared/services/overlay.service';
 import { changedUserMock, userMock } from '../../../../../mock/user-mock';
 import { mdiAlert, mdiCheck } from '@mdi/js';
+import { AppSettingsState } from '../../../core/app-settings/+state/app-settings.state';
 
 describe('AccountService', () => {
   let service: AccountService;
+  let appState: AppSettingsState;
   let httpMock: HttpTestingController;
   let toastService: ToastService;
   let errorStatusService: ErrorResponseService;
@@ -27,6 +29,7 @@ describe('AccountService', () => {
     toastService = TestBed.inject(ToastService);
     errorStatusService = TestBed.inject(ErrorResponseService);
     overlayService = TestBed.inject(OverlayService);
+    appState = TestBed.inject(AppSettingsState);
     authState = TestBed.inject(AuthState);
   });
 
@@ -44,7 +47,7 @@ describe('AccountService', () => {
     const overlayShowSpy = jest.spyOn(overlayService, 'show');
     const overlayHideSpy = jest.spyOn(overlayService, 'hide');
     const toastSpy = jest.spyOn(toastService, 'show');
-    const expectedUrl = '/api/user/save';
+    const expectedUrl = appState.baseUrl() + '/user/save';
     const expectedToast = {classname: "bg-success text-light", header: '',
       body: "Saved changes successfully", icon: mdiCheck, iconColor: "white"};
 
@@ -73,7 +76,7 @@ describe('AccountService', () => {
     const overlayHideSpy = jest.spyOn(overlayService, 'hide');
     const toastSpy = jest.spyOn(toastService, 'show');
     const errorStatusSpy = jest.spyOn(errorStatusService, 'getHttpErrorResponseTextByStatus');
-    const expectedUrl = '/api/user/save';
+    const expectedUrl = appState.baseUrl() + '/user/save';
     const expectedToast = {classname: "bg-danger text-light", header: 'Could not save user data',
       body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
 
@@ -101,7 +104,7 @@ describe('AccountService', () => {
     const overlayShowSpy = jest.spyOn(overlayService, 'show');
     const overlayHideSpy = jest.spyOn(overlayService, 'hide');
     const toastSpy = jest.spyOn(toastService, 'show');
-    const expectedUrl = '/api/user/save-password';
+    const expectedUrl = appState.baseUrl() + '/user/save-password';
     const expectedSuccessToast = {classname: "bg-success text-light", header: '',
       body: "Password changed successfully", icon: mdiCheck, iconColor: "white"};
 
@@ -130,7 +133,7 @@ describe('AccountService', () => {
     const overlayShowSpy = jest.spyOn(overlayService, 'show');
     const overlayHideSpy = jest.spyOn(overlayService, 'hide');
     const toastSpy = jest.spyOn(toastService, 'show');
-    const expectedUrl = '/api/user/save-password';
+    const expectedUrl = appState.baseUrl() + '/user/save-password';
     const errorStatusSpy = jest.spyOn(errorStatusService, 'getHttpErrorResponseTextByStatus');
     const expectedToast = {classname: "bg-danger text-light", header: 'Password could not be changed',
       body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};

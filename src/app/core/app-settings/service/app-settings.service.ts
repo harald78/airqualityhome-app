@@ -17,6 +17,7 @@ export class AppSettingsService {
     const serializedSettings = JSON.stringify(appSettings);
     localStorage.setItem(APP_SETTINGS_KEY, serializedSettings);
     const successToast: Toast = {classname: "bg-success text-light", header: '',
+      id: "settings-success",
       body: "Saved app settings successfully", icon: mdiCheck, iconColor: "white"};
     this.toastService.show(successToast);
   }
@@ -26,6 +27,7 @@ export class AppSettingsService {
     const deserializedSettings = JSON.parse(serializedSettings);
     if (deserializedSettings.type === SettingsType.INITIAL) {
       const warningToast: Toast = {classname: "bg-warning text-light", header: '',
+        id: "settings-warning",
         body: "No custom settings saved. Use initial settings", icon: mdiCheck, iconColor: "white"};
       this.toastService.show(warningToast);
     }
@@ -35,6 +37,7 @@ export class AppSettingsService {
   deleteLocalStoredSettings(): void {
     localStorage.removeItem(APP_SETTINGS_KEY);
     const successToast: Toast = {classname: "bg-success text-light", header: '',
+      id: "settings-success",
       body: "Restored settings successfully", icon: mdiCheck, iconColor: "white"};
     this.toastService.show(successToast);
   }
