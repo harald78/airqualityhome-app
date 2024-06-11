@@ -1,1 +1,40 @@
+<div class="trash-button-container">
+  <button id="trash-button" type="button" class="btn btn-primary" (click)="openDeleteModal()" aria-label="delete-all-notifications">
+  <app-icon [path]="trashIcon"></app-icon>
+  </button>
+</div>
+
+@for (notification of notifications(); track notification.id) {
+<div class="notifications">
+  <div id="temperature-tile" class="notification-tile">
+    <div class="header">
+      <div class="temperature-container">
+        <div class="temperature-circle alarm">
+          <span class="value">30.0</span>
+        </div>
+        <span class="unit">°C</span>
+      </div>
+      <div class="sensor-info">
+        <h2>TEMPERATURE</h2>
+        <p>Type: SHT30</p>
+        <p>Base: AZEnvy</p>
+        <span class="alarm-text">Alarm:Temperature reached maximum</span>
+      </div>
+    </div>
+    <div id="temperature-footer"class="footer">
+      <app-icon [path]="updateIcon" width="14px"></app-icon><p>2024-06-05 12:34:56</p>
+      <span class="badge bg-secondary-subtle text-dark location">
+        <app-icon [path]="mapMarkerIcon" width="14px"></app-icon>Wohnzimmer</span>
+    </div>
+  </div>
+</div>
+}
+
+
+
+
+
+
+
+
 
