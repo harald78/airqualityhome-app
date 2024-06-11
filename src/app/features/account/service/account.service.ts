@@ -9,6 +9,7 @@ import { mdiAlert, mdiCheck } from '@mdi/js';
 import { ErrorResponseService } from '../../../shared/services/error-response.service';
 import { AuthState } from '../../../core/auth/+state/auth.state';
 import { OverlayService } from '../../../shared/services/overlay.service';
+import {AppSettingsState} from "../../../core/app-settings/+state/app-settings.state";
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +21,11 @@ export class AccountService {
   private readonly toastService: ToastService = inject(ToastService);
   private readonly authState: AuthState = inject(AuthState);
   private readonly overlayService: OverlayService = inject(OverlayService);
+  private readonly appSettingsState: AppSettingsState = inject(AppSettingsState);
 
   saveUserData(userChangeRequest: UserChangeRequest): Promise<User> {
     this.overlayService.show();
-    return firstValueFrom(this.httpClient.post<User>(`${environment.baseUrl}/user/save`, userChangeRequest).pipe(
+    return firstValueFrom(this.httpClient.post<User>(`${this.appSettingsState.baseUrl()}/user/save`, userChangeRequest).pipe(
       tap(() => {
         const successToast: Toast = {classname: "bg-success text-light", header: '',
           body: "Saved changes successfully", icon: mdiCheck, iconColor: "white"};
@@ -41,7 +43,7 @@ export class AccountService {
 
   savePassword(passwordChangeRequest: PasswordChangeRequest): Promise<User> {
     this.overlayService.show()
-    return firstValueFrom(this.httpClient.post<User>(`${environment.baseUrl}/user/save-password`, passwordChangeRequest).pipe(
+    return firstValueFrom(this.httpClient.post<User>(`${this.appSettingsState.baseUrl()}/user/save-password`, passwordChangeRequest).pipe(
       tap(() => {
         const successToast: Toast = {classname: "bg-success text-light", header: '',
           body: "Password changed successfully", icon: mdiCheck, iconColor: "white"};

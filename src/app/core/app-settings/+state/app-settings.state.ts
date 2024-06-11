@@ -37,7 +37,11 @@ export const AppSettingsState = signalStore(
     }
   }),
   withComputed(({appSettings}) => ({
-    isCustomSetting: computed(() => appSettings().type === SettingsType.CUSTOM)
+    isCustomSetting: computed(() => appSettings().type === SettingsType.CUSTOM),
+    baseUrl: computed(() => {
+      const protocol = appSettings().https ? 'https' : 'http';
+      return `${protocol}://${appSettings().host}:${appSettings().port}${appSettings().api}`;
+    })
   })),
   withHooks({
     onInit(store) {
