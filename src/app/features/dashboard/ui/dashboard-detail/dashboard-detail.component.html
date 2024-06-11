@@ -5,7 +5,7 @@
   <div class="graph-container">
     <h2>{{ latestMeasurement?.sensorBaseName }} - {{ latestMeasurement?.sensorName }} - {{ latestMeasurement?.location }}</h2>
     <h2>{{ latestMeasurement?.sensorType }}</h2>
-    <app-chart [chartData]="historyData.data[0].series"></app-chart>
+    <app-chart [chartData]="historyData.data"></app-chart>
   </div>
 } @else {
   <div class="graph-container">

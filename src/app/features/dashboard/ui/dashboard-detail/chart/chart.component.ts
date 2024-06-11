@@ -8,6 +8,7 @@ import {UnitPipe} from "../../../../../shared/pipes/unit.pipe";
   selector: 'app-chart',
   standalone: true,
   imports: [NgxChartsModule],
+  providers: [UnitPipe],
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss'
 })
