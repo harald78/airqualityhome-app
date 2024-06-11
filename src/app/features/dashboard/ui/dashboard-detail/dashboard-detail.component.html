@@ -1,11 +1,11 @@
 <div class="d-flex justify-content-center w-100 sticky-top bg-white">
   <button type="button" id="back-button" class="btn btn-outline-dark back-button" (click)="navigateBack()">Back</button>
 </div>
-@if (historyData) {
+@if (historyData?.data && historyData.data.length > 0) {
   <div class="graph-container">
     <h2>{{ latestMeasurement?.sensorBaseName }} - {{ latestMeasurement?.sensorName }} - {{ latestMeasurement?.location }}</h2>
     <h2>{{ latestMeasurement?.sensorType }}</h2>
-    <app-chart [chartData]="historyData.data"></app-chart>
+    <app-chart [chartData]="historyData.data[0].series"></app-chart>
   </div>
 } @else {
   <div class="graph-container">
