@@ -10,6 +10,7 @@ export interface SensorMeasurementHistory {
   type: PhysicalType;
   sensorName: string;
   name: string;
+  unit: string;
   minAlarm: number;
   maxAlarm: number;
   sensorMinValue: number;
