@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DeleteModalComponent } from './delete-modal.component';
+import { NgbActiveModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('NotificationsHomeComponent', () => {
   let component: DeleteModalComponent;
@@ -8,7 +9,8 @@ describe('NotificationsHomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DeleteModalComponent]
+      imports: [DeleteModalComponent, NgbModalModule],
+      providers: [NgbActiveModal]
     })
     .compileComponents();
 
