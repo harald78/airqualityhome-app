@@ -3,19 +3,19 @@ import { colorSets, LegendPosition, NgxChartsModule } from '@swimlane/ngx-charts
 import { SensorMeasurementHistory } from '../../../model/measurementHistory.model';
 import { ChartService } from '../../../service/chart.service';
 import {UnitPipe} from "../../../../../shared/pipes/unit.pipe";
+import {PhysicalType} from "../../../../../shared/model/sensor-type.model";
 
 @Component({
   selector: 'app-chart',
   standalone: true,
   imports: [NgxChartsModule],
-  providers: [UnitPipe],
+  providers: [UnitPipe, ChartService],
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss'
 })
 export class ChartComponent implements OnInit {
 
   private readonly chartService: ChartService = inject(ChartService);
-  private readonly unitPipe: UnitPipe = inject(UnitPipe);
 
   public chartData: InputSignal<SensorMeasurementHistory[]> = input([] as SensorMeasurementHistory[]);
 
@@ -30,7 +30,7 @@ export class ChartComponent implements OnInit {
   yScaleMax = 40;
   roundDomains = true;
   autoScale = false;
-  legendPosition: LegendPosition = LegendPosition.Below
+  legendPosition: LegendPosition = LegendPosition.Below;
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
@@ -57,4 +57,7 @@ export class ChartComponent implements OnInit {
     }
   }
 
+  formatYAxisTick(value: number): string {
+    return this.chartService.formatYAxisTick(value, this.chartData()[0].type);
+  }
 }
