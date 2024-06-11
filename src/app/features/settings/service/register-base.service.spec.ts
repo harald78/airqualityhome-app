@@ -8,9 +8,11 @@ import {mdiAlert} from "@mdi/js";
 import {AuthState} from "../../../core/auth/+state/auth.state";
 import {userMock} from "../../../../../mock/user-mock";
 import {activeRegisterRequest, canceledRegisterRequest} from "../../../../../mock/register-request.mock";
+import { AppSettingsState } from '../../../core/app-settings/+state/app-settings.state';
 
 describe('RegisterBaseService', () => {
   let service: RegisterBaseService;
+  let appState: AppSettingsState;
   let httpMock: HttpTestingController;
   let toastService: ToastService;
   let authState: AuthState;
@@ -22,6 +24,7 @@ describe('RegisterBaseService', () => {
     service = TestBed.inject(RegisterBaseService);
     httpMock = TestBed.inject(HttpTestingController);
     toastService = TestBed.inject(ToastService);
+    appState = TestBed.inject(AppSettingsState);
     authState = TestBed.inject(AuthState);
   });
 
@@ -40,7 +43,7 @@ describe('RegisterBaseService', () => {
       done();
     })
 
-    const request = httpMock.expectOne('/api/app/register/sensorBase');
+    const request = httpMock.expectOne(appState.baseUrl() + '/register/sensorBase');
     expect(request.request.method).toBe('GET');
     request.flush(availableSensorBaseMock, {status: 200, statusText: "OK"});
   });
@@ -48,6 +51,7 @@ describe('RegisterBaseService', () => {
   it('should show error toast for request bases', done => {
     jest.spyOn(toastService, 'show');
     const expectedToast = {classname: "bg-danger text-light", header: 'Could not load available sensor bases',
+      id: 'settings-error',
       body: `403 FORBIDDEN`, icon: mdiAlert, iconColor: "white"};
     service.getAvailableSensorBases().subscribe(result =>
       {
@@ -55,7 +59,7 @@ describe('RegisterBaseService', () => {
         done();
       });
 
-    const request = httpMock.expectOne('/api/app/register/sensorBase');
+    const request = httpMock.expectOne(appState.baseUrl() + '/register/sensorBase');
     expect(request.request.method).toBe('GET');
     request.flush({}, {status: 403, statusText: "FORBIDDEN"});
     expect(toastService.show).toHaveBeenCalledWith(expectedToast);
@@ -66,7 +70,7 @@ describe('RegisterBaseService', () => {
     jest.spyOn(toastService, 'show');
 
     const promise = service.getActiveRegistrationsByUser();
-    const request = httpMock.expectOne('/api/app/register/requests/1');
+    const request = httpMock.expectOne(appState.baseUrl() + '/register/requests/1');
     expect(request.request.method).toBe('GET');
     request.flush(activeRegisterRequest, {status: 200, statusText: "OK"});
 
@@ -79,11 +83,12 @@ describe('RegisterBaseService', () => {
   it('should throw error on get active requests for user', async () => {
     await authState.setUser(userMock);
     const expectedToast = {classname: "bg-danger text-light", header: 'Could not load active registration requests',
+      id: 'settings-error',
       body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
     jest.spyOn(toastService, 'show');
 
     const promise = service.getActiveRegistrationsByUser();
-    const request = httpMock.expectOne('/api/app/register/requests/1');
+    const request = httpMock.expectOne(appState.baseUrl() + '/register/requests/1');
     expect(request.request.method).toBe('GET');
     request.flush(activeRegisterRequest, {status: 403, statusText: "OK"});
 
@@ -103,7 +108,7 @@ describe('RegisterBaseService', () => {
       userId: 1
     };
     const promise = service.sendRegisterRequest(registerRequest);
-    const request = httpMock.expectOne('/api/app/register/sensor');
+    const request = httpMock.expectOne(appState.baseUrl() + '/register/sensor');
     expect(request.request.method).toBe('POST');
     request.flush(activeRegisterRequest, {status: 200, statusText: "OK"});
 
@@ -121,11 +126,12 @@ describe('RegisterBaseService', () => {
       userId: 1
     };
     const expectedToast = {classname: "bg-danger text-light", header: 'Could register sensor base',
+      id: 'settings-error',
       body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
     jest.spyOn(toastService, 'show');
 
     const promise = service.sendRegisterRequest(registerRequest);
-    const request = httpMock.expectOne('/api/app/register/sensor');
+    const request = httpMock.expectOne(appState.baseUrl() + '/register/sensor');
     expect(request.request.method).toBe('POST');
     request.flush(activeRegisterRequest, {status: 403, statusText: "OK"});
 
@@ -145,7 +151,7 @@ describe('RegisterBaseService', () => {
       userId: 1
     };
     const promise = service.cancelRegisterRequest(registerRequest);
-    const request = httpMock.expectOne('/api/app/register/sensor/cancel');
+    const request = httpMock.expectOne(appState.baseUrl() + '/register/sensor/cancel');
     expect(request.request.method).toBe('POST');
     request.flush(canceledRegisterRequest, {status: 200, statusText: "OK"});
 
@@ -163,11 +169,12 @@ describe('RegisterBaseService', () => {
       userId: 1
     };
     const expectedToast = {classname: "bg-danger text-light", header: 'Could register sensor base',
+      id: 'settings-error',
       body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
     jest.spyOn(toastService, 'show');
 
     const promise = service.cancelRegisterRequest(registerRequest);
-    const request = httpMock.expectOne('/api/app/register/sensor/cancel');
+    const request = httpMock.expectOne(appState.baseUrl() + '/register/sensor/cancel');
     expect(request.request.method).toBe('POST');
     request.flush(canceledRegisterRequest, {status: 403, statusText: "OK"});
 

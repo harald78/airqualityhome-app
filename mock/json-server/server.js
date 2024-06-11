@@ -9,14 +9,15 @@ const userData = require('./data/user');
 const registerData = require('./data/register');
 const {userProfileBalu, userProfileBaluChanged, userProfileBaluNewName } = require("./data/user");
 const {userProfileMogli} = require("./data/user");
+const notificationData = require("./data/notification");
+let notifications = JSON.parse(JSON.stringify(notificationData.notification));
 const {latestMeasurements} = require("./data/measurements");
 const {temperatureMeasurementsHistory} = require("./data/measurements");
-
 
 /**
  * User related endpoint mocks
  */
-server.post('/api/user/login', (req, res) => {
+server.post('/api/app/user/login', (req, res) => {
   console.log("Server received login-request: ", req.body);
 
   setTimeout(() => {
@@ -33,7 +34,7 @@ server.post('/api/user/login', (req, res) => {
 /**
  * User related endpoint mocks
  */
-server.post('/api/user/save', (req, res) => {
+server.post('/api/app/user/save', (req, res) => {
   console.log("Server received save-request: ", req.body);
   setTimeout(() => {
     const token = req.headers.authorization;
@@ -49,7 +50,7 @@ server.post('/api/user/save', (req, res) => {
   }, 200);
 });
 
-server.post('/api/user/save-password', (req, res) => {
+server.post('/api/app/user/save-password', (req, res) => {
   console.log("Server received save-request: ", req.body);
   setTimeout(() => {
     const token = req.headers.authorization;
@@ -65,7 +66,7 @@ server.post('/api/user/save-password', (req, res) => {
   }, 200);
 });
 
-server.get('/api/user/profile', (req, res) => {
+server.get('/api/app/user/profile', (req, res) => {
   console.log("Server received profile-request: ", req.body);
   setTimeout(() => {
     const token = req.headers.authorization;
@@ -81,7 +82,7 @@ server.get('/api/user/profile', (req, res) => {
   }, 200);
 });
 
-server.get('/api/register/sensorBase', (req, res) => {
+server.get('/api/app/register/sensorBase', (req, res) => {
   console.log("Server received register-request: ", req.body);
   setTimeout(() => {
     const token = req.headers.authorization;
@@ -93,7 +94,7 @@ server.get('/api/register/sensorBase', (req, res) => {
   }, 200);
 });
 
-server.get('/api/register/requests/:id', (req, res) => {
+server.get('/api/app/register/requests/:id', (req, res) => {
   console.log("Server received get active register-request: ", req.body);
   setTimeout(() => {
     const token = req.headers.authorization;
@@ -107,7 +108,7 @@ server.get('/api/register/requests/:id', (req, res) => {
   }, 200);
 });
 
-server.post('/api/user/refreshToken', (req, res) => {
+server.post('/api/app/user/refreshToken', (req, res) => {
   console.log("Server received refresh-token-request: ", req.body);
   setTimeout(() => {
     const token = req.body.token
@@ -122,7 +123,7 @@ server.post('/api/user/refreshToken', (req, res) => {
   }, 200);
 });
 
-server.post('/api/register/sensor', (req, res) => {
+server.post('/api/app/register/sensor', (req, res) => {
   console.log("Server received register sensor base request: ", req.body);
   setTimeout(() => {
     const token = req.headers.authorization;
@@ -137,7 +138,7 @@ server.post('/api/register/sensor', (req, res) => {
   }, 200);
 });
 
-server.post('/api/register/sensor/cancel', (req, res) => {
+server.post('/api/app/register/sensor/cancel', (req, res) => {
   console.log("Server received cancel register sensor base request: ", req.body);
   setTimeout(() => {
     const token = req.headers.authorization;
@@ -153,7 +154,32 @@ server.post('/api/register/sensor/cancel', (req, res) => {
   }, 200);
 });
 
-server.get('/api/measurements/user/:id', (req, res) => {
+
+server.get('/api/notifications/user/:id', (req, res) => {
+  console.log("Server received notification: ", req.body);
+  setTimeout(() => {
+    const token = req.headers.authorization;
+    if (token) {
+      res.status(200).send(notifications)
+    } else {
+      res.status(401).send();
+    }
+  }, 200);
+});
+
+server.delete('/api/notifications/user/:id', (req, res) => {
+  console.log("Server received notification: ", req.body);
+  setTimeout(() => {
+    const token = req.headers.authorization;
+    if (token) {
+      notifications = [];
+      res.status(200).send();
+    }
+  })
+});
+
+
+server.get('/api/app/measurements/user/:id', (req, res) => {
   console.log("Server received get latest measurements: ", req.body);
   setTimeout(() => {
     const token = req.headers.authorization;

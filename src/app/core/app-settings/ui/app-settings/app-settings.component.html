@@ -1,0 +1,47 @@
+<div class="d-flex flex-column align-items-center justify-content-center" id="app-settings-container">
+  <button type="button" id="back-button" class="btn btn-outline-dark back-button mt-2 mb-2"
+          (click)="navigateBack()">Back</button>
+  <p class="description mb-3 text-danger text-center"><em>Please change here the app settings required to your
+    local network and server setup</em></p>
+  <form [formGroup]="appSettingsForm" class="settings-form" (change)="valueChange()">
+    <div class="mb-3">
+      <label for="host-input" class="form-label font-monospace fw-bolder">Server Hostname</label>
+      <input id="host-input" class="form-control" formControlName="host" type="text"/>
+    </div>
+    <div class="mb-3">
+      <label for="port-input" class="form-label font-monospace fw-bolder">Port</label>
+      <input id="port-input" class="form-control" formControlName="port" type="number"/>
+    </div>
+    <div class="mb-3">
+      <label for="host-api" class="form-label font-monospace fw-bolder">Host API</label>
+      <input id="host-api" class="form-control" formControlName="api" type="text"/>
+    </div>
+    <div class="form-check form-switch mb-4">
+      <input id="host-protocol" class="form-check-input" formControlName="https" type="checkbox"/>
+      <label for="host-protocol" class="form-check-label font-monospace fw-bolder">HTTPS</label>
+    </div>
+    <div class="mb-3">
+      <label for="token-millis" class="form-label font-monospace fw-bolder">Token refresh seconds</label>
+      <input id="token-millis" class="form-control"
+             formControlName="tokenRefreshInterval" type="number"/>
+    </div>
+    <div class="mb-3">
+      <label for="dashboard-millis" class="form-label font-monospace fw-bolder">Dashboard refresh seconds</label>
+      <input id="dashboard-millis" class="form-control"
+             formControlName="dashboardRefreshInterval" type="number"/>
+    </div>
+    <div class="form-check form-switch mb-3">
+      <input id="dark-mode" class="form-check-input" formControlName="darkMode" type="checkbox"/>
+      <label for="dark-mode" class="form-check-label font-monospace fw-bolder">Dark mode</label>
+    </div>
+    <app-icon-button text="Save settings" [icon]="mdiContentSaveOutline" iconColor="black"
+                     [iconActiveColor]="buttonDisabled ? 'black' : 'white'"
+                     class="mb-3"
+                     width="18px" [disabled]="buttonDisabled"
+      classes="btn btn-outline-secondary" (iconButtonClick)="saveData()"></app-icon-button>
+    <app-icon-button text="Restore settings" [icon]="mdiRestore" iconColor="red"
+                     [iconActiveColor]="!resettable() ? 'red' : 'white'"
+                     width="18px" [disabled]="!resettable()"
+                     classes="btn btn-outline-danger" (iconButtonClick)="restoreData()"></app-icon-button>
+  </form>
+</div>

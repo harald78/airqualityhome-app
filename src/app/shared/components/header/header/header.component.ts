@@ -27,8 +27,10 @@ export class HeaderComponent implements OnInit {
       return 'Notifications';
     } else if (this.router.url.includes('account')) {
       return 'Account';
+    } else if (this.router.url.includes('general-settings')) {
+      return 'App Settings';
     } else if (this.router.url.includes('settings')) {
-      return 'Settings';
+      return 'App Settings';
     } else if (this.router.url.includes('login')) {
       return 'Login';
     } else {

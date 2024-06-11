@@ -4,13 +4,12 @@ import { ChangeAccountComponent } from './change-account.component';
 import { IconComponent } from '../../../../shared/components/icon/icon/icon.component';
 import { AuthState } from '../../../../core/auth/+state/auth.state';
 import { Router, RouterModule } from '@angular/router';
-import { routes } from '../../../../app.routes';
 import { AccountService } from '../../service/account.service';
-import { ToastService } from '../../../../shared/components/toast/toast.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
 import { changedUserMock, userMock } from '../../../../../../mock/user-mock';
 import { NgZone } from '@angular/core';
+import { routesMock } from '../../../../../../mock/routes.mock';
 
 describe('ChangeAccountComponent Test', () => {
   let component: ChangeAccountComponent;
@@ -26,7 +25,7 @@ describe('ChangeAccountComponent Test', () => {
       imports: [ChangeAccountComponent,
         IconComponent,
         HttpClientTestingModule,
-        RouterModule.forRoot(routes)],
+        RouterModule.forRoot(routesMock)],
       providers: []
     })
     .compileComponents();

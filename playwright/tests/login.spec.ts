@@ -36,8 +36,8 @@ test.describe('Login', () => {
     await page.locator(selectByAriaLabel("aq-password-input")).fill("default");
     await page.locator(selectByAriaLabel("aq-login-button")).click();
 
-    await expect(page.locator(selectByAriaLabel("aq-toast"))).toBeVisible();
-    await expect(page.locator(selectByAriaLabel("aq-toast"))).toContainText("Username or Password not correct");
+    await expect(page.locator('#login-error')).toBeVisible();
+    await expect(page.locator('#login-error')).toContainText("Username or Password not correct");
   });
 
   test('Should try to login and navigate to dashboard', async ({ page }) => {

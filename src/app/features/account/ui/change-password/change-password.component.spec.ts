@@ -6,8 +6,8 @@ import { AccountService } from '../../service/account.service';
 import { userMock } from '../../../../../../mock/user-mock';
 import { AuthState } from '../../../../core/auth/+state/auth.state';
 import { Router, RouterModule } from '@angular/router';
-import { routes } from '../../../../app.routes';
 import { NgZone } from '@angular/core';
+import { routesMock } from '../../../../../../mock/routes.mock';
 
 describe('ChangePasswordComponent Test', () => {
   let component: ChangePasswordComponent;
@@ -22,7 +22,7 @@ describe('ChangePasswordComponent Test', () => {
       imports: [
         ChangePasswordComponent,
         HttpClientTestingModule,
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routesMock)
       ],
     })
     .compileComponents();

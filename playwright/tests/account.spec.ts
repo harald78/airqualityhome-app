@@ -42,8 +42,8 @@ test.describe("Account tests", () => {
       await expect(page.locator('#change-email-input')).toBeDisabled();
       await expect(page.locator('#current-password-input')).toBeDisabled();
       await expect(page.locator('#change-email-input')).toHaveValue("balu@mountain.de");
-      await expect(page.locator(selectByAriaLabel('aq-toast'))).toBeVisible();
-      await expect(page.locator(selectByAriaLabel('aq-toast'))).toContainText("Saved changes successfully");
+      await expect(page.locator('#account-success')).toBeVisible();
+      await expect(page.locator('#account-success')).toContainText("Saved changes successfully");
     });
 
     test("Should cancel change email correctly", async ({page}) => {
@@ -86,8 +86,8 @@ test.describe("Account tests", () => {
       await page.locator('#current-password-input').fill("currentPassword");
       await expect(page.locator('#saveData-button')).toBeEnabled();
       await page.locator('#saveData-button').click();
-      await expect(page.locator(selectByAriaLabel('aq-toast'))).toBeVisible();
-      await expect(page.locator(selectByAriaLabel('aq-toast'))).toContainText("Saved changes successfully");
+      await expect(page.locator('#account-success')).toBeVisible();
+      await expect(page.locator('#account-success')).toContainText("Saved changes successfully");
       await page.waitForURL('http://localhost:4200/login');
     });
 
@@ -122,8 +122,8 @@ test.describe("Account tests", () => {
       await expect(page.locator('#password-error')).not.toBeVisible();
       await expect(page.locator('#savePassword-button')).toBeEnabled();
       await page.locator('#savePassword-button').click();
-      await expect(page.locator(selectByAriaLabel('aq-toast'))).toBeVisible();
-      await expect(page.locator(selectByAriaLabel('aq-toast'))).toContainText("Password changed successfully");
+      await expect(page.locator('#account-success')).toBeVisible();
+      await expect(page.locator('#account-success')).toContainText("Password changed successfully");
       await page.waitForURL('http://localhost:4200/login');
     });
 
@@ -144,8 +144,8 @@ test.describe("Account tests", () => {
       await expect(page.locator('#password-error')).not.toBeVisible();
       await expect(page.locator('#savePassword-button')).toBeEnabled();
       await page.locator('#savePassword-button').click();
-      await expect(page.locator(selectByAriaLabel('aq-toast'))).toBeVisible();
-      await expect(page.locator(selectByAriaLabel('aq-toast'))).toContainText("Password could not be changed");
+      await expect(page.locator('#account-error')).toBeVisible();
+      await expect(page.locator('#account-error')).toContainText("Password could not be changed");
     });
 
 
