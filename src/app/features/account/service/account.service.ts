@@ -9,6 +9,7 @@ import { mdiAlert, mdiCheck } from '@mdi/js';
 import { ErrorResponseService } from '../../../shared/services/error-response.service';
 import { AuthState } from '../../../core/auth/+state/auth.state';
 import { OverlayService } from '../../../shared/services/overlay.service';
+import {AppSettingsState} from "../../../core/app-settings/+state/app-settings.state";
 
 @Injectable({
   providedIn: 'root'
@@ -20,18 +21,21 @@ export class AccountService {
   private readonly toastService: ToastService = inject(ToastService);
   private readonly authState: AuthState = inject(AuthState);
   private readonly overlayService: OverlayService = inject(OverlayService);
+  private readonly appSettingsState: AppSettingsState = inject(AppSettingsState);
 
   saveUserData(userChangeRequest: UserChangeRequest): Promise<User> {
     this.overlayService.show();
-    return firstValueFrom(this.httpClient.post<User>(`${environment.baseUrl}/user/save`, userChangeRequest).pipe(
+    return firstValueFrom(this.httpClient.post<User>(`${this.appSettingsState.baseUrl()}/user/save`, userChangeRequest).pipe(
       tap(() => {
         const successToast: Toast = {classname: "bg-success text-light", header: '',
+          id: "account-success",
           body: "Saved changes successfully", icon: mdiCheck, iconColor: "white"};
         this.toastService.show(successToast);
       }),
       catchError(err => {
         const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
         const errorToast: Toast = {classname: "bg-danger text-light", header: 'Could not save user data',
+          id: "account-error",
           body: `${err.status} ${statusText}`, icon: mdiAlert, iconColor: "white"};
         this.toastService.show(errorToast);
         return of(this.authState.user());
@@ -41,15 +45,17 @@ export class AccountService {
 
   savePassword(passwordChangeRequest: PasswordChangeRequest): Promise<User> {
     this.overlayService.show()
-    return firstValueFrom(this.httpClient.post<User>(`${environment.baseUrl}/user/save-password`, passwordChangeRequest).pipe(
+    return firstValueFrom(this.httpClient.post<User>(`${this.appSettingsState.baseUrl()}/user/save-password`, passwordChangeRequest).pipe(
       tap(() => {
         const successToast: Toast = {classname: "bg-success text-light", header: '',
+          id: "account-success",
           body: "Password changed successfully", icon: mdiCheck, iconColor: "white"};
         this.toastService.show(successToast);
       }),
       catchError(err => {
         const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
         const errorToast: Toast = {classname: "bg-danger text-light", header: 'Password could not be changed',
+          id: "account-error",
           body: `${err.status} ${statusText}`, icon: mdiAlert, iconColor: "white"};
         this.toastService.show(errorToast);
         return of(this.authState.user());

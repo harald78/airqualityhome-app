@@ -1,4 +1,4 @@
-<button [class]="classes()" [ngClass]="{'fixed-style': true}" type="button" (click)="onClick()">
+<button [class]="classes()" type="button" (click)="onClick()" [disabled]="disabled()">
   <app-icon [path]="icon()" [color]="currentColor()" [width]="width()"></app-icon>
-  {{ text() }}
+  <span class="button-text">{{ text() }}</span>
 </button>

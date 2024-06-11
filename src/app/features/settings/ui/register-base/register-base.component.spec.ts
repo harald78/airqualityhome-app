@@ -69,6 +69,7 @@ describe('RegisterBaseComponent', () => {
       .mockReturnValue(Promise.resolve(activeRegisterRequest));
     jest.spyOn(toastService, 'show');
     const expectedToast = {classname: "bg-success text-light", header: '',
+      id: 'settings-success',
       body: "Created register request successfully", icon: mdiCheck, iconColor: "white"};
     const sensorBase = availableSensorBaseMock[0];
     const activeRequestSpy = jest.spyOn(component.activeRequest, 'set');
@@ -119,6 +120,7 @@ describe('RegisterBaseComponent', () => {
       .mockReturnValue(Promise.resolve(canceledRegisterRequest));
     jest.spyOn(toastService, 'show');
     const expectedToast = {classname: "bg-success text-light", header: '',
+      id: 'settings-success',
       body: "Canceled register request successfully", icon: mdiCheck, iconColor: "white"};
     const sensorBase = availableSensorBaseMock[0];
     const activeRequestSpy = jest.spyOn(component.activeRequest, 'set');

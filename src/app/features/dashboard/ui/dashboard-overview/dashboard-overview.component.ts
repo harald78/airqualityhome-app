@@ -8,9 +8,10 @@ import {FilterOffcanvasComponent} from "../../../../shared/components/filter-off
 import {FilterService} from "../../../../shared/services/filter-service.service";
 import {LatestMeasurement} from "../../model/measurement.model";
 import {MeasurementState} from "../../+state/measurement.state";
-import {delay, interval, tap} from "rxjs";
+import {interval, tap} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {environment} from "../../../../../environments/environment";
+import { AppSettingsState } from '../../../../core/app-settings/+state/app-settings.state';
 
 @Component({
   selector: 'app-dashboard-overview',
@@ -29,12 +30,13 @@ export class DashboardOverviewComponent implements OnInit, OnDestroy {
   private readonly offCanvasService= inject(NgbOffcanvas);
   private readonly measurementState = inject(MeasurementState);
   private readonly filterService = inject(FilterService);
+  private readonly appSettingsState = inject(AppSettingsState);
 
   public measurementItems: Signal<LatestMeasurement[]> = computed( () => {
     return this.filterService.filteredEntities() as LatestMeasurement[]; });
 
   constructor() {
-    interval(environment.dashboardRefreshInterval).pipe(
+    interval(this.appSettingsState.appSettings().dashboardRefreshInterval).pipe(
       takeUntilDestroyed(),
       tap( async () => {
         await this.measurementState.loadLatestMeasurements();

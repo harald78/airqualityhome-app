@@ -49,6 +49,7 @@ export class RegisterBaseComponent implements OnInit {
         if (requestResult) {
           this.activeRequest.set(requestResult);
           const successToast: Toast = {classname: "bg-success text-light", header: '',
+            id: "settings-success",
             body: "Created register request successfully", icon: mdiCheck, iconColor: "white"};
           this.toastService.show(successToast);
         }
@@ -68,6 +69,7 @@ export class RegisterBaseComponent implements OnInit {
         if (requestResult) {
           this.activeRequest.set(requestResult);
           const successToast: Toast = {classname: "bg-success text-light", header: '',
+            id: "settings-success",
             body: "Canceled register request successfully", icon: mdiCheck, iconColor: "white"};
           this.toastService.show(successToast);
         }
