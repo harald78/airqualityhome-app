@@ -17,7 +17,7 @@ export class ErrorResponseService {
       case 500:
         return 'INTERNAL SERVER ERROR';
       default:
-        return 'UPS SOMETHING WENT WRONG :('
+        return 'SOMETHING WENT WRONG :('
     }
   }
 

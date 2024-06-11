@@ -1,0 +1,25 @@
+<div class="d-flex align-items-center justify-content-center w-100 sticky-top bg-white">
+  <app-icon-button text="Filter" [icon]="mdiFilter"
+                   id="dashboard-filter-button"
+                   (iconButtonClick)="openOverlay()"
+                   [width]="'16px'"
+                   class="m-2 w-100"
+                   [classes]="'btn btn-outline-dark'"></app-icon-button>
+</div>
+<div>
+  @for (measurementItem of measurementItems(); track measurementItem.id; let index=$index) {
+    <app-measurement-tile id="measurement-tile-{{index}}"
+      [value]="measurementItem.value"
+      [type]="measurementItem.sensorType"
+      [warningThreshold]="measurementItem.warningThreshold"
+      [linearCorrectionValue]="measurementItem.linearCorrectionValue"
+      [name]="measurementItem.sensorName"
+      [base]="measurementItem.sensorBaseName"
+      [alarmMin]="measurementItem.alarmMin"
+      [alarmMax]="measurementItem.alarmMax"
+      [timestamp]="measurementItem.timestamp"
+      [location]="measurementItem.location"
+      [alarmActive]="measurementItem.alarmActive"
+      ></app-measurement-tile>
+  }
+</div>

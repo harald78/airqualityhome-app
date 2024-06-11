@@ -1,0 +1,29 @@
+<div class="sensor-tile">
+  <div class="header">
+    <div class="temperature-container">
+      <div class="temperature-circle {{severity()}}">
+        <span class="value">{{ value() }}</span>
+      </div>
+      <span class="unit">{{ type() | unit }}</span>
+    </div>
+    <div class="sensor-info">
+      <h2>{{ type() }}</h2>
+      <p>Type: {{ name() }}</p>
+      <p>Base: {{ base() }}</p>
+    </div>
+    <div class="alarms">
+      <h2><span><app-icon [path]="mdiBell" width="14px" [color]="alarmActive() ? '#e7940f' : 'black'"></app-icon></span>Alarms</h2>
+      <span class="badge bg-info">min {{ alarmMin() }}{{ type() | unit }}</span>
+      <span class="badge bg-danger">max {{ alarmMax() }}{{ type() | unit }}</span>
+    </div>
+  </div>
+  <div class="footer">
+    <app-icon [path]="mdiUpdate" width="14px"></app-icon><p>{{ timestamp() | date: 'yyyy-MM-dd HH:mm' }}</p>
+    <span class="badge bg-secondary-subtle text-dark location">
+      <app-icon [path]="mdiMapMarker" width="14px"></app-icon>{{ location() }}</span>
+  </div>
+</div>
+
+
+
+

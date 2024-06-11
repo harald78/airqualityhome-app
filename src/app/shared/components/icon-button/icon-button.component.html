@@ -1,0 +1,4 @@
+<button [class]="classes()" type="button" (click)="onClick()" [disabled]="disabled()">
+  <app-icon [path]="icon()" [color]="currentColor()" [width]="width()"></app-icon>
+  <span class="button-text">{{ text() }}</span>
+</button>

@@ -3,7 +3,7 @@ import { logOut } from '../support/logout-helper';
 import { loginAsBalu, loginAsMogli } from '../support/login-helper';
 import { selectByAriaLabel } from '../support/playwright-utils';
 
-test.describe('Dashboard Home Tests', () => {
+test.describe('Register-Base Tests', () => {
 
   test('Check register base request works', async ({ context, page }) => {
     await logOut(page);
@@ -19,8 +19,8 @@ test.describe('Dashboard Home Tests', () => {
     await page.getByPlaceholder('sensor location...').fill('Test Location');
     await page.locator('#register-modal-register-button').click();
     await expect(page.locator(selectByAriaLabel('register-sensor-pending-badge'))).toBeVisible();
-    await expect(page.locator(selectByAriaLabel('aq-toast'))).toBeVisible();
-    await expect(page.locator(selectByAriaLabel('aq-toast'))).toContainText("Created register request successfully");
+    await expect(page.locator('#settings-success')).toBeVisible();
+    await expect(page.locator('#settings-success')).toContainText("Created register request successfully");
   });
 
   test('Check cancel base request page works', async ({ context, page }) => {
@@ -36,8 +36,8 @@ test.describe('Dashboard Home Tests', () => {
     await expect(page.locator("#confirm-modal")).toBeVisible();
     await page.locator('#confirm-modal-button').click();
     await expect(page.locator(selectByAriaLabel('register-sensor-pending-badge'))).not.toBeVisible();
-    await expect(page.locator(selectByAriaLabel('aq-toast'))).toBeVisible();
-    await expect(page.locator(selectByAriaLabel('aq-toast'))).toContainText("Canceled register request successfully");
+    await expect(page.locator('#settings-success')).toBeVisible();
+    await expect(page.locator('#settings-success')).toContainText("Canceled register request successfully");
   });
 
   test('should navigate to register base and back again', async ({ page }) => {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 export interface Toast {
+  id?: string;
   header: string;
   body: string;
   icon: string;
