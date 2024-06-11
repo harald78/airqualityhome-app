@@ -38,10 +38,6 @@ const config: Config = {
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
 
-  transformIgnorePatterns: [
-    'node_modules/(?!(ngx-charts|d3)/)'
-  ],
-
   // A list of reporter names that Jest uses when writing coverage reports
   coverageReporters: [
     "json",
