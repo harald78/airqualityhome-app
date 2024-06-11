@@ -103,7 +103,9 @@ describe("AuthService Test", () => {
     Storage.prototype.setItem = jest.fn();
     jest.spyOn(Storage.prototype, 'getItem');
     Storage.prototype.getItem = jest.fn();
-    const expectedToast = {classname: "bg-danger text-light", header: '', body: "Username or Password not correct", icon: mdiAlert, iconColor: "white"};
+    const expectedToast = {classname: "bg-danger text-light", header: '',
+      id: 'login-error',
+      body: "Username or Password not correct", icon: mdiAlert, iconColor: "white"};
     const expectedHttpError = new HttpErrorResponse({
       "error": {},
       "headers": new HttpHeaders(),

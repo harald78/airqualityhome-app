@@ -1,10 +1,11 @@
 <div class="d-flex justify-content-center align-items-center flex-column h-100">
-  <app-icon-button [icon]="mdiCogTransferOutline"
-                   classes="btn btn-outline-dark"
-                   text="App settings"
-                   width="18px"
-                   class="w-50 m-2"
-                   (iconButtonClick)="openGeneralSettings()"></app-icon-button>
+  <div class="general-settings-button-container">
+    <app-icon-button [icon]="mdiCogTransferOutline"
+                     classes="btn btn-outline-dark"
+                     width="28px"
+                     class="m-2 general-settings-button"
+                     (iconButtonClick)="openGeneralSettings()"></app-icon-button>
+  </div>
   <div class="login-form">
     <form [formGroup]="loginForm" aria-label="aq-login-form">
       <div class="input-container">

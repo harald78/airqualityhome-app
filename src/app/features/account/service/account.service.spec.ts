@@ -49,6 +49,7 @@ describe('AccountService', () => {
     const toastSpy = jest.spyOn(toastService, 'show');
     const expectedUrl = appState.baseUrl() + '/user/save';
     const expectedToast = {classname: "bg-success text-light", header: '',
+      id: 'account-success',
       body: "Saved changes successfully", icon: mdiCheck, iconColor: "white"};
 
     const promise = service.saveUserData(userChangeRequest);
@@ -78,6 +79,7 @@ describe('AccountService', () => {
     const errorStatusSpy = jest.spyOn(errorStatusService, 'getHttpErrorResponseTextByStatus');
     const expectedUrl = appState.baseUrl() + '/user/save';
     const expectedToast = {classname: "bg-danger text-light", header: 'Could not save user data',
+      id: 'account-error',
       body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
 
     const promise = service.saveUserData(userChangeRequest);
@@ -106,6 +108,7 @@ describe('AccountService', () => {
     const toastSpy = jest.spyOn(toastService, 'show');
     const expectedUrl = appState.baseUrl() + '/user/save-password';
     const expectedSuccessToast = {classname: "bg-success text-light", header: '',
+      id: 'account-success',
       body: "Password changed successfully", icon: mdiCheck, iconColor: "white"};
 
 
@@ -136,6 +139,7 @@ describe('AccountService', () => {
     const expectedUrl = appState.baseUrl() + '/user/save-password';
     const errorStatusSpy = jest.spyOn(errorStatusService, 'getHttpErrorResponseTextByStatus');
     const expectedToast = {classname: "bg-danger text-light", header: 'Password could not be changed',
+      id: 'account-error',
       body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
 
     const promise = service.savePassword(passwordChangeRequest);

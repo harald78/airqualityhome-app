@@ -51,6 +51,7 @@ describe('RegisterBaseService', () => {
   it('should show error toast for request bases', done => {
     jest.spyOn(toastService, 'show');
     const expectedToast = {classname: "bg-danger text-light", header: 'Could not load available sensor bases',
+      id: 'settings-error',
       body: `403 FORBIDDEN`, icon: mdiAlert, iconColor: "white"};
     service.getAvailableSensorBases().subscribe(result =>
       {
@@ -82,6 +83,7 @@ describe('RegisterBaseService', () => {
   it('should throw error on get active requests for user', async () => {
     await authState.setUser(userMock);
     const expectedToast = {classname: "bg-danger text-light", header: 'Could not load active registration requests',
+      id: 'settings-error',
       body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
     jest.spyOn(toastService, 'show');
 
@@ -124,6 +126,7 @@ describe('RegisterBaseService', () => {
       userId: 1
     };
     const expectedToast = {classname: "bg-danger text-light", header: 'Could register sensor base',
+      id: 'settings-error',
       body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
     jest.spyOn(toastService, 'show');
 
@@ -166,6 +169,7 @@ describe('RegisterBaseService', () => {
       userId: 1
     };
     const expectedToast = {classname: "bg-danger text-light", header: 'Could register sensor base',
+      id: 'settings-error',
       body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
     jest.spyOn(toastService, 'show');
 
