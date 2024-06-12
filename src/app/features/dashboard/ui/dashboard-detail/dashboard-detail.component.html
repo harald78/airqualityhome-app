@@ -2,13 +2,17 @@
   <button type="button" id="back-button" class="btn btn-outline-dark back-button" (click)="navigateBack()">Back</button>
 </div>
 <app-date-range class="mt-2 mb-2" (dateSelection)="onDateSelection($event)"></app-date-range>
-@if (historyData?.data && historyData.data.length > 0) {
+@if (historyData && historyData.data && historyData.data.length > 0) {
   <div class="graph-container">
-    <h2>{{ historyData.baseName }} - </h2>
+    <h2>{{ historyData.baseName }} - {{ historyData.location }} </h2>
     <app-chart [chartData]="historyData.data"></app-chart>
   </div>
+} @else if (historyData && historyData.data && historyData.data.length === 0) {
+  <div class="info-text m-5 text-warning font-monospace">
+    <em>NO DATA TO DISPLAY</em>
+  </div>
 } @else {
-  <div class="graph-container">
+  <div class="info-text m-5">
     <p>Loading...</p>
   </div>
 }

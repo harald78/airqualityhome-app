@@ -25,8 +25,7 @@ export class DashboardDetailComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly id = this.route.snapshot.params['id'];
 
-  public latestMeasurement: LatestMeasurement | undefined;
-  public historyData: MeasurementHistory;
+  public historyData: MeasurementHistory | undefined;
 
   async ngOnInit() {
     const start = DateTimeUtil.subtract(new Date(), 1, 'day');

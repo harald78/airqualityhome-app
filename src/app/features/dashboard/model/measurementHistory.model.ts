@@ -3,6 +3,7 @@ import {PhysicalType} from "../../../shared/model/sensor-type.model";
 export interface MeasurementHistory {
   baseId: number;
   baseName: string;
+  location: string;
   data: SensorMeasurementHistory[];
 }
 
