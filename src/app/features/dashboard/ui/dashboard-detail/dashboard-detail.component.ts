@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSig
 import {MeasurementService} from "../../service/measurement.service";
 import {MeasurementHistory} from "../../model/measurementHistory.model";
 import {ActivatedRoute} from "@angular/router";
-import {LatestMeasurement} from "../../model/measurement.model";
 import {mdiFilter} from "@mdi/js";
 import {IconButtonComponent} from "../../../../shared/components/icon-button/icon-button.component";
 import { Router } from '@angular/router';
@@ -46,6 +45,7 @@ export class DashboardDetailComponent implements OnInit {
   protected readonly mdiFilter = mdiFilter;
 
   async onDateSelection($event: DateRange) {
+    console.log($event);
     const history = await this.measurementService.getMeasurementHistory(this.id, $event.from, $event.to);
     this.historyData.set(history);
   }

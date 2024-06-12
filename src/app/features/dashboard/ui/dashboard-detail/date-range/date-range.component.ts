@@ -33,7 +33,7 @@ export class DateRangeComponent {
   }
 
   rangeFilter(date: Date): boolean {
-    return date.getDate() < new Date().getDate();
+    return DateTimeUtil.isSameOrBefore(date, new Date(), 'day');
   }
 
   onDateChange() {
