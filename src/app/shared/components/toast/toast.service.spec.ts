@@ -23,29 +23,29 @@ describe('ToastService Test', () => {
 
     service.show(toast);
 
-    expect(service.toasts.length).toBe(1);
+    expect(service.toast().length).toBe(1);
   });
 
   it('should remove Toast', () => {
     const toast: Toast = {
       body: "TEST", header: "", icon: "", iconColor: ""
     }
-    service.toasts.push(toast);
+    service.show(toast);
 
     service.remove(toast);
 
-    expect(service.toasts.length).toBe(0);
+    expect(service.toast().length).toBe(0);
   });
 
   it('should clear all Toast', () => {
     const toast: Toast = {
       body: "TEST", header: "", icon: "", iconColor: ""
     }
-    service.toasts.push(toast);
+    service.toast().push(toast);
 
     service.clear();
 
-    expect(service.toasts.length).toBe(0);
+    expect(service.toast().length).toBe(0);
   });
 
 });

@@ -23,8 +23,3 @@ export interface MeasurementHistorySeries{
   value: number;
   name: Date;
 }
-
-export interface ReferenceLine {
-  name: string;
-  value: number;
-}

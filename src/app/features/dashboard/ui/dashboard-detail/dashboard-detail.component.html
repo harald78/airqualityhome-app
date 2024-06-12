@@ -1,13 +1,13 @@
 <div class="d-flex justify-content-center w-100 sticky-top bg-white">
   <button type="button" id="back-button" class="btn btn-outline-dark back-button" (click)="navigateBack()">Back</button>
 </div>
-<app-date-range class="mt-2 mb-2" (dateSelection)="onDateSelection($event)"></app-date-range>
+<app-date-range class="mt-4 mb-2" (dateSelection)="onDateSelection($event)"></app-date-range>
 @if (historyData(); as history) {
 
   @if(history.data.length > 0) {
 
-    <div class="graph-container">
-      <h2>{{ history.baseName }} - {{ history.location }} </h2>
+    <div class="graph-container mt-5">
+      <h2 class="font-monospace">{{ history.baseName }} - {{ history.location }} </h2>
       <app-chart [chartData]="history.data"></app-chart>
     </div>
 

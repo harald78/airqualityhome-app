@@ -1,19 +1,19 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, inject, Output } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { provideNativeDateAdapter } from '@angular/material/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DateTimeUtil } from '../../../../../shared/util/date.util';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { DateRange } from '../../../model/date-range.model';
+import { DateAdapterProviders } from '../../../../../shared/util/app-date.adapter';
 
 @Component({
   selector: 'app-date-range',
   standalone: true,
   imports: [MatFormFieldModule, MatDatepickerModule,
     MatInputModule, MatButtonModule, ReactiveFormsModule],
-  providers: [provideNativeDateAdapter()],
+  providers: [DateAdapterProviders],
   templateUrl: './date-range.component.html',
   styleUrl: './date-range.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

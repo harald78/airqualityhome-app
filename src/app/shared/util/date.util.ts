@@ -20,6 +20,10 @@ export class DateTimeUtil {
     return newDate.toDate();
   }
 
+  static getFormattedTimeString(date: Date): string {
+    return dayjs(date).format('DD.MM. HH:mm');
+  }
+
   static setHoursAndMinutesToZero(date: Date): void {
     date.setUTCHours(0);
     date.setUTCMinutes(0);

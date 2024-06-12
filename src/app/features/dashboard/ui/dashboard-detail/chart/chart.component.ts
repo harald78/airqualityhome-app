@@ -3,7 +3,7 @@ import { colorSets, LegendPosition, NgxChartsModule } from '@swimlane/ngx-charts
 import { SensorMeasurementHistory } from '../../../model/measurementHistory.model';
 import { ChartService } from '../../../service/chart.service';
 import {UnitPipe} from "../../../../../shared/pipes/unit.pipe";
-import {PhysicalType} from "../../../../../shared/model/sensor-type.model";
+import { ReferenceLine } from '../../../model/chart.models';
 
 @Component({
   selector: 'app-chart',
@@ -18,6 +18,7 @@ export class ChartComponent implements OnInit {
 
   private readonly chartService: ChartService = inject(ChartService);
   public formatYAxisTickFn = this.formatYAxisTick.bind(this);
+  public formatXAxisTickFn = this.formatXAxisTick.bind(this);
   public chartData: InputSignal<SensorMeasurementHistory[]> = input([] as SensorMeasurementHistory[]);
 
   // view: [number, number] = [370, 300];
@@ -35,10 +36,7 @@ export class ChartComponent implements OnInit {
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
-  referenceLines = [
-    {name: "maxAlarm", value: 30.0},
-    {name: "minAlarm", value: 18.0},
-  ];
+  referenceLines: ReferenceLine[] = [];
 
   constructor() {
     this.colorScheme = colorSets.find(s => s.name === 'vivid')!;
@@ -59,5 +57,9 @@ export class ChartComponent implements OnInit {
 
   formatYAxisTick(value: number): string {
     return this.chartService.formatYAxisTick(value, this.chartData()[0].type);
+  }
+
+  formatXAxisTick(value: Date): string {
+    return this.chartService.formatXAxisTick(value);
   }
 }
