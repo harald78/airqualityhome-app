@@ -6,12 +6,13 @@ import {jwtInterceptor} from "./core/interceptor/jwt.interceptor";
 import {unauthorizedInterceptor} from "./core/interceptor/unauthorized.interceptor";
 import { apiDateInterceptor } from './core/interceptor/api-date.interceptor';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(withInterceptors([jwtInterceptor, unauthorizedInterceptor, apiDateInterceptor])),
-    importProvidersFrom(BrowserAnimationsModule)
+    importProvidersFrom(BrowserAnimationsModule), provideAnimationsAsync()
   ]
 };

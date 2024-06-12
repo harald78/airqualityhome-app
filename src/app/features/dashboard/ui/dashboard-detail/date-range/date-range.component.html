@@ -1,0 +1,15 @@
+<mat-form-field>
+  <mat-label>Enter a date range</mat-label>
+  <mat-date-range-input [formGroup]="dateRange" [rangePicker]="picker" [dateFilter]="rangeFilter">
+    <input matStartDate formControlName="from" placeholder="Start date">
+    <input matEndDate formControlName="to" placeholder="End date" (dateChange)="onDateChange()">
+  </mat-date-range-input>
+  <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker>
+    <mat-date-range-picker-actions>
+      <button mat-button matDateRangePickerCancel>Cancel</button>
+      <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+    </mat-date-range-picker-actions>
+  </mat-date-range-picker>
+</mat-form-field>

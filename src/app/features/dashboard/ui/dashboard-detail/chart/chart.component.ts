@@ -16,7 +16,7 @@ import {PhysicalType} from "../../../../../shared/model/sensor-type.model";
 export class ChartComponent implements OnInit {
 
   private readonly chartService: ChartService = inject(ChartService);
-
+  public formatYAxisTickFn = this.formatYAxisTick.bind(this);
   public chartData: InputSignal<SensorMeasurementHistory[]> = input([] as SensorMeasurementHistory[]);
 
   // view: [number, number] = [370, 300];
@@ -38,7 +38,6 @@ export class ChartComponent implements OnInit {
     {name: "maxAlarm", value: 30.0},
     {name: "minAlarm", value: 18.0},
   ];
-
 
   constructor() {
     this.colorScheme = colorSets.find(s => s.name === 'vivid')!;

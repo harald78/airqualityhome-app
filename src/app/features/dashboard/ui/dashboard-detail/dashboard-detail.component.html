@@ -1,9 +1,10 @@
 <div class="d-flex justify-content-center w-100 sticky-top bg-white">
   <button type="button" id="back-button" class="btn btn-outline-dark back-button" (click)="navigateBack()">Back</button>
 </div>
+<app-date-range class="mt-2 mb-2" (dateSelection)="onDateSelection($event)"></app-date-range>
 @if (historyData?.data && historyData.data.length > 0) {
   <div class="graph-container">
-    <h2>{{ latestMeasurement?.sensorBaseName }} - {{ latestMeasurement?.sensorName }} - {{ latestMeasurement?.location }}</h2>
+    <h2>{{ historyData.baseName }} - </h2>
     <app-chart [chartData]="historyData.data"></app-chart>
   </div>
 } @else {
