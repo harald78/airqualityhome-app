@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import {Router, RouterOutlet} from '@angular/router';
 import {HeaderComponent} from "./shared/components/header/header/header.component";
 import {FooterComponent} from "./shared/components/footer/footer/footer.component";
@@ -11,7 +11,8 @@ import { OverlayComponent } from './shared/components/overlay/overlay.component'
   standalone: true,
   imports: [RouterOutlet, HeaderComponent, FooterComponent, ToastsContainerComponent, OverlayComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
 

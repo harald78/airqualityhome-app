@@ -1,4 +1,4 @@
-import { Component, inject, input, InputSignal, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, InputSignal, OnInit } from '@angular/core';
 import { colorSets, LegendPosition, NgxChartsModule } from '@swimlane/ngx-charts';
 import { SensorMeasurementHistory } from '../../../model/measurementHistory.model';
 import { ChartService } from '../../../service/chart.service';
@@ -11,7 +11,8 @@ import {PhysicalType} from "../../../../../shared/model/sensor-type.model";
   imports: [NgxChartsModule],
   providers: [UnitPipe, ChartService],
   templateUrl: './chart.component.html',
-  styleUrl: './chart.component.scss'
+  styleUrl: './chart.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartComponent implements OnInit {
 

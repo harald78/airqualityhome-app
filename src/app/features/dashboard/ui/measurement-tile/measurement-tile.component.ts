@@ -1,4 +1,4 @@
-import {Component, inject, input, InputSignal, OnInit, signal, WritableSignal} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, InputSignal, OnInit, signal, WritableSignal } from '@angular/core';
 import { mdiBell, mdiMapMarker, mdiUpdate } from '@mdi/js';
 import { IconComponent } from '../../../../shared/components/icon/icon/icon.component';
 import {DatePipe} from "@angular/common";
@@ -14,7 +14,8 @@ import {SeverityCalculationService} from "../../service/severity-calculation.ser
     UnitPipe
   ],
   templateUrl: './measurement-tile.component.html',
-  styleUrl: './measurement-tile.component.scss'
+  styleUrl: './measurement-tile.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MeasurementTileComponent implements OnInit {
   protected readonly mdiBell = mdiBell;

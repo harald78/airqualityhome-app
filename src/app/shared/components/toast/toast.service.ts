@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 
 export interface Toast {
   id?: string;
@@ -12,17 +12,18 @@ export interface Toast {
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
-  toasts: Toast[] = [];
+  private toasts: Toast[] = [];
+  public toast: WritableSignal<Toast[]> = signal(this.toasts);
 
   show(toast: Toast) {
-    this.toasts.push(toast);
+    this.toast.update(toasts => [...toasts, toast]);
   }
 
   remove(toast: Toast) {
-    this.toasts = this.toasts.filter((t) => t !== toast);
+    this.toast.update(() => this.toasts.filter((t) => t !== toast));
   }
 
   clear() {
-    this.toasts.splice(0, this.toasts.length);
+    this.toast.set([]);
   }
 }

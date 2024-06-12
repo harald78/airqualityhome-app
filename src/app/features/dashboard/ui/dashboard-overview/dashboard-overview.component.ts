@@ -1,4 +1,4 @@
-import {Component, computed, inject, OnInit, Signal} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, Signal } from '@angular/core';
 import {MeasurementTileComponent} from "../measurement-tile/measurement-tile.component";
 import {IconComponent} from "../../../../shared/components/icon/icon/icon.component";
 import {mdiFilter} from "@mdi/js";
@@ -24,7 +24,8 @@ import {ActivatedRoute, Router, RouterLink, RouterLinkActive} from "@angular/rou
     RouterLinkActive
   ],
   templateUrl: './dashboard-overview.component.html',
-  styleUrl: './dashboard-overview.component.scss'
+  styleUrl: './dashboard-overview.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardOverviewComponent implements OnInit {
 
