@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, input, InputSignal, OnInit } from '@angular/core';
-import { colorSets, LegendPosition, NgxChartsModule } from '@swimlane/ngx-charts';
-import { SensorMeasurementHistory } from '../../../model/measurementHistory.model';
-import { ChartService } from '../../../service/chart.service';
+import {ChangeDetectionStrategy, Component, inject, input, InputSignal, OnInit} from '@angular/core';
+import {Color, colorSets, LegendPosition, NgxChartsModule, ScaleType} from '@swimlane/ngx-charts';
+import {SensorMeasurementHistory} from '../../../model/measurementHistory.model';
+import {ChartService} from '../../../service/chart.service';
 import {UnitPipe} from "../../../../../shared/pipes/unit.pipe";
-import { ReferenceLine } from '../../../model/chart.models';
+import {ReferenceLine} from '../../../model/chart.models';
 
 @Component({
   selector: 'app-chart',
@@ -33,15 +33,8 @@ export class ChartComponent implements OnInit {
   roundDomains = true;
   autoScale = false;
   legendPosition: LegendPosition = LegendPosition.Below;
-  colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
-  };
+  colorScheme: Color = colorSets.find(s => s.name === 'forest')!;
   referenceLines: ReferenceLine[] = [];
-
-  constructor() {
-    this.colorScheme = colorSets.find(s => s.name === 'vivid')!;
-    // const unitString = this.unitPipe.transform(this.chartData()[0].name)
-  }
 
   ngOnInit() {
     this.prepareChartData();
