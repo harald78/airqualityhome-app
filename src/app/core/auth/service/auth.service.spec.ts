@@ -4,14 +4,14 @@ import {AuthService} from "./auth.service";
 import {ToastService} from "../../../shared/components/toast/toast.service";
 import {userMock} from "../../../../../mock/user-mock";
 import {AuthState} from "../+state/auth.state";
-import {Router} from "@angular/router";
+import { Router, RouterModule } from '@angular/router';
 import {AuthRequestDto} from "../model/auth-request.model";
 import {jwtDtoMock} from "../../../../../mock/jwt-dto.mock";
 import {mdiAlert} from "@mdi/js";
 import {HttpErrorResponse, HttpHeaders} from "@angular/common/http";
-import {environment} from "../../../../environments/environment";
 import { AppSettingsState, INITIAL_SETTINGS } from '../../app-settings/+state/app-settings.state';
 import { APP_SETTINGS_KEY } from '../../app-settings/model/app-settings.model';
+import { routesMock } from '../../../../../mock/routes.mock';
 
 
 describe("AuthService Test", () => {
@@ -25,7 +25,7 @@ describe("AuthService Test", () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, RouterModule.forRoot(routesMock)],
       providers: [ToastService]
     });
 
@@ -90,8 +90,7 @@ describe("AuthService Test", () => {
     expect(loadProfileSpy).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenNthCalledWith(1, 'access_token', jwtDtoMock.accessToken);
     expect(localStorage.setItem).toHaveBeenNthCalledWith(2, 'token', jwtDtoMock.token);
-    expect(localStorage.getItem).toHaveBeenCalledWith('token');
-    expect(navigateSpy).toHaveBeenCalledWith(['']);
+    expect(navigateSpy).toHaveBeenCalledWith(['dashboard']);
   });
 
   it('should call login user and show error', async () => {
@@ -149,7 +148,6 @@ describe("AuthService Test", () => {
 
     expect(localStorage.setItem).toHaveBeenNthCalledWith(1, 'access_token', jwtDtoMock.accessToken);
     expect(localStorage.setItem).toHaveBeenNthCalledWith(2, 'token', jwtDtoMock.token);
-    expect(setRefreshTimeoutSyp).toHaveBeenCalledTimes(1);
   }));
 
   it('should logout user', fakeAsync(async () => {

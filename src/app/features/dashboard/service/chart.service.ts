@@ -56,9 +56,9 @@ export class ChartService {
     return referenceLines;
   }
 
-  formatYAxisTick(value: number, type: string): string {
+  formatYAxisTick(value: number, type: string, dataToggle: boolean): string {
     const unit = this.unitPipe.transform(type);
-    return `${value} ${unit}`;
+    return dataToggle ? `${value}` : `${value} ${unit}`;
   }
 
   formatXAxisTick(value: Date) {

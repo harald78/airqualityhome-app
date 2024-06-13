@@ -11,12 +11,14 @@ import {ConfirmModalComponent} from "../../../../shared/components/confirm-modal
 import { Router } from '@angular/router';
 import { Toast, ToastService } from '../../../../shared/components/toast/toast.service';
 import { mdiCheck } from '@mdi/js';
+import { SensorBaseTileComponent } from '../sensor-base-tile/sensor-base-tile.component';
 
 @Component({
   selector: 'app-register-base',
   standalone: true,
   imports: [
-    UnitPipe
+    UnitPipe,
+    SensorBaseTileComponent
   ],
   templateUrl: './register-base.component.html',
   styleUrl: './register-base.component.scss',

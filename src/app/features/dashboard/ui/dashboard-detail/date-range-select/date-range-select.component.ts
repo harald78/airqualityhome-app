@@ -9,16 +9,16 @@ import { DateRange } from '../../../model/date-range.model';
 import { DateAdapterProviders } from '../../../../../shared/util/app-date.adapter';
 
 @Component({
-  selector: 'app-date-range',
+  selector: 'app-date-range-select',
   standalone: true,
   imports: [MatFormFieldModule, MatDatepickerModule,
     MatInputModule, MatButtonModule, ReactiveFormsModule],
   providers: [DateAdapterProviders],
-  templateUrl: './date-range.component.html',
-  styleUrl: './date-range.component.scss',
+  templateUrl: './date-range-select.component.html',
+  styleUrl: './date-range-select.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DateRangeComponent {
+export class DateRangeSelectComponent {
 
   private readonly fb: FormBuilder = inject(FormBuilder);
   dateRange: FormGroup;

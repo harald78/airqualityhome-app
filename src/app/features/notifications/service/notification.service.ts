@@ -29,6 +29,17 @@ export class NotificationService {
       })));
   }
 
+  readNotification(id:number): Promise<Notification> {
+    return firstValueFrom(this.httpService.post<Notification>(`${this.appSettingsState.baseUrl()}/notifications/read/${id}`, {})
+      .pipe(catchError(err => {
+        const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
+        const errorToast: Toast = {classname: "bg-danger text-light", header: 'Could set status read',
+          body: `${err.status} ${statusText}`, icon: mdiAlert, iconColor: "white"};
+        this.toastService.show(errorToast);
+        return of();
+      })));
+  }
+
   sendDeleteNotification(id:number): Promise<void> {
     return firstValueFrom(this.httpService.delete<void>(`${this.appSettingsState.baseUrl()}/notifications/user/${id}`)
       .pipe(tap(() => {

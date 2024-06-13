@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DateRangeComponent } from './date-range.component';
+import { DateSelectComponent } from './date-select.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('DateRangeComponent', () => {
-  let component: DateRangeComponent;
-  let fixture: ComponentFixture<DateRangeComponent>;
+describe('DateSelectComponent', () => {
+  let component: DateSelectComponent;
+  let fixture: ComponentFixture<DateSelectComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DateRangeComponent, NoopAnimationsModule],
+      imports: [DateSelectComponent, NoopAnimationsModule]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(DateRangeComponent);
+    fixture = TestBed.createComponent(DateSelectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

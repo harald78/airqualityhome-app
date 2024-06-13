@@ -1,8 +1,13 @@
 export interface Notification {
-
-  id?: number;
+  id: number;
   userId: number;
   measurementId: number;
   message: string;
-  read: boolean;
+  acknowledged: boolean;
+  readAt: Date;
+  baseName: string;
+  sensorType: string;
+  sensorName: string;
+  location: string;
+  timestamp: Date;
 }

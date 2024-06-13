@@ -10,6 +10,10 @@ button {
   justify-content: center;
 }
 
+button > app-icon {
+  margin-left: 3px;
+}
+
 .button-text {
   margin-left: 5px;
 }
