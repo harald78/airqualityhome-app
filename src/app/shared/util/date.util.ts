@@ -24,11 +24,12 @@ export class DateTimeUtil {
     return dayjs(date).format('DD.MM. HH:mm');
   }
 
-  static setHoursAndMinutesToZero(date: Date): void {
-    date.setUTCHours(0);
-    date.setUTCMinutes(0);
-    date.setUTCSeconds(0);
-    date.setUTCMilliseconds(0);
+  static setDateToStartOfDay(date: Date): Date {
+    return dayjs(date).startOf('day').toDate();
+  }
+
+  static setDateToEndOfDay(date: Date): Date {
+    return dayjs(date).endOf('day').toDate();
   }
 
   static isSameOrBefore(date: Date | string, compareDate: Date | string, unit: timeUnits): boolean {

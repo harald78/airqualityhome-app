@@ -28,10 +28,10 @@ export class DashboardDetailComponent implements OnInit {
   public historyData: WritableSignal<MeasurementHistory | undefined> = signal(undefined);
 
   async ngOnInit() {
-    const start = DateTimeUtil.subtract(new Date(), 1, 'day');
-    DateTimeUtil.setHoursAndMinutesToZero(start);
-    const end = new Date();
-    DateTimeUtil.setHoursAndMinutesToZero(end);
+    let start = DateTimeUtil.subtract(new Date(), 1, 'day');
+    start = DateTimeUtil.setDateToStartOfDay(start);
+    let end = new Date();
+    end = DateTimeUtil.setDateToEndOfDay(end);
     const history = await this.measurementService.getMeasurementHistory(this.id, start, end);
     if (history) {
       this.historyData.set(history);
