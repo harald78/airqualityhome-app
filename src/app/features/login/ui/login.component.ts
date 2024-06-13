@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {IconComponent} from "../../../shared/components/icon/icon/icon.component";
 import {mdiAccount, mdiCogTransferOutline, mdiLock} from "@mdi/js";
@@ -14,7 +14,8 @@ import {Router} from "@angular/router";
   standalone: true,
   imports: [ReactiveFormsModule, IconComponent, PasswordInputComponent, IconButtonComponent],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
 

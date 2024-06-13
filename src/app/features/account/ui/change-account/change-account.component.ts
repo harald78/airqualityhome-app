@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { mdiAccount, mdiEmail, mdiLock } from '@mdi/js';
 import { IconComponent } from '../../../../shared/components/icon/icon/icon.component';
@@ -19,7 +19,8 @@ import { AuthService } from '../../../../core/auth/service/auth.service';
     PasswordInputComponent
   ],
   templateUrl: './change-account.component.html',
-  styleUrl: './change-account.component.scss'
+  styleUrl: './change-account.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChangeAccountComponent implements OnInit {
 

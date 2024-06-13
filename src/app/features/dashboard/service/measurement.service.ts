@@ -8,6 +8,7 @@ import { catchError } from 'rxjs/operators';
 import { mdiAlert } from '@mdi/js';
 import { firstValueFrom, of } from 'rxjs';
 import {AppSettingsState} from "../../../core/app-settings/+state/app-settings.state";
+import {MeasurementHistory} from "../model/measurementHistory.model";
 
 @Injectable({providedIn: 'root'})
 export class MeasurementService {
@@ -30,6 +31,16 @@ export class MeasurementService {
       })));
   }
 
-
+  getMeasurementHistory(id: number, from: Date, to: Date): Promise<MeasurementHistory> {
+    return firstValueFrom(this.httpService.get<MeasurementHistory>(`${this.appSettingsState.baseUrl()}/measurements/sensor/${id}?from=${from.toISOString()}&to=${to.toISOString()}`)
+      .pipe(catchError(err => {
+        const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
+        const errorToast: Toast = {classname: "bg-danger text-light", header: 'Could not load measurements history',
+          id: 'dashboard-error',
+          body: `${err.status} ${statusText}`, icon: mdiAlert, iconColor: "white"};
+        this.toastService.show(errorToast);
+        return of();
+      })));
+  }
 
 }

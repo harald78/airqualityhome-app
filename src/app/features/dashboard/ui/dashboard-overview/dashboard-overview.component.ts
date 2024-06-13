@@ -1,4 +1,4 @@
-import {Component, computed, inject, OnDestroy, OnInit, Signal} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, Signal } from '@angular/core';
 import {MeasurementTileComponent} from "../measurement-tile/measurement-tile.component";
 import {IconComponent} from "../../../../shared/components/icon/icon/icon.component";
 import {mdiFilter} from "@mdi/js";
@@ -10,8 +10,8 @@ import {LatestMeasurement} from "../../model/measurement.model";
 import {MeasurementState} from "../../+state/measurement.state";
 import {interval, tap} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {environment} from "../../../../../environments/environment";
 import { AppSettingsState } from '../../../../core/app-settings/+state/app-settings.state';
+import {ActivatedRoute, Router, RouterLink, RouterLinkActive} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard-overview',
@@ -19,17 +19,22 @@ import { AppSettingsState } from '../../../../core/app-settings/+state/app-setti
   imports: [
     MeasurementTileComponent,
     IconComponent,
-    IconButtonComponent
+    IconButtonComponent,
+    RouterLink,
+    RouterLinkActive
   ],
   templateUrl: './dashboard-overview.component.html',
-  styleUrl: './dashboard-overview.component.scss'
+  styleUrl: './dashboard-overview.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardOverviewComponent implements OnInit, OnDestroy {
+export class DashboardOverviewComponent implements OnInit {
 
   protected readonly mdiFilter = mdiFilter;
   private readonly offCanvasService= inject(NgbOffcanvas);
   private readonly measurementState = inject(MeasurementState);
   private readonly filterService = inject(FilterService);
+  private readonly router: Router = inject(Router);
+  private readonly activeRoute: ActivatedRoute = inject(ActivatedRoute);
   private readonly appSettingsState = inject(AppSettingsState);
 
   public measurementItems: Signal<LatestMeasurement[]> = computed( () => {
@@ -48,6 +53,11 @@ export class DashboardOverviewComponent implements OnInit, OnDestroy {
     this.filterService.setFilterProperties(['location', 'sensorBaseName', 'sensorType', 'sensorName']);
     await this.measurementState.loadLatestMeasurements();
     await this.filterService.initData(this.measurementState.entities());
+    console.log(this.measurementState.entities());
+  }
+
+  async showHistory(id: number) {
+    await this.router.navigate(['sensor', id], {relativeTo: this.activeRoute});
   }
 
 
@@ -55,7 +65,5 @@ export class DashboardOverviewComponent implements OnInit, OnDestroy {
     this.offCanvasService.open(FilterOffcanvasComponent, { position: 'end', panelClass: 'canvas' });
   }
 
-  async ngOnDestroy() {
-    await this.measurementState.clearAllMeasurements();
-  }
+
 }

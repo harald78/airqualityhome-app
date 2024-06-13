@@ -17,7 +17,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardHomeComponent, canActivate: [isAuthenticated], children: [
       {path: "", component: DashboardOverviewComponent, canActivate: [isAuthenticated]},
-      {path: "sensor", component: DashboardDetailComponent, canActivate: [isAuthenticated]},
+      {path: "sensor/:id", component: DashboardDetailComponent, canActivate: [isAuthenticated]},
     ]},
   { path: 'notifications', component: NotificationsHomeComponent, canActivate: [isAuthenticated] },
   { path: 'account', component: AccountHomeComponent, canActivate: [isAuthenticated], children: [

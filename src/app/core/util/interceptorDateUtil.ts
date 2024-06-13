@@ -1,4 +1,4 @@
-export class DateUtil {
+export class InterceptorDateUtil {
 
   private constructor() {}
 

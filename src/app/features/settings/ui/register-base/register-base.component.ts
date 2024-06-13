@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, signal, Signal, WritableSignal} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
 import {RegisterBaseService} from "../../service/register-base.service";
 import {SensorBase} from "../../../../shared/model/sensor-base.model";
 import {toSignal} from "@angular/core/rxjs-interop";
@@ -19,7 +19,8 @@ import { mdiCheck } from '@mdi/js';
     UnitPipe
   ],
   templateUrl: './register-base.component.html',
-  styleUrl: './register-base.component.scss'
+  styleUrl: './register-base.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterBaseComponent implements OnInit {
 

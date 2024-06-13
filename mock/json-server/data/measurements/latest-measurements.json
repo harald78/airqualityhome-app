@@ -1,6 +1,7 @@
 [
   {
     "uuid": "F0F0F0",
+    "sensorId": 1,
     "id": "1",
     "sensorBaseName": "AZEnvy",
     "sensorName": "SHT30",
@@ -17,6 +18,7 @@
   },
   {
     "uuid": "F0F0F0",
+    "sensorId": 2,
     "id": "2",
     "sensorBaseName": "AZEnvy",
     "sensorName": "SHT30",
@@ -33,6 +35,7 @@
   },
   {
     "uuid": "F0F0F0",
+    "sensorId": 3,
     "id": "3",
     "sensorBaseName": "AZEnvy",
     "sensorName": "MQ-2",
@@ -49,6 +52,7 @@
   },
   {
     "uuid": "F0F0F1",
+    "sensorId": 4,
     "id": "4",
     "sensorBaseName": "AZEnvy",
     "sensorName": "SHT30",
@@ -65,6 +69,7 @@
   },
   {
     "uuid": "F0F0F1",
+    "sensorId": 5,
     "id": "5",
     "sensorBaseName": "AZEnvy",
     "sensorName": "SHT30",
@@ -81,6 +86,7 @@
   },
   {
   "uuid": "F0F0F1",
+  "sensorId": 6,
   "id": "6",
   "sensorBaseName": "AZEnvy",
   "sensorName": "MQ-2",
