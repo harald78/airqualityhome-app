@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import { mdiLock } from '@mdi/js';
 import {IconComponent} from "../../../../shared/components/icon/icon/icon.component";
@@ -19,7 +19,8 @@ import { AuthService } from '../../../../core/auth/service/auth.service';
     PasswordInputComponent
   ],
   templateUrl: './change-password.component.html',
-  styleUrl: './change-password.component.scss'
+  styleUrl: './change-password.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChangePasswordComponent implements OnInit {
 

@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, signal, Signal, WritableSignal} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {mdiUpdate, mdiMapMarker, mdiTrashCanOutline} from "@mdi/js";
 import {IconComponent} from "../../../../shared/components/icon/icon/icon.component";
@@ -7,7 +7,6 @@ import {DeleteModalComponent} from "../delete-modal/delete-modal.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Notification} from "../../model/notification.model";
 import {NotificationService} from "../../service/notification.service";
-import {toSignal} from "@angular/core/rxjs-interop";
 import {AuthState} from "../../../../core/auth/+state/auth.state";
 
 
@@ -22,7 +21,8 @@ import {AuthState} from "../../../../core/auth/+state/auth.state";
     NgIf,
   ],
   templateUrl: './notifications-home.component.html',
-  styleUrl: './notifications-home.component.scss'
+  styleUrl: './notifications-home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotificationsHomeComponent implements OnInit {
 

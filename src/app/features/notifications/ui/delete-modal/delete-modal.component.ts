@@ -1,4 +1,4 @@
-import {Component, inject, } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {IconComponent} from "../../../../shared/components/icon/icon/icon.component";
 import {NgIf} from "@angular/common";
@@ -14,7 +14,8 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
     NgIf,
   ],
   templateUrl: './delete-modal.component.html',
-  styleUrl: './delete-modal.component.scss'
+  styleUrl: './delete-modal.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DeleteModalComponent {
 

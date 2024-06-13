@@ -1,20 +1,21 @@
-import {Component, inject, OnInit, Signal} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {AppSettingsState} from "../../+state/app-settings.state";
-import {AppSettings, AppSettingsForm, SettingsType} from "../../model/app-settings.model";
-import {IconButtonComponent} from "../../../../shared/components/icon-button/icon-button.component";
-import {mdiContentSaveOutline, mdiRestore} from "@mdi/js";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {ConfirmModalComponent} from "../../../../shared/components/confirm-modal/confirm-modal.component";
-import {Router, RoutesRecognized} from "@angular/router";
-import {filter, pairwise, take} from "rxjs";
+import { ChangeDetectionStrategy, Component, inject, OnInit, Signal } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AppSettingsState } from '../../+state/app-settings.state';
+import { AppSettings, AppSettingsForm, SettingsType } from '../../model/app-settings.model';
+import { IconButtonComponent } from '../../../../shared/components/icon-button/icon-button.component';
+import { mdiContentSaveOutline, mdiRestore } from '@mdi/js';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmModalComponent } from '../../../../shared/components/confirm-modal/confirm-modal.component';
+import { Router, RoutesRecognized } from '@angular/router';
+import { filter, pairwise, take } from 'rxjs';
 
 @Component({
   selector: 'app-app-settings',
   standalone: true,
   imports: [ReactiveFormsModule, IconButtonComponent],
   templateUrl: './app-settings.component.html',
-  styleUrl: './app-settings.component.scss'
+  styleUrl: './app-settings.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppSettingsComponent implements OnInit {
 

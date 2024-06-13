@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {Router, RouterOutlet} from "@angular/router";
 
 @Component({
@@ -8,7 +8,8 @@ import {Router, RouterOutlet} from "@angular/router";
     RouterOutlet
   ],
   templateUrl: './sensor-settings.component.html',
-  styleUrl: './sensor-settings.component.scss'
+  styleUrl: './sensor-settings.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SensorSettingsComponent {
 

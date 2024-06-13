@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+/* ngx-charts-Styling */
+ngx-charts-line-chart {
+  display: block;
+  width: 100%;
+  height: 400px;
+}
+
+::ng-deep .chart-legend {
+  margin-top: 20px;
+}
+
+

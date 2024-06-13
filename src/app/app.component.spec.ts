@@ -1,16 +1,17 @@
 import {fakeAsync, TestBed} from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import {ActivatedRoute, RouterModule} from "@angular/router";
-import {MockProvider} from "ng-mocks";
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { MockProvider } from 'ng-mocks';
 import {AuthService} from "./core/auth/service/auth.service";
-import {routes} from "./app.routes";
+import { routesMock } from '../../mock/routes.mock';
+
 
 describe('AppComponent', () => {
   let authService: AuthService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent, RouterModule.forRoot(routes)],
+      imports: [AppComponent, RouterModule.forRoot(routesMock)],
       providers: [MockProvider(ActivatedRoute), MockProvider(AuthService)]
     }).compileComponents();
 

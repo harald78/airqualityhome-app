@@ -12,9 +12,9 @@ import {RegisterModalComponent} from "../register-modal/register-modal.component
 import {ConfirmModalComponent} from "../../../../shared/components/confirm-modal/confirm-modal.component";
 import { Router, RouterModule } from '@angular/router';
 import { NgZone } from '@angular/core';
-import { routes } from '../../../../app.routes';
 import { ToastService } from '../../../../shared/components/toast/toast.service';
 import { mdiCheck } from '@mdi/js';
+import { routesMock } from '../../../../../../mock/routes.mock';
 
 describe('RegisterBaseComponent', () => {
   let component: RegisterBaseComponent;
@@ -29,7 +29,7 @@ describe('RegisterBaseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RegisterBaseComponent, HttpClientTestingModule, RouterModule.forRoot(routes)],
+      imports: [RegisterBaseComponent, HttpClientTestingModule, RouterModule.forRoot(routesMock)],
       providers: [RegisterBaseService]
     })
     .compileComponents();
