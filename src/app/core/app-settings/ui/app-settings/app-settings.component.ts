@@ -25,9 +25,9 @@ export class AppSettingsComponent implements OnInit {
     private readonly router: Router = inject(Router);
     protected readonly mdiContentSaveOutline = mdiContentSaveOutline;
     protected readonly mdiRestore = mdiRestore;
-    protected buttonDisabled: boolean = true;
+    buttonDisabled: boolean = true;
     protected resettable: Signal<boolean> = this.appSettingsState.isCustomSetting;
-    protected previousUrl: string;
+    previousUrl: string;
 
     public appSettingsForm: FormGroup<AppSettingsForm>  = this.fb.group<AppSettingsForm>({
       'host': new FormControl<string>('', {nonNullable: true, validators: [Validators.required]}),
@@ -57,7 +57,7 @@ export class AppSettingsComponent implements OnInit {
       await this.appSettingsState.saveAppSettings(appSettings);
     }
 
-    protected valueChange() {
+    valueChange() {
       const formState = this.appSettingsForm.value as AppSettings;
       const changed = this.appSettingsState.appSettings().host !== formState.host ||
         this.appSettingsState.appSettings().port !== formState.port ||
@@ -69,7 +69,7 @@ export class AppSettingsComponent implements OnInit {
       console.log(this.appSettingsState.appSettings());
       console.log("valueChange: ", changed);
       this.buttonDisabled = !changed || !this.appSettingsForm.valid;
-    };
+    }
 
   async restoreData() {
     const modalRef = this.modalService.open(ConfirmModalComponent);
@@ -82,7 +82,7 @@ export class AppSettingsComponent implements OnInit {
     });
   }
 
-  protected initForm(): void {
+  initForm(): void {
     this.appSettingsForm.patchValue(this.appSettingsState.appSettings());
     this.appSettingsForm.get('tokenRefreshInterval')?.setValue(this.appSettingsForm.get('tokenRefreshInterval')?.value! / 1000);
     this.appSettingsForm.get('dashboardRefreshInterval')?.setValue(this.appSettingsForm.get('dashboardRefreshInterval')?.value! / 1000);
