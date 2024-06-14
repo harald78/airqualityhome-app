@@ -36,6 +36,8 @@ export class ChartComponent implements OnInit {
   colorScheme: Color = colorSets.find(s => s.name === 'forest')!;
   referenceLines: ReferenceLine[] = [];
 
+  dataToggle = input(false);
+
   ngOnInit() {
     this.prepareChartData();
   }
@@ -49,7 +51,7 @@ export class ChartComponent implements OnInit {
   }
 
   formatYAxisTick(value: number): string {
-    return this.chartService.formatYAxisTick(value, this.chartData()[0].type);
+    return this.chartService.formatYAxisTick(value, this.chartData()[0].type, this.dataToggle());
   }
 
   formatXAxisTick(value: Date): string {

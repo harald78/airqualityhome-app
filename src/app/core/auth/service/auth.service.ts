@@ -1,7 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {User} from "../../../shared/model/user.model";
-import {catchError, finalize, firstValueFrom, throwError} from "rxjs";
+import { catchError, filter, finalize, firstValueFrom, map, of, Subject, Subscription, switchMap, takeUntil, tap, throwError } from 'rxjs';
 import {AuthRequestDto} from "../model/auth-request.model";
 import {JwtDto, RefreshTokenRequestDto} from "../model/jtw.model";
 import {ToastService} from "../../../shared/components/toast/toast.service";
@@ -10,12 +10,11 @@ import { AuthState } from "../+state/auth.state";
 import {Router} from "@angular/router";
 import { OverlayService } from '../../../shared/services/overlay.service';
 import {AppSettingsState} from "../../app-settings/+state/app-settings.state";
-
+import {interval} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 }) export class AuthService {
-
 
   private readonly toastService: ToastService = inject(ToastService);
   private readonly http: HttpClient = inject(HttpClient);
@@ -23,6 +22,8 @@ import {AppSettingsState} from "../../app-settings/+state/app-settings.state";
   private readonly authState = inject(AuthState);
   private readonly overlayService: OverlayService = inject(OverlayService);
   private readonly appSettingsState: AppSettingsState = inject(AppSettingsState);
+  private logout$: Subject<boolean> = new Subject<boolean>();
+  private intervalSubscription: Subscription;
 
 
   async loadUserProfile(): Promise<void> {
@@ -52,8 +53,18 @@ import {AppSettingsState} from "../../app-settings/+state/app-settings.state";
       localStorage.setItem("token", jwt.token);
       await this.loadUserProfile();
       await this.setRefreshTimeout();
-      await this.router.navigate(['']);
+      await this.router.navigate(['dashboard']);
     }
+  }
+
+  async serverLogout(): Promise<User> {
+    return firstValueFrom(this.http.post<User>(`${this.appSettingsState.baseUrl()}/user/logout`, {})
+      .pipe(catchError((err) => {
+      this.toastService.show({classname: "bg-danger text-light", header: '',
+        id: "logout-error", delay: 1000,
+        body: "Unauthorized", icon: mdiAlert, iconColor: "white"});
+      return throwError(() => err);
+    })));
   }
 
   async refreshToken(token: string) {
@@ -63,17 +74,16 @@ import {AppSettingsState} from "../../app-settings/+state/app-settings.state";
     if (jwt) {
       localStorage.setItem("access_token", jwt.accessToken);
       localStorage.setItem("token", jwt.token);
-      await this.setRefreshTimeout();
     }
   }
 
   async logout(): Promise<void> {
-    this.logUserOut();
+    console.log('Log out method call...');
+    await this.logUserOut();
     await this.router.navigate(['login']);
   }
 
   async showSettings(): Promise<void> {
-    this.logUserOut();
     await this.router.navigate(['general-settings']);
   }
 
@@ -89,18 +99,22 @@ import {AppSettingsState} from "../../app-settings/+state/app-settings.state";
   }
 
   async setRefreshTimeout(): Promise<void> {
-    const interval = this.appSettingsState.appSettings().tokenRefreshInterval;
-    const token = localStorage.getItem("token");
-    if (token) {
-      setTimeout(async () => {
-        await this.refreshToken(token);
-      }, interval);
-    }
+    const intervalValue = this.appSettingsState.appSettings().tokenRefreshInterval;
+    this.intervalSubscription = interval(intervalValue).pipe(
+      map(() => localStorage.getItem('token')),
+      filter((token) => token !== null),
+      tap((token) => this.refreshToken(token!))
+    ).subscribe();
   }
 
-  private logUserOut(): void {
+  private async logUserOut(): Promise<void> {
+    this.serverLogout();
+    this.logout$.next(true);
     localStorage.removeItem("access_token");
     localStorage.removeItem("token");
+    if (this.intervalSubscription) {
+      this.intervalSubscription.unsubscribe();
+    }
     this.authState.logout();
   }
 }

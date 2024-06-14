@@ -1,0 +1,81 @@
+
+.notification-tile {
+  position: relative;
+  width: 350px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-bottom: 10px;
+}
+
+.notification-tile:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.alarm-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.sensor-info h2 {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.sensor-info p {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #ccc;
+  padding-top: 8px;
+  text-align: center;
+}
+
+.footer span.alarm-text {
+  padding-bottom: 5px;
+}
+
+.footer p {
+  margin: 8px 0 5px 5px;
+  font-size: 12px;
+  color: #666;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 0;
+
+  & > app-icon {
+    margin-right: 3px;
+  }
+}
+
+.alarm-text {
+  color: red;
+  font-size: 14px;
+}
+

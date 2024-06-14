@@ -1,0 +1,19 @@
+<div id="temperature-tile" class="notification-tile">
+  <app-icon [path]="mdiBell" [color]="acknowledged() ? 'black' : '#AC2020FF'" width="36px" class="alarm-icon"></app-icon>
+  <div class="header">
+    <div class="sensor-info">
+      <h2>{{ sensorType() }}</h2>
+      <p>Name: {{ sensorName() }}</p>
+      <p>Base: {{ sensorBase() }}</p>
+    </div>
+  </div>
+  <div id="message-footer" class="footer">
+    <span class="alarm-text">{{ message() }}</span>
+  </div>
+  <div id="temperature-footer" class="footer">
+    <app-icon [path]="updateIcon" width="14px"></app-icon><p>{{ timestamp() | date: 'dd.MM.yyyy HH:mm'}}</p>
+    <span class="badge bg-secondary-subtle text-dark location">
+      <app-icon [path]="mapMarkerIcon" width="14px"></app-icon>{{ location() }}</span>
+  </div>
+</div>
+

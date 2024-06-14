@@ -25,11 +25,11 @@ export class DateTimeUtil {
   }
 
   static setDateToStartOfDay(date: Date): Date {
-    return dayjs(date).startOf('day').toDate();
+    return dayjs(date).utc().startOf('day').toDate();
   }
 
   static setDateToEndOfDay(date: Date): Date {
-    return dayjs(date).endOf('day').toDate();
+    return dayjs(date).utc().endOf('day').toDate();
   }
 
   static isSameOrBefore(date: Date | string, compareDate: Date | string, unit: timeUnits): boolean {

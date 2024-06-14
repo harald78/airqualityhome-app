@@ -53,7 +53,6 @@ export class DashboardOverviewComponent implements OnInit {
     this.filterService.setFilterProperties(['location', 'sensorBaseName', 'sensorType', 'sensorName']);
     await this.measurementState.loadLatestMeasurements();
     await this.filterService.initData(this.measurementState.entities());
-    console.log(this.measurementState.entities());
   }
 
   async showHistory(id: number) {

@@ -1,17 +1,8 @@
-<!--<div class="confirmation-modal">-->
-<!--  <div class="modal-content">-->
-<!--    <h2>Confirm Deletion</h2>-->
-<!--    <p>Are you sure you want to delete all notifications?</p>-->
-<!--    <button type="button" class="btn btn-warning" (click)="confirmDelete()">Yes</button>-->
-<!--    <button type="button" class="btn btn-secondary" (click)="cancelDelete()">No</button>-->
-<!--  </div>-->
-<!--</div>-->
-
 <div class="modal-header" aria-label="delete-modal">
   <h4 class="modal-title">Confirm Deletion</h4>
   <button type="button" class="btn-close" aria-label="Close"
           aria-label="delete-modal-dismiss"
-          (click)="activeModal.dismiss(null)"></button>
+          (click)="activeModal.dismiss(false)"></button>
 </div>
 <div class="modal-body" aria-label="confirm-message">
   {{ message }}

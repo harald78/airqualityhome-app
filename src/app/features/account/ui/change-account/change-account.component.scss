@@ -1,6 +1,7 @@
 :host {
   display: block;
   padding: 10px;
+  height: 70vh;
 }
 
 h1 {
@@ -12,6 +13,8 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  height: 100%;
 }
 
 .aq-account-form {
@@ -45,8 +48,13 @@ h1 {
   box-sizing: border-box;
 }
 
-button#changePW-button, button#cancel-button {
+button#changePW-button, button#cancel-button, button#logout-button {
   margin-top: 10px;
   width: 80%;
   max-width: 500px;
+}
+
+button#logout-button {
+  position: absolute;
+  bottom: 0;
 }

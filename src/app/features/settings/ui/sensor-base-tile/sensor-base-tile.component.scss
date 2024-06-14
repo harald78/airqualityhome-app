@@ -1,0 +1,123 @@
+.sensor-base-tile {
+  position: relative;
+  margin-top: 10px;
+  width: 350px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.sensor-base-tile {
+  margin-bottom: 10px;
+}
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.pending-badge {
+  position: absolute;
+  right: 5px;
+  top: -2px;
+}
+
+.unit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-left: 5px;
+}
+
+.sensor-info h2 {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.sensor-info p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  padding: 15px 20px;
+  color: #999;
+}
+
+.content-wrapper .content:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.alarms {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  margin-top: -5px
+}
+
+
+.footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #ccc;
+  padding-top: 8px;
+  text-align: center;
+}
+
+.footer p {
+  margin: 8px 0 5px 5px;
+  font-size: 12px;
+  color: #666;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 0;
+
+  & > app-icon {
+    margin-right: 3px;
+  }
+}
+
+.alarms h2 {
+  display: flex;
+  align-items: center;
+  margin: 0 0 0 0;
+  font-size: 14px;
+  color: #333;
+
+  & > span {
+    margin-right: 2px;
+    margin-top: -2px
+  }
+}
+
+.alarms > span {
+  font-size: 10px;
+  color: #fff;
+
+  margin-top: 2px;
+}

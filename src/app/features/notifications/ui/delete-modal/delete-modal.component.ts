@@ -18,7 +18,6 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DeleteModalComponent {
-
   activeModal = inject(NgbActiveModal);
   message: string;
 }

@@ -31,10 +31,13 @@ const handle401Error = (request: HttpRequest<unknown>, next: HttpHandlerFn, auth
   if (request.url.includes('refreshToken')){
     return next(request);
 
+  } else if (request.url.includes('logout')) {
+    return throwError(() => new Error('Logged out'));
+
   } else {
     authService.logout();
     return throwError(() => new Error('Unauthorized'));
-  }
+    }
 }
 
 const handleUnknownError = (request: HttpRequest<unknown>, next: HttpHandlerFn, authService: AuthService)=> {

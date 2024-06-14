@@ -31,8 +31,9 @@ export class MeasurementService {
       })));
   }
 
-  getMeasurementHistory(id: number, from: Date, to: Date): Promise<MeasurementHistory> {
-    return firstValueFrom(this.httpService.get<MeasurementHistory>(`${this.appSettingsState.baseUrl()}/measurements/sensor/${id}?from=${from.toISOString()}&to=${to.toISOString()}`)
+  getMeasurementHistory(id: number, from: Date, to: Date, allData: boolean): Promise<MeasurementHistory> {
+    const midUrl = allData ? 'base' : 'sensor';
+    return firstValueFrom(this.httpService.get<MeasurementHistory>(`${this.appSettingsState.baseUrl()}/measurements/${midUrl}/${id}?from=${from.toISOString()}&to=${to.toISOString()}`)
       .pipe(catchError(err => {
         const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
         const errorToast: Toast = {classname: "bg-danger text-light", header: 'Could not load measurements history',
