@@ -4,13 +4,31 @@ import {NotificationsHomeComponent} from "./features/notifications/ui/notificati
 import {AccountHomeComponent} from "./features/account/ui/account-home/account-home.component";
 import {SettingsHomeComponent} from "./features/settings/ui/settings-home/settings-home.component";
 import {isAuthenticated} from "./core/guards/auth.guard";
-import {LoginComponent} from "./features/login/login/login.component";
+import {LoginComponent} from "./features/login/ui/login.component";
+import {RegisterBaseComponent} from "./features/settings/ui/register-base/register-base.component";
+import { ChangeAccountComponent } from './features/account/ui/change-account/change-account.component';
+import { ChangePasswordComponent } from './features/account/ui/change-password/change-password.component';
+import { SensorSettingsComponent } from './features/settings/ui/sensor-settings/sensor-settings.component';
+import {DashboardOverviewComponent} from "./features/dashboard/ui/dashboard-overview/dashboard-overview.component";
+import {DashboardDetailComponent} from "./features/dashboard/ui/dashboard-detail/dashboard-detail.component";
+import {AppSettingsComponent} from "./core/app-settings/ui/app-settings/app-settings.component";
 
 export const routes: Routes = [
-  {path: '', component: DashboardHomeComponent, canActivate: [isAuthenticated]},
-  {path: 'notifications', component: NotificationsHomeComponent, canActivate: [isAuthenticated]},
-  {path: 'account', component: AccountHomeComponent, canActivate: [isAuthenticated]},
-  {path: 'settings', component: SettingsHomeComponent, canActivate: [isAuthenticated]},
-  {path: 'login', component: LoginComponent},
-  {path: '**', redirectTo: '/'}
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardHomeComponent, canActivate: [isAuthenticated], children: [
+      {path: "", component: DashboardOverviewComponent, canActivate: [isAuthenticated]},
+      {path: "sensor/:id", component: DashboardDetailComponent, canActivate: [isAuthenticated]},
+    ]},
+  { path: 'notifications', component: NotificationsHomeComponent, canActivate: [isAuthenticated] },
+  { path: 'account', component: AccountHomeComponent, canActivate: [isAuthenticated], children: [
+      {path: '', component: ChangeAccountComponent, canActivate: [isAuthenticated] },
+      {path: 'change-pw', component: ChangePasswordComponent, canActivate: [isAuthenticated] },
+    ]},
+  { path: 'settings', component: SettingsHomeComponent, canActivate: [isAuthenticated], children: [
+    {path: '', component: SensorSettingsComponent, canActivate: [isAuthenticated] },
+    {path: 'register', component: RegisterBaseComponent, canActivate: [isAuthenticated] },
+    ]},
+  { path: 'login', component: LoginComponent },
+  { path: 'general-settings', component: AppSettingsComponent },
+  { path: '**', redirectTo: 'dashboard' }
 ];

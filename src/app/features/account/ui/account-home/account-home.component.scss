@@ -1,5 +1,58 @@
 :host {
   display: block;
   padding: 10px;
-  height: 80vh;
+}
+
+h1 {
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.account-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.aq-account-form {
+  width: 80%;
+
+  & > button {
+    width: 100%;
+  }
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.input-container app-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+}
+
+.input-container input {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px 10px 10px 35px;
+  box-sizing: border-box;
+}
+
+button {
+  margin-top: 80px;
+  width: 80%;
+}
+
+@media screen and (min-width: 600px) {
+  .aq-account-form {
+    width: 500px;
+
+    & > button {
+      width: 500px;
+    }
+  }
 }

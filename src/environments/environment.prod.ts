@@ -1,8 +1,7 @@
 export const environment = {
   production: true,
   bearerWhiteList: [],
-  oidc: {
-    issuer: 'https://auth.airqualityhome.life',
-    redirect_uri: 'https://airqualityhome.life',
-  }
+  baseUrl: '/api/app',
+  tokenRefreshInterval: 1000 * 60 * 4.5,
+  dashboardRefreshInterval: 1000 * 60
 };

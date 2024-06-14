@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center w-100 sticky-top bg-white">
+  <button type="button" id="back-button" class="btn btn-outline-dark back-button" (click)="navigateBack()">Back</button>
+</div>
+<div class="d-flex flex-column w-100 align-items-center">
+  <div class="form-check form-switch mb-1 mt-5">
+    <input id="date-range-toggle" class="form-check-input" (change)="initDate()" [(ngModel)]="rangeToggle" type="checkbox"/>
+    <label for="date-range-toggle" class="form-check-label font-monospace fw-bolder">Select date range</label>
+  </div>
+  @if (rangeToggle()) {
+    <app-date-range-select class="mt-2 mb-2" (dateSelection)="onDateSelection($event)"></app-date-range-select>
+  } @else {
+    <app-date-select class="mt-2 mb-2" (dateSelection)="onDateSelection($event)"></app-date-select>
+  }
+</div>
+
+@if (historyData(); as history) {
+
+  @if(history.data.length > 0) {
+    <div class="graph-container mt-5">
+      <h2 class="font-monospace">{{ history.baseName }} - {{ history.location }} </h2>
+      <div class="form-check form-switch mb-2 mt-3 d-flex justify-content-center">
+        <input id="data-toggle" class="form-check-input" (change)="initDate()" [(ngModel)]="dataToggle" type="checkbox"/>
+        <label for="data-toggle" class="form-check-label font-monospace fw-bolder ms-3">All base data</label>
+      </div>
+      <app-chart [chartData]="history.data" [dataToggle]="dataToggle()"></app-chart>
+    </div>
+
+  } @else {
+
+  <div class="info-text m-5 text-danger font-monospace">
+    <em>NO DATA TO DISPLAY</em>
+  </div>
+
+  }
+}  @else {
+  <div class="info-text m-5">
+    <p>Loading...</p>
+  </div>
+}
+
+
+

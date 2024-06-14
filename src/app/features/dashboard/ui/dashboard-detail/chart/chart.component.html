@@ -1,0 +1,22 @@
+<div #containerRef>
+  <ngx-charts-line-chart
+          [view]="[containerRef.offsetWidth - 20, containerRef.offsetHeight - 200]"
+          [results]="chartData()"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="showLegend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [roundDomains]="roundDomains"
+          [autoScale]="autoScale"
+          [showRefLines]="true"
+          [referenceLines]="referenceLines"
+          [legendPosition]="legendPosition"
+          [scheme]="colorScheme"
+          [yAxisTickFormatting]="formatYAxisTickFn"
+          [xAxisTickFormatting]="formatXAxisTickFn">
+  </ngx-charts-line-chart>
+</div>
+
+<!-- [yAxisTickFormatting]="formatYAxisTick.bind(this)" -->

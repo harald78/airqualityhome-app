@@ -1,24 +1,4 @@
-.app-wrapper {
-  display: flex;
-  justify-content: center;
-}
-
-.app-content {
-  width: 100%;
-}
-
-@media (min-width: 600px) {
-  .app-content {
-    width: 400px;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1), 2px 0 5px rgba(0, 0, 0, 0.1);
-  }
-}
-
-
-
-@media (min-width: 800px) {
-  .app-content {
-    width: 600px;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1), 2px 0 5px rgba(0, 0, 0, 0.1);
-  }
+.main-container {
+  height: 80vh;
+  overflow-y: auto;
 }

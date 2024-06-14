@@ -1,21 +1,8 @@
-import { inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { map, take } from 'rxjs/operators';
+import {CanActivateFn} from "@angular/router";
+import {inject} from "@angular/core";
+import {AuthState} from "../auth/+state/auth.state";
 
-export const isAuthenticated = () => {
-  const oidcSecurityService = inject(OidcSecurityService);
-  const router = inject(Router);
-
-  return oidcSecurityService.isAuthenticated$.pipe(
-    take(1),
-    map(({ isAuthenticated }) => {
-      if (!isAuthenticated) {
-        router.navigate(['login']);
-
-        return false;
-      }
-      return true;
-    })
-  );
-};
+export const isAuthenticated: CanActivateFn = () => {
+      const authState = inject(AuthState);
+      return authState.isLoggedIn();
+  };

@@ -1,0 +1,13 @@
+<div class="d-flex flex-column align-items-center list-container" aria-label="aq-register-sensor-container">
+  <button type="button" id="back-button" class="btn btn-outline-dark back-button" (click)="navigateBack()">Back</button>
+
+  @for (sensorBase of sensorBases(); track sensorBase.id) {
+    <app-sensor-base-tile [sensorBase]="sensorBase"
+                          (cancelRequest)="cancelRequest($event)"
+                          (openModal)="openModal($event)"
+                          [activeRequest]="activeRequest()"></app-sensor-base-tile>
+  }
+
+</div>
+
+

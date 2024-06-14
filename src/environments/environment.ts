@@ -1,8 +1,7 @@
 export const environment = {
   production: false,
   bearerWhiteList: [],
-  oidc: {
-    issuer: 'http://localhost:9000',
-    redirect_uri: 'http://localhost:4200',
-  }
+  baseUrl: "/api/app",
+  tokenRefreshInterval: 1000 * 60 * 4.5,
+  dashboardRefreshInterval: 1000 * 60
 };

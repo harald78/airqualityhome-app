@@ -1,1 +1,38 @@
-<p>notifications-home works!</p>
+<div class="trash-button-container">
+  <app-icon-button [icon]="trashIcon"
+                   id="notification-trash-button"
+                   (iconButtonClick)="openDeleteModal()"
+                   [width]="'24px'"
+                   class="mt-2 mb-2"
+                   [classes]="'btn btn-outline-dark'"></app-icon-button>
+</div>
+
+<div class="notifications">
+  @for (notification of notifications(); track notification.id) {
+    <app-notification-tile
+      [sensorType]="notification.sensorType"
+      [sensorName]="notification.sensorName"
+      [sensorBase]="notification.baseName"
+      [location]="notification.location"
+      [message]="notification.message"
+      [timestamp]="notification.timestamp"
+      [acknowledged]="notification.acknowledged"
+      (click)="readNotification(notification.id)"
+    ></app-notification-tile>
+  }
+</div>
+@if (notifications().length === 0) {
+  <div class="info-text m-5 text-danger font-monospace text-center">
+    <em>NO NOTIFICATIONS PRESENT</em>
+  </div>
+}
+
+
+
+
+
+
+
+
+
+

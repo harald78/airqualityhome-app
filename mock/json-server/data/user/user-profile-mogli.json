@@ -1,0 +1,9 @@
+{
+  "id": 2,
+  "username": "Mogli",
+  "email": "mogli@dschungel.de",
+  "roles": [
+    "APP_READ",
+    "APP_WRITE"
+  ]
+}

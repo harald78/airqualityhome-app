@@ -1,5 +1,21 @@
 :host {
   display: block;
-  padding: 10px;
-  height: 80vh;
 }
+
+.notifications {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trash-button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#notification-trash-button {
+  width: 45px;
+  height: 40px;
+}
+
