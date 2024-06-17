@@ -1,0 +1,15 @@
+<div id="sensor-tile" class="sensor-tile">
+  <app-icon [path]="mdiBell" [color]="alarmActive() ? 'black' : '#AC2020FF'" width="24px" class="alarm-icon"></app-icon>
+  <div class="header">
+    <div class="sensor-info">
+      <h2>{{ sensorType() }}</h2>
+      <p>Name: {{ sensorName() }}</p>
+      <p>Base: {{ sensorBase() }}</p>
+    </div>
+  </div>
+  <div id="sensor-footer" class="footer">
+    <app-icon [path]="updateIcon" width="14px"></app-icon><p>{{ updated() | date: 'dd.MM.yyyy HH:mm'}}</p>
+    <span class="badge bg-secondary-subtle text-dark location">
+      <app-icon [path]="mapMarkerIcon" width="14px"></app-icon>{{ location() }}</span>
+  </div>
+</div>
