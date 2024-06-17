@@ -12,7 +12,12 @@ export class UnitPipe implements PipeTransform {
       case PhysicalType.TEMPERATURE:
         return '°C';
       case PhysicalType.PARTICLE:
-      case PhysicalType.GAS:
+      case PhysicalType.VOC:
+      case PhysicalType.H2:
+      case PhysicalType.CO:
+      case PhysicalType.LPG:
+      case PhysicalType.ALCOHOL:
+      case PhysicalType.PROPANE:
         return 'ppm';
       case PhysicalType.HUMIDITY:
         return '%';

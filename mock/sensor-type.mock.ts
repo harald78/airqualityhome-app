@@ -18,7 +18,7 @@ export const sensorTypeMock = [
   {
     id: 3,
     name: "MQ-2",
-    type: PhysicalType.GAS,
+    type: PhysicalType.VOC,
     maxValue: 100,
     minValue: 10000,
   },
