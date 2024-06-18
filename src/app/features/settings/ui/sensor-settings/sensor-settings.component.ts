@@ -1,21 +1,18 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import {Router, RouterOutlet} from "@angular/router";
+import {Component, inject, Signal} from '@angular/core';
+import {SensorSettingsState} from "../../+state/sensor.state";
+import {Sensor} from "../../model/sensor.model";
+import {JsonPipe} from "@angular/common";
 
 @Component({
   selector: 'app-sensor-settings',
   standalone: true,
   imports: [
-    RouterOutlet
+    JsonPipe
   ],
   templateUrl: './sensor-settings.component.html',
-  styleUrl: './sensor-settings.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './sensor-settings.component.scss'
 })
 export class SensorSettingsComponent {
-
-  private readonly router = inject(Router);
-
-  async register() {
-    await this.router.navigate(['/settings/register'], { relativeTo: null });
-  }
+   private readonly sensorState: SensorSettingsState = inject(SensorSettingsState);
+   selectedSensor: Signal<Sensor | undefined> = this.sensorState.selectedSensor;
 }
