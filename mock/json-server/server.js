@@ -155,7 +155,7 @@ server.post('/api/app/register/sensor/cancel', (req, res) => {
 });
 
 
-server.get('/api/notifications/user/:id', (req, res) => {
+server.get('/api/app/notifications/user/:id', (req, res) => {
   console.log("Server received notification: ", req.body);
   setTimeout(() => {
     const token = req.headers.authorization;
@@ -167,7 +167,7 @@ server.get('/api/notifications/user/:id', (req, res) => {
   }, 200);
 });
 
-server.delete('/api/notifications/user/:id', (req, res) => {
+server.delete('/api/app/notifications/user/:id', (req, res) => {
   console.log("Server received notification: ", req.body);
   setTimeout(() => {
     const token = req.headers.authorization;
