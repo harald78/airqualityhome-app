@@ -1,6 +1,5 @@
 :host {
   display: block;
-  height: 100%;
 }
 
 button#back-button {
@@ -13,4 +12,8 @@ div#app-settings-container {
 
 .settings-form, .description {
   width: 80%;
+}
+
+.restore-button {
+  margin-bottom: 80px;
 }

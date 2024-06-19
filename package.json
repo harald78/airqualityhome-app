@@ -4,7 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:network": "ng serve --host 0.0.0.0 --port 4200",
+    "start:ssl": "ng serve --ssl --ssl-key ./ssl/client-key.pem --ssl-cert ./ssl/client-cert.pem",
     "start:standalone": "ng serve --configuration=standalone",
+    "start:standalone:network": "npm run start:network --configuration=standalone",
     "start:server": "ng serve --configuration=server",
     "start:standalone:mock": "npm run mock:server & npm run start:standalone",
     "start:local": "ng serve --configuration=local",
@@ -27,6 +30,7 @@
     "@angular/core": "^17.3.0",
     "@angular/forms": "^17.3.0",
     "@angular/material": "^17.3.10",
+    "@angular/material-moment-adapter": "^17.3.10",
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",

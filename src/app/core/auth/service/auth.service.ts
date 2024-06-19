@@ -78,7 +78,6 @@ import {interval} from "rxjs";
   }
 
   async logout(): Promise<void> {
-    console.log('Log out method call...');
     await this.logUserOut();
     await this.router.navigate(['login']);
   }

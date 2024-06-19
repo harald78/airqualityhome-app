@@ -66,8 +66,6 @@ export class AppSettingsComponent implements OnInit {
         this.appSettingsState.appSettings().tokenRefreshInterval !== (formState.tokenRefreshInterval * 1000) ||
         this.appSettingsState.appSettings().dashboardRefreshInterval !== (formState.dashboardRefreshInterval * 1000) ||
         this.appSettingsState.appSettings().darkMode !== formState.darkMode;
-      console.log(this.appSettingsState.appSettings());
-      console.log("valueChange: ", changed);
       this.buttonDisabled = !changed || !this.appSettingsForm.valid;
     }
 

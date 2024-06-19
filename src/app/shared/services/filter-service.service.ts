@@ -30,6 +30,7 @@ export class FilterService {
 
   public async setEntitiesForFilter(entities: BaseEntity[]): Promise<void> {
     this.entities.set(entities);
+    this.filterItems();
   }
 
   public async initData(entities: BaseEntity[]): Promise<void> {
