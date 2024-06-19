@@ -5,6 +5,7 @@ import {
   NativeDateAdapter,
 } from '@angular/material/core';
 import { Injectable } from '@angular/core';
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from "@angular/material-moment-adapter";
 
 const DATE_FORMATS = {
   parse: {
@@ -39,9 +40,10 @@ class AppDateAdapter extends NativeDateAdapter {
 
 export const DateAdapterProviders = [
   { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
+  {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
   {
     provide: DateAdapter,
     useClass: AppDateAdapter,
-    deps: [MAT_DATE_LOCALE],
+    deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
   },
 ];

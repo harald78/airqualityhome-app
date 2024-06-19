@@ -1,7 +1,12 @@
 export enum PhysicalType {
   HUMIDITY = 'HUMIDITY',
   TEMPERATURE = 'TEMPERATURE',
-  GAS = 'GAS',
+  VOC = 'VOC',
+  H2 = 'H2',
+  CO = 'CO',
+  LPG = 'LPG',
+  ALCOHOL = 'ALCOHOL',
+  PROPANE = 'PROPANE',
   PARTICLE = 'PARTICLE',
   PRESSURE = 'PRESSURE',
   LIGHT = 'LIGHT'

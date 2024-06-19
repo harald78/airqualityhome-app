@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -7,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { DateRange } from '../../../model/date-range.model';
 import { DateAdapterProviders } from '../../../../../shared/util/app-date.adapter';
+import { SelectedDateState } from '../../../+state/date-select.state';
 
 @Component({
   selector: 'app-date-range-select',
@@ -18,17 +24,16 @@ import { DateAdapterProviders } from '../../../../../shared/util/app-date.adapte
   styleUrl: './date-range-select.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DateRangeSelectComponent {
+export class DateRangeSelectComponent implements OnInit {
 
   private readonly fb: FormBuilder = inject(FormBuilder);
+  private readonly selectedDateState: SelectedDateState = inject(SelectedDateState);
   dateRange: FormGroup;
-  currentDate: Date = new Date();
-  @Output() dateSelection = new EventEmitter<DateRange>();
 
-  constructor() {
+  ngOnInit() {
     this.dateRange = this.fb.group({
-      'from': new FormControl(DateTimeUtil.subtract(new Date(), 1, 'day'), [Validators.required]),
-      'to': new FormControl(this.currentDate, [Validators.required]),
+      'from': new FormControl(this.selectedDateState.startDate(), [Validators.required]),
+      'to': new FormControl(this.selectedDateState.endDate(), [Validators.required]),
     });
   }
 
@@ -37,7 +42,10 @@ export class DateRangeSelectComponent {
   }
 
   onDateChange() {
-    this.dateSelection.emit({...this.dateRange.value} as DateRange)
+    if (this.dateRange.valid) {
+      const range = this.dateRange.value as DateRange;
+      this.selectedDateState.selectDateRange(range.from, range.to);
+    }
   }
 
 

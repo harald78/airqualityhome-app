@@ -40,6 +40,7 @@
                      width="18px" [disabled]="buttonDisabled"
       classes="btn btn-outline-secondary" (iconButtonClick)="saveData()"></app-icon-button>
     <app-icon-button text="Restore settings" [icon]="mdiRestore" iconColor="red"
+                     class="restore-button"
                      [iconActiveColor]="!resettable() ? 'red' : 'white'"
                      width="18px" [disabled]="!resettable()"
                      classes="btn btn-outline-danger" (iconButtonClick)="restoreData()"></app-icon-button>
