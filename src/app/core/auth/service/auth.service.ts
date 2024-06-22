@@ -1,7 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {User} from "../../../shared/model/user.model";
-import { catchError, filter, finalize, firstValueFrom, map, of, Subject, Subscription, switchMap, takeUntil, tap, throwError } from 'rxjs';
+import { catchError, filter, finalize, firstValueFrom, map, Subject, Subscription,tap, throwError } from 'rxjs';
 import {AuthRequestDto} from "../model/auth-request.model";
 import {JwtDto, RefreshTokenRequestDto} from "../model/jtw.model";
 import {ToastService} from "../../../shared/components/toast/toast.service";
@@ -23,7 +23,7 @@ import {interval} from "rxjs";
   private readonly overlayService: OverlayService = inject(OverlayService);
   private readonly appSettingsState: AppSettingsState = inject(AppSettingsState);
   private logout$: Subject<boolean> = new Subject<boolean>();
-  private intervalSubscription: Subscription;
+  intervalSubscription: Subscription;
 
 
   async loadUserProfile(): Promise<void> {
@@ -106,8 +106,7 @@ import {interval} from "rxjs";
     ).subscribe();
   }
 
-  private async logUserOut(): Promise<void> {
-    this.serverLogout();
+  async logUserOut(): Promise<void> {
     this.logout$.next(true);
     localStorage.removeItem("access_token");
     localStorage.removeItem("token");
@@ -115,5 +114,6 @@ import {interval} from "rxjs";
       this.intervalSubscription.unsubscribe();
     }
     this.authState.logout();
+    await this.serverLogout();
   }
 }

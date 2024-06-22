@@ -110,7 +110,7 @@ export class ChangeAccountComponent implements OnInit {
     this.accountForm.get('password')?.enable();
   }
 
-  protected async logout(): Promise<void> {
+  async logout(): Promise<void> {
     await this.authService.logout();
   }
 

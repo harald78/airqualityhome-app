@@ -1,6 +1,6 @@
 import {LatestMeasurement} from "../src/app/features/dashboard/model/measurement.model";
 
-export const latestMeasurements: LatestMeasurement[] = [
+export const latestMeasurementsMock: LatestMeasurement[] = [
   {
     "uuid": "F0F0F0",
     "sensorId": 1,

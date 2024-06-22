@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import { AppSettingsComponent } from './app-settings.component';
 import { AppSettingsState } from '../../+state/app-settings.state';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {Router, RoutesRecognized} from '@angular/router';
+import {Router, RouterStateSnapshot, RoutesRecognized} from '@angular/router';
 import { AppSettings, SettingsType } from '../../model/app-settings.model';
 import { signal, WritableSignal } from '@angular/core';
 import { Subject } from 'rxjs';
@@ -60,7 +60,6 @@ describe('AppSettingsComponent', () => {
 
     fixture = TestBed.createComponent(AppSettingsComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -68,6 +67,7 @@ describe('AppSettingsComponent', () => {
   });
 
   it('should initialize form with default values', () => {
+    fixture.detectChanges();
     const settings = {
       host: 'localhost',
       port: 8080,
@@ -81,6 +81,7 @@ describe('AppSettingsComponent', () => {
   });
 
   it('form should be valid when required fields are filled', () => {
+    fixture.detectChanges();
     component.appSettingsForm.setValue({
       host: 'localhost',
       port: 8080,
@@ -94,7 +95,7 @@ describe('AppSettingsComponent', () => {
   });
 
   it('should detect form value changes', () => {
-    component.valueChange();
+    fixture.detectChanges();
 
     component.appSettingsForm.setValue({
       host: 'localhost',
@@ -166,9 +167,14 @@ describe('AppSettingsComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/login']);
   });
 
-  /*it('should set previousUrl correctly from router events', () => {
-    eventsSubject.next(new RoutesRecognized(1, 'dummyUrl', 'dummyUrlAfter', {} as RouterStateSnapshot));
+  it('should set previousUrl correctly from router events', fakeAsync(() => {
     fixture.detectChanges(); // This will trigger ngOnInit
+
+    tick(100);
+
+    eventsSubject.next(new RoutesRecognized(1, 'dummyUrl', 'dummyUrlAfter', {} as RouterStateSnapshot));
+    eventsSubject.next(new RoutesRecognized(2, 'dummyUrlAfter', '', {} as RouterStateSnapshot));
     expect(component.previousUrl).toBe('dummyUrlAfter');
-  });*/
+
+  }));
 });
