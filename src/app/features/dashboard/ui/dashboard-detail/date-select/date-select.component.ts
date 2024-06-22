@@ -1,10 +1,17 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output, signal, WritableSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal
+} from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { DateAdapterProviders } from '../../../../../shared/util/app-date.adapter';
-import { DateRange } from '../../../model/date-range.model';
 import { FormsModule } from '@angular/forms';
+import { SelectedDateState } from '../../../+state/date-select.state';
 
 @Component({
   selector: 'app-date-select',
@@ -20,17 +27,17 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './date-select.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DateSelectComponent {
-  selectedDate: WritableSignal<Date> = signal(new Date());
-  maxDate = new Date();
+export class DateSelectComponent implements OnInit {
+  private readonly selectedDateState: SelectedDateState = inject(SelectedDateState);
+  dateValue: WritableSignal<Date> = signal(new Date());
+  maxDate: Date;
 
-  @Output() dateSelection = new EventEmitter<DateRange>();
+  ngOnInit() {
+    this.dateValue.set(this.selectedDateState.startDate());
+    this.maxDate = this.selectedDateState.maxDate();
+  }
 
   onDateChange() {
-    const range: DateRange = {
-      from: this.selectedDate(),
-      to: this.selectedDate(),
-    };
-    this.dateSelection.emit(range);
+    this.selectedDateState.selectDate(this.dateValue());
   }
 }

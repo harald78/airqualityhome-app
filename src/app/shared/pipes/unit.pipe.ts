@@ -11,8 +11,9 @@ export class UnitPipe implements PipeTransform {
     switch (type) {
       case PhysicalType.TEMPERATURE:
         return '°C';
-      case PhysicalType.PARTICLE:
       case PhysicalType.VOC:
+        return 'ppb';
+      case PhysicalType.PARTICLE:
       case PhysicalType.H2:
       case PhysicalType.CO:
       case PhysicalType.LPG:

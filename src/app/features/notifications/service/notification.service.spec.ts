@@ -3,7 +3,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { NotificationService } from './notification.service';
 import { ToastService } from '../../../shared/components/toast/toast.service';
 import { ErrorResponseService } from '../../../shared/services/error-response.service';
-import { environment } from '../../../../environments/environment';
 import { mdiAlert, mdiCheck } from '@mdi/js';
 import {AppSettingsState} from "../../../core/app-settings/+state/app-settings.state";
 
@@ -12,7 +11,7 @@ describe('NotificationService', () => {
   let httpMock: HttpTestingController;
   let toastService: ToastService;
   let errorResponseService: ErrorResponseService;
-  let appSettings: AppSettingsState;
+  let appState: AppSettingsState;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -24,7 +23,7 @@ describe('NotificationService', () => {
     httpMock = TestBed.inject(HttpTestingController);
     toastService = TestBed.inject(ToastService);
     errorResponseService = TestBed.inject(ErrorResponseService);
-    appSettings = TestBed.inject(AppSettingsState);
+    appState = TestBed.inject(AppSettingsState);
   });
 
   afterEach(() => {
@@ -41,9 +40,9 @@ describe('NotificationService', () => {
 
     const promise = service.getNotifications(userId);
 
-    const req = httpMock.expectOne(`${appSettings.baseUrl()}/notifications/user/${userId}`);
+    const req = httpMock.expectOne(`${appState.baseUrl()}/notifications/user/${userId}`);
     expect(req.request.method).toBe('GET');
-    req.flush(mockNotifications);
+    req.flush(mockNotifications, {status: 200, statusText: "OK"});
 
     const notifications = await promise;
     expect(notifications).toEqual(mockNotifications);
@@ -55,7 +54,7 @@ describe('NotificationService', () => {
 
     const promise = service.getNotifications(userId);
 
-    const req = httpMock.expectOne(`${appSettings.baseUrl()}/notifications/user/${userId}`);
+    const req = httpMock.expectOne(`${appState.baseUrl()}/notifications/user/${userId}`);
     expect(req.request.method).toBe('GET');
     req.flush('Error', { status: 500, statusText: 'Server Error' });
 
@@ -76,9 +75,9 @@ describe('NotificationService', () => {
 
     const promise = service.sendDeleteNotification(userId);
 
-    const req = httpMock.expectOne(`${appSettings.baseUrl()}/notifications/user/${userId}`);
+    const req = httpMock.expectOne(`${appState.baseUrl()}/notifications/user/${userId}`);
     expect(req.request.method).toBe('DELETE');
-    req.flush({});
+    req.flush({}, {status: 200, statusText: 'OK'});
 
     await promise;
     expect(toastService.show).toHaveBeenCalledWith({
@@ -97,7 +96,7 @@ describe('NotificationService', () => {
 
     const promise = service.sendDeleteNotification(userId);
 
-    const req = httpMock.expectOne(`${appSettings.baseUrl()}/notifications/user/${userId}`);
+    const req = httpMock.expectOne(`${appState.baseUrl()}/notifications/user/${userId}`);
     expect(req.request.method).toBe('DELETE');
     req.flush('Error', { status: 500, statusText: 'Server Error' });
 

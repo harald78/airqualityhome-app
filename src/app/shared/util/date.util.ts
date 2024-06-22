@@ -36,6 +36,10 @@ export class DateTimeUtil {
     return dayjs(date).isSame(compareDate, unit) || dayjs(date).isBefore(compareDate, unit);
   }
 
+  static getUtcISOString(date: Date): Date {
+    return dayjs.utc(date).toDate();
+  }
+
   static _validateParameters(startDate: Date, amount: number, unit: timeUnits) {
     if (startDate === undefined || startDate === null) {
       throw new Error('You must pass a date value')
