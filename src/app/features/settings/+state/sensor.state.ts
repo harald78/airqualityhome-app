@@ -27,10 +27,10 @@ export const SensorSettingsState = signalStore(
         patchState(store, { selected: id });
       },
       async saveSensorSettings(sensor: Sensor) {
-      sensorService.saveSensorToLocalStorage(sensor);
+      const savedSensor = await sensorService.saveSensorToServer(sensor);
 
       patchState(store, {
-        sensors: store.sensors().map(s => s.id === sensor.id ? sensor : s)
+        sensors: store.sensors().map(s => s.id === savedSensor.id ? savedSensor : s)
       });
       },
       clearSensorSelection() {

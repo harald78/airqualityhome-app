@@ -107,6 +107,18 @@ server.get('/api/app/settings/:id', (req, res) => {
   }, 200);
 });
 
+server.post('/api/app/settings/', (req, res) => {
+  console.log("Server received sensor-setting-request: ", req.body);
+  setTimeout(() => {
+    const token = req.headers.authorization;
+    if (token) {
+      res.status(200).send(req.body);
+    } else {
+      res.status(401).send();
+    }
+  }, 200);
+});
+
 server.get('/api/app/register/requests/:id', (req, res) => {
   console.log("Server received get active register-request: ", req.body);
   setTimeout(() => {

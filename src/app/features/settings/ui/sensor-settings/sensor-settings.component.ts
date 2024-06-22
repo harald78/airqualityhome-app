@@ -24,18 +24,19 @@ export class SensorSettingsComponent implements OnInit {
   private readonly fb: FormBuilder = inject(FormBuilder);
   private readonly sensorSettingsState: SensorSettingsState = inject(SensorSettingsState);
   buttonDisabled: boolean = true;
+  private readonly selectedSensor = this.sensorSettingsState.selectedSensor;
 
   public sensorSettingsForm: FormGroup<SensorSettingsForm> = this.fb.group<SensorSettingsForm>({
     location: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     alarmMin: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.pattern('^\\d*\\.?\\d*$')] }),
     alarmMax: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.pattern('^\\d*\\.?\\d*$')] }),
     alarmActive: new FormControl<boolean>(false, { nonNullable: true, validators: Validators.required }),
+    warningThreshold: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.pattern('^\\d*\\.?\\d*$')] }),
+    linearCorrectionValue: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.pattern('^\\d*\\.?\\d*$')] })
   });
 
-  selectedSensor = this.sensorSettingsState.selectedSensor;
 
   async ngOnInit() {
-    await this.sensorSettingsState.loadSensor();
     this.initForm();
   }
 
@@ -52,7 +53,9 @@ export class SensorSettingsComponent implements OnInit {
     const changed = selectedSensor.location !== formState.location ||
       selectedSensor.alarmMin !== formState.alarmMin ||
       selectedSensor.alarmMax !== formState.alarmMax ||
-      selectedSensor.alarmActive !== formState.alarmActive;
+      selectedSensor.alarmActive !== formState.alarmActive ||
+      selectedSensor.warningThreshold !== formState.warningThreshold ||
+      selectedSensor.linearCorrectionValue !== formState.linearCorrectionValue;
 
     console.log(selectedSensor);
     console.log("valueChange: ", changed);
@@ -61,13 +64,9 @@ export class SensorSettingsComponent implements OnInit {
 
   initForm(): void {
     const selectedSensor = this.selectedSensor();
+    console.log(selectedSensor);
     if (selectedSensor) {
-      this.sensorSettingsForm.patchValue({
-        location: selectedSensor.location,
-        alarmMin: selectedSensor.alarmMin,
-        alarmMax: selectedSensor.alarmMax,
-        alarmActive: selectedSensor.alarmActive
-      });
+      this.sensorSettingsForm.patchValue(selectedSensor);
     }
   }
 

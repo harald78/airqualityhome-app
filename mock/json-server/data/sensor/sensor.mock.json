@@ -42,7 +42,7 @@
     "sensorBaseSensorTypeId": 3,
     "userId": 1,
     "location": "Wohnzimmer",
-    "alarmMin": 0.0,
+    "alarmMin": 0.5,
     "alarmMax": 400.0,
     "alarmActive": false,
     "warningThreshold": 50.0,

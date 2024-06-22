@@ -26,6 +26,8 @@ export interface SensorSettingsForm {
   alarmMin: FormControl<number>;
   alarmMax: FormControl<number>;
   alarmActive: FormControl<boolean>;
+  warningThreshold: FormControl<number>;
+  linearCorrectionValue: FormControl<number>;
 }
 
 export const SENSOR_SETTINGS_KEY = 'sensor_settings';
