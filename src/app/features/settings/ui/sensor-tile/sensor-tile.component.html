@@ -8,8 +8,8 @@
     </div>
     <div class="alarms">
       <h2><span><app-icon [path]="mdiBell" width="14px" [color]="alarmActive() ? '#e7940f' : 'black'"></app-icon></span>Alarms</h2>
-      <span class="badge bg-info">min {{ alarmMin() }}{{ type() | unit }}</span>
-      <span class="badge bg-danger">max {{ alarmMax() }}{{ type() | unit }}</span>
+      <span class="badge bg-info">min {{ alarmMin() }}{{ sensorType() | unit }}</span>
+      <span class="badge bg-danger">max {{ alarmMax() }}{{ sensorType() | unit }}</span>
     </div>
   </div>
   <div id="sensor-footer" class="footer">

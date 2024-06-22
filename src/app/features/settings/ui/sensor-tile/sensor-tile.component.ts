@@ -29,6 +29,5 @@ export class SensorTileComponent {
     alarmActive: InputSignal<boolean> = input.required();
     alarmMin: InputSignal<number> = input(0.0);
     alarmMax: InputSignal<number> = input(0.0);
-    type: InputSignal<string> = input('');
   protected readonly mdiCog = mdiCog;
 }

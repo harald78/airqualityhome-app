@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SensorsOverviewComponent } from './sensors-overview.component';
 import {Router} from "@angular/router";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('SensorSettingsComponent', () => {
   let component: SensorsOverviewComponent;
@@ -10,7 +11,7 @@ describe('SensorSettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SensorsOverviewComponent]
+      imports: [SensorsOverviewComponent, HttpClientTestingModule]
     })
     .compileComponents();
 
