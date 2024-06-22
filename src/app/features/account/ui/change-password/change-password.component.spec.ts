@@ -8,12 +8,14 @@ import { AuthState } from '../../../../core/auth/+state/auth.state';
 import { Router, RouterModule } from '@angular/router';
 import { NgZone } from '@angular/core';
 import { routesMock } from '../../../../../../mock/routes.mock';
+import {AuthService} from "../../../../core/auth/service/auth.service";
 
 describe('ChangePasswordComponent Test', () => {
   let component: ChangePasswordComponent;
   let fixture: ComponentFixture<ChangePasswordComponent>;
   let accountService: AccountService;
   let authState: AuthState;
+  let authService: AuthService;
   let router: Router;
   let ngZone: NgZone;
 
@@ -31,6 +33,7 @@ describe('ChangePasswordComponent Test', () => {
     component = fixture.componentInstance;
     accountService = TestBed.inject(AccountService);
     authState = TestBed.inject(AuthState);
+    authService = TestBed.inject(AuthService);
     router = TestBed.inject(Router);
     ngZone = TestBed.inject(NgZone);
     fixture.detectChanges();
@@ -90,6 +93,7 @@ describe('ChangePasswordComponent Test', () => {
   it('should handle saveData method correctly', async () => {
     const accountServiceSpy = jest.spyOn(accountService, 'savePassword')
       .mockResolvedValue(userMock);
+    jest.spyOn(authService, 'logout').mockResolvedValue();
 
     component.passwordForm.get('password')?.setValue('123');
     component.passwordForm.get('oldPassword')?.setValue('987');

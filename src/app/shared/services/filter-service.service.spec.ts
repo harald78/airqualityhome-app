@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import { FilterService } from './filter-service.service';
-import {latestMeasurements} from "../../../../mock/measurement.mock";
+import {latestMeasurementsMock} from "../../../../mock/measurement.mock";
 
 
 describe('FilterServiceService', () => {
@@ -13,7 +13,7 @@ describe('FilterServiceService', () => {
 
     service = TestBed.inject(FilterService);
     service.setFilterProperties(['location', 'sensorBaseName', 'sensorType', 'sensorName']);
-    await service.initData(latestMeasurements);
+    await service.initData(latestMeasurementsMock);
   });
 
   it('should be created', () => {
@@ -23,7 +23,7 @@ describe('FilterServiceService', () => {
   it('should initialize filter-service with options', async ()  => {
     // given
     service.setFilterProperties(['location', 'sensorBaseName', 'sensorType', 'sensorName']);
-    await service.initData(latestMeasurements);
+    await service.initData(latestMeasurementsMock);
 
     // then
     expect(service.getActiveFilter()).toEqual([]);

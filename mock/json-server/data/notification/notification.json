@@ -3,14 +3,28 @@
   "id": 1,
   "userId": 1,
   "measurementId": 1,
-  "message": "",
-  "read": true
+  "message": "MAX temperature 25,00 °C violated by 1,00 °C",
+  "read": true,
+    "readAt": "",
+    "acknowledged": true,
+    "baseName": "AZEnvy",
+    "sensorType": "TEMPERATURE",
+    "sensorName": "SHT30",
+    "location": "Wohnzimmer",
+    "timestamp": "2024-06-05T06:05:00.000Z"
   },
   {
     "id": 2,
     "userId": 1,
     "measurementId": 2,
-    "message": "",
-    "read": true
+    "message": "MAX humidity 65 % violated by 1 %",
+    "read": true,
+    "readAt": "",
+    "acknowledged": false,
+    "baseName": "AZEnvy",
+    "sensorType": "HUMIDITY",
+    "sensorName": "SHT30",
+    "location": "Wohnzimmer",
+    "timestamp": "2024-06-05T09:20:00.000Z"
   }
 ]

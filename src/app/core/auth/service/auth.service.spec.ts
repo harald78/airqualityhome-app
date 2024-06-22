@@ -1,4 +1,4 @@
-import {fakeAsync, TestBed, waitForAsync} from "@angular/core/testing";
+import {discardPeriodicTasks, fakeAsync, TestBed, waitForAsync} from "@angular/core/testing";
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import {AuthService} from "./auth.service";
 import {ToastService} from "../../../shared/components/toast/toast.service";
@@ -137,7 +137,6 @@ describe("AuthService Test", () => {
   it('should fetch refresh token', fakeAsync(async () => {
     jest.spyOn(Storage.prototype, 'setItem');
     Storage.prototype.setItem = jest.fn();
-    const setRefreshTimeoutSyp = jest.spyOn(service, 'setRefreshTimeout').mockResolvedValue(undefined);
 
 
     const promise = service.refreshToken(jwtDtoMock.token);
@@ -155,6 +154,7 @@ describe("AuthService Test", () => {
     Storage.prototype.removeItem = jest.fn();
     const authStateSpy = jest.spyOn(authState, 'logout');
     const routerSpy = jest.spyOn(router, 'navigate').mockResolvedValue(true);
+    jest.spyOn(service, 'serverLogout').mockResolvedValue(userMock);
 
     await service.logout();
 
@@ -219,5 +219,45 @@ describe("AuthService Test", () => {
     jest.advanceTimersByTime(270000);
     expect(refreshTokenSpy).toHaveBeenCalled();
   }));
+
+  it('should navigate to general settings', async () => {
+    // when
+    const routerSpy = jest.spyOn(router, 'navigate');
+    await service.showSettings();
+
+    // then
+    expect(routerSpy).toHaveBeenCalledWith(['general-settings']);
+  });
+
+  it('should handle error on logout user', async () => {
+    const errorToast = {classname: "bg-danger text-light", header: '',
+      id: "logout-error", delay: 1000,
+      body: "Unauthorized", icon: mdiAlert, iconColor: "white"};
+    const expectedError = {"error": {"email": "balu@dschungel.de", "id": 1, "roles": ["APP_READ", "APP_WRITE"], "username": "Balu"},
+      "headers": {"headers": new Map(), "lazyUpdate": null, "normalizedNames": new Map()},
+      "message": "Http failure response for http://localhost:3001/api/app/user/logout: 500 INTERNAL SERVER ERROR", "name": "HttpErrorResponse",
+      "ok": false, "status": 500, "statusText": "INTERNAL SERVER ERROR", "url": "http://localhost:3001/api/app/user/logout"};
+
+    const toastServiceSpy = jest.spyOn(toastService, 'show');
+    const promise = service.serverLogout();
+    const request = httpMock.expectOne(appState.baseUrl() + '/user/logout');
+    request.flush(userMock, {status: 500, statusText: 'INTERNAL SERVER ERROR'});
+
+    await expect(promise).rejects.toEqual(expectedError);
+
+    // given
+    expect(toastServiceSpy).toHaveBeenCalledWith(errorToast);
+  });
+
+  it('should unsubscribe from intervalSubscription', () => {
+    service.setRefreshTimeout();
+    const subscriptionSpy = jest.spyOn(service.intervalSubscription, 'unsubscribe');
+    const serverLogoutSpy = jest.spyOn(service, 'serverLogout');
+
+    service.logUserOut();
+
+    expect(subscriptionSpy).toHaveBeenCalled();
+    expect(serverLogoutSpy).toHaveBeenCalled();
+  });
 
 });

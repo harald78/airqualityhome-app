@@ -7,7 +7,7 @@ import { AccountHomeComponent } from '../src/app/features/account/ui/account-hom
 import { ChangeAccountComponent } from '../src/app/features/account/ui/change-account/change-account.component';
 import { ChangePasswordComponent } from '../src/app/features/account/ui/change-password/change-password.component';
 import { SettingsHomeComponent } from '../src/app/features/settings/ui/settings-home/settings-home.component';
-import { SensorSettingsComponent } from '../src/app/features/settings/ui/sensor-settings/sensor-settings.component';
+import { SensorsOverviewComponent } from '../src/app/features/settings/ui/sensors-overview/sensors-overview.component';
 import { RegisterBaseComponent } from '../src/app/features/settings/ui/register-base/register-base.component';
 import { LoginComponent } from '../src/app/features/login/ui/login.component';
 import { AppSettingsComponent } from '../src/app/core/app-settings/ui/app-settings/app-settings.component';
@@ -26,7 +26,7 @@ export const routesMock: Routes = [
       {path: 'change-pw', component: MockComponent(ChangePasswordComponent), canActivate: [isAuthenticated] },
     ]},
   { path: 'settings', component: MockComponent(SettingsHomeComponent), canActivate: [isAuthenticated], children: [
-      {path: '', component: MockComponent(SensorSettingsComponent), canActivate: [isAuthenticated] },
+      {path: '', component: MockComponent(SensorsOverviewComponent), canActivate: [isAuthenticated] },
       {path: 'register', component: MockComponent(RegisterBaseComponent), canActivate: [isAuthenticated] },
     ]},
   { path: 'login', component: MockComponent(LoginComponent) },

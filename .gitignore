@@ -49,3 +49,4 @@ Thumbs.db
 /playwright/.cache/
 
 playwright/.auth
+ssl

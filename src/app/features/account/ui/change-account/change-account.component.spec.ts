@@ -10,11 +10,13 @@ import { By } from '@angular/platform-browser';
 import { changedUserMock, userMock } from '../../../../../../mock/user-mock';
 import { NgZone } from '@angular/core';
 import { routesMock } from '../../../../../../mock/routes.mock';
+import {AuthService} from "../../../../core/auth/service/auth.service";
 
 describe('ChangeAccountComponent Test', () => {
   let component: ChangeAccountComponent;
   let fixture: ComponentFixture<ChangeAccountComponent>;
   let authState: AuthState;
+  let authService: AuthService;
   let accountService: AccountService;
   let router: Router;
   let ngZone: NgZone;
@@ -29,9 +31,10 @@ describe('ChangeAccountComponent Test', () => {
       providers: []
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(ChangeAccountComponent);
     authState = TestBed.inject(AuthState);
+    authService = TestBed.inject(AuthService);
     accountService = TestBed.inject(AccountService);
     router = TestBed.inject(Router);
     ngZone = TestBed.inject(NgZone);
@@ -88,7 +91,7 @@ describe('ChangeAccountComponent Test', () => {
     jest.spyOn(accountService, 'saveUserData').mockResolvedValue(expectedUserReturn);
     jest.spyOn(authState, 'setUser');
     jest.spyOn(component.accountForm, 'patchValue');
-    jest.spyOn(authState, 'logout');
+    jest.spyOn(authService, 'logout').mockResolvedValue();
     component.accountForm.get('username')?.setValue('newUsername');
     component.accountForm.get('password')?.setValue('currentPassword');
 
@@ -99,7 +102,7 @@ describe('ChangeAccountComponent Test', () => {
     // then
     expect(accountService.saveUserData).toHaveBeenCalledWith(userChangeRequest);
 
-    expect(authState.logout).toHaveBeenCalled();
+    expect(authService.logout).toHaveBeenCalled();
     expect(authState.setUser).not.toHaveBeenCalled();
     expect(component.accountForm.patchValue).not.toHaveBeenCalled();
   });
@@ -223,5 +226,32 @@ describe('ChangeAccountComponent Test', () => {
     expect(usernameInput.disabled).toBeTruthy();
     expect(emailInput.disabled).toBeTruthy();
   }));
+
+  it('should patch user', async () => {
+    // given
+    await authState.setUser(userMock);
+    const changedUser = {...userMock, email: "new-mail@dschungel.de"};
+    const serviceSpy = jest.spyOn(authService, 'logout');
+    const formSpy = jest.spyOn(component.accountForm, 'patchValue');
+    const authStateSpy = jest.spyOn(authState, 'setUser').mockResolvedValue();
+
+    // when
+    await component.maybeLogoutOrSetUserState(changedUser);
+
+    // then
+    expect(serviceSpy).not.toHaveBeenCalled();
+    expect(formSpy).toHaveBeenCalledWith(changedUser);
+    expect(authStateSpy).toHaveBeenCalledWith(changedUser);
+  });
+
+  it('should call logout', async () => {
+    const serviceSpy = jest.spyOn(authService, 'logout').mockResolvedValue();
+
+    // when
+    await component.logout();
+
+    // then
+    expect(serviceSpy).toHaveBeenCalled();
+  });
 
 });
