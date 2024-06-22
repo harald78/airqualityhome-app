@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start:network": "ng serve --host 0.0.0.0 --port 4200",
     "start:ssl": "ng serve --ssl --ssl-key ./ssl/client-key.pem --ssl-cert ./ssl/client-cert.pem",
+    "start:network": "ng serve --host 0.0.0.0 --port 4200",
     "start:standalone": "ng serve --configuration=standalone",
     "start:standalone:network": "npm run start:network --configuration=standalone",
     "start:server": "ng serve --configuration=server",
