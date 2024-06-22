@@ -4,6 +4,7 @@ import {LoginComponent} from "./features/login/ui/login.component";
 import {RegisterBaseComponent} from "./features/settings/ui/register-base/register-base.component";
 import { ChangeAccountComponent } from './features/account/ui/change-account/change-account.component';
 import { ChangePasswordComponent } from './features/account/ui/change-password/change-password.component';
+import { SensorsOverviewComponent } from './features/settings/ui/sensors-overview/sensors-overview.component';
 import { SensorSettingsComponent } from './features/settings/ui/sensor-settings/sensor-settings.component';
 import {DashboardOverviewComponent} from "./features/dashboard/ui/dashboard-overview/dashboard-overview.component";
 import {DashboardDetailComponent} from "./features/dashboard/ui/dashboard-detail/dashboard-detail.component";
@@ -24,7 +25,8 @@ export const routes: Routes = [
     ]},
   { path: 'settings', loadComponent: () => import('./features/settings/ui/settings-home/settings-home.component')
       .then(m => m.SettingsHomeComponent), canActivate: [isAuthenticated], children: [
-    {path: '', component: SensorSettingsComponent, canActivate: [isAuthenticated] },
+      {path: '', component: SensorsOverviewComponent, canActivate: [isAuthenticated] },
+      {path: 'sensor/:id', component: SensorSettingsComponent, canActivate: [isAuthenticated] },
     {path: 'register', component: RegisterBaseComponent, canActivate: [isAuthenticated] },
     ]},
   { path: 'login', component: LoginComponent },

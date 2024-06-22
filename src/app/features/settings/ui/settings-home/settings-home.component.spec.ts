@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SettingsHomeComponent } from './settings-home.component';
-import { SensorSettingsComponent } from '../sensor-settings/sensor-settings.component';
+import { SensorsOverviewComponent } from '../sensors-overview/sensors-overview.component';
 import { RegisterBaseComponent } from '../register-base/register-base.component';
 
 describe('SettingsHomeComponent', () => {
@@ -10,7 +10,7 @@ describe('SettingsHomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SettingsHomeComponent, SensorSettingsComponent, RegisterBaseComponent]
+      imports: [SettingsHomeComponent, SensorsOverviewComponent, RegisterBaseComponent]
     })
     .compileComponents();
 

@@ -25,15 +25,19 @@ export class DateTimeUtil {
   }
 
   static setDateToStartOfDay(date: Date): Date {
-    return dayjs(date).utc().startOf('day').toDate();
+    return dayjs(date).utc(true).startOf('day').toDate();
   }
 
   static setDateToEndOfDay(date: Date): Date {
-    return dayjs(date).utc().endOf('day').toDate();
+    return dayjs(date).utc(true).endOf('day').toDate();
   }
 
   static isSameOrBefore(date: Date | string, compareDate: Date | string, unit: timeUnits): boolean {
     return dayjs(date).isSame(compareDate, unit) || dayjs(date).isBefore(compareDate, unit);
+  }
+
+  static getUtcISOString(date: Date): Date {
+    return dayjs.utc(date).toDate();
   }
 
   static _validateParameters(startDate: Date, amount: number, unit: timeUnits) {
