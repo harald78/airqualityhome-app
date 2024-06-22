@@ -16,7 +16,7 @@ export const availableSensorBaseMock: SensorBase[] = [
       {
         "id": 2,
         "name": "MQ-2",
-        "type": "GAS" as PhysicalType,
+        "type": "VOC" as PhysicalType,
         "minValue": 100.0,
         "maxValue": 10000.0
       }

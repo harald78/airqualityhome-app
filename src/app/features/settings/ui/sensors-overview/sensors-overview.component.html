@@ -1,0 +1,18 @@
+<div id="settings-container" class="setting-home-container" aria-label="settings-container-label">
+  <button id="navigate-to-base-button" type="button" class="btn btn-outline-dark mb-2" (click)="register()" aria-label="settings-register-base-button">Register new Base</button>
+
+  @for (sensor of registeredSensors(); track sensor.id) {
+    <app-sensor-tile
+      [sensorType]="sensor.sensorType"
+      [sensorName]="sensor.sensorName"
+      [sensorBase]="sensor.sensorBase"
+      [alarmMin]="sensor.alarmMin"
+      [alarmMax]="sensor.alarmMax"
+      [location]="sensor.location"
+      [updated]="sensor.updated"
+      [alarmActive]="sensor.alarmActive"
+      (click)="onSelect(sensor.id)"
+      ></app-sensor-tile>
+  }
+</div>
+
