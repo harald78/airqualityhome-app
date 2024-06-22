@@ -4,6 +4,7 @@ import { IconComponent } from '../../../../shared/components/icon/icon/icon.comp
 import {DatePipe} from "@angular/common";
 import {UnitPipe} from "../../../../shared/pipes/unit.pipe";
 import {SeverityCalculationService} from "../../service/severity-calculation.service";
+import {SensorValuePipe} from "../../../../shared/pipes/sensor-value.pipe";
 
 @Component({
   selector: 'app-measurement-tile',
@@ -11,7 +12,8 @@ import {SeverityCalculationService} from "../../service/severity-calculation.ser
   imports: [
     IconComponent,
     DatePipe,
-    UnitPipe
+    UnitPipe,
+    SensorValuePipe
   ],
   templateUrl: './measurement-tile.component.html',
   styleUrl: './measurement-tile.component.scss',

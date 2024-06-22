@@ -13,6 +13,7 @@ const notificationData = require("./data/notification");
 let notifications = JSON.parse(JSON.stringify(notificationData.notification));
 const {latestMeasurements} = require("./data/measurements");
 const {temperatureMeasurementsHistory} = require("./data/measurements");
+const {sensorMock} = require("./data/sensor");
 
 /**
  * User related endpoint mocks
@@ -88,6 +89,30 @@ server.get('/api/app/register/sensorBase', (req, res) => {
     const token = req.headers.authorization;
     if (token) {
       res.status(200).send(registerData.sensorBase);
+    } else {
+      res.status(401).send();
+    }
+  }, 200);
+});
+
+server.get('/api/app/settings/:id', (req, res) => {
+  console.log("Server received sensor-setting-request: ", req.body);
+  setTimeout(() => {
+    const token = req.headers.authorization;
+    if (token) {
+      res.status(200).send(sensorMock);
+    } else {
+      res.status(401).send();
+    }
+  }, 200);
+});
+
+server.post('/api/app/settings/', (req, res) => {
+  console.log("Server received sensor-setting-request: ", req.body);
+  setTimeout(() => {
+    const token = req.headers.authorization;
+    if (token) {
+      res.status(200).send(req.body);
     } else {
       res.status(401).send();
     }
@@ -193,7 +218,7 @@ server.get('/api/app/measurements/user/:id', (req, res) => {
   }, 200);
 });
 
-server.get('/api/measurements/sensor/:id', (req, res) => {
+server.get('/api/app/measurements/sensor/:id', (req, res) => {
   console.log("Server received get latest measurements: ", req.body);
   setTimeout(() => {
     const token = req.headers.authorization;

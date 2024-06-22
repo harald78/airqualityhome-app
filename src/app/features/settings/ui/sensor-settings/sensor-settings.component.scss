@@ -1,14 +1,18 @@
 :host {
   display: block;
+  height: 100%;
 }
 
-.setting-home-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+button#back-button {
+  width: 80%;
+  max-width: 500px;
+}
 
-  & > button {
-    width: 80%;
-    max-width: 500px;
-  }
+div#app-settings-container {
+  height: 100%;
+}
+
+.settings-form, .description {
+  width: 80%;
+  max-width: 500px;
 }

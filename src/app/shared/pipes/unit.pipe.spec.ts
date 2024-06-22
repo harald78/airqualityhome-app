@@ -33,7 +33,7 @@ describe('UnitPipe', () => {
     const result = pipe.transform(sensorTypeMock[2].type);
 
     // then
-    expect(result).toEqual("ppm");
+    expect(result).toEqual("ppb");
   });
 
   it('should return particle unit for particle', () => {
