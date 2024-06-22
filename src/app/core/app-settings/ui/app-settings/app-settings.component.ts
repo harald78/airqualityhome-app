@@ -7,7 +7,7 @@ import { mdiContentSaveOutline, mdiRestore } from '@mdi/js';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmModalComponent } from '../../../../shared/components/confirm-modal/confirm-modal.component';
 import { Router, RoutesRecognized } from '@angular/router';
-import { filter, pairwise, take } from 'rxjs';
+import {filter, pairwise, take} from 'rxjs';
 
 @Component({
   selector: 'app-app-settings',
@@ -42,9 +42,11 @@ export class AppSettingsComponent implements OnInit {
     async ngOnInit() {
       this.initForm();
       this.router.events
-        .pipe(take(1), filter((evt: any) => evt instanceof RoutesRecognized), pairwise())
+        .pipe(
+          take(2),
+          filter((evt: any) => evt instanceof RoutesRecognized),
+          pairwise())
         .subscribe((events: RoutesRecognized[]) => {
-
           this.previousUrl = events[0].urlAfterRedirects;
         });
     }
