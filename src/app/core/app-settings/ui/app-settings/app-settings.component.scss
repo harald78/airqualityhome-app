@@ -5,6 +5,7 @@
 
 button#back-button {
   width: 80%;
+  max-width: 500px;
 }
 
 div#app-settings-container {
@@ -13,4 +14,5 @@ div#app-settings-container {
 
 .settings-form, .description {
   width: 80%;
+  max-width: 500px;
 }

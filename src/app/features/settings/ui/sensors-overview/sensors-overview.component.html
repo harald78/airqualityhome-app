@@ -6,9 +6,12 @@
       [sensorType]="sensor.sensorType"
       [sensorName]="sensor.sensorName"
       [sensorBase]="sensor.sensorBase"
+      [alarmMin]="sensor.alarmMin"
+      [alarmMax]="sensor.alarmMax"
       [location]="sensor.location"
       [updated]="sensor.updated"
       [alarmActive]="sensor.alarmActive"
+      [type]="sensor.sensorType"
       (click)="onSelect(sensor.id)"
       ></app-sensor-tile>
   }

@@ -7,7 +7,7 @@ import {firstValueFrom, of, tap} from "rxjs";
 import { catchError } from "rxjs/operators";
 import { mdiAlert, mdiCheck } from "@mdi/js";
 import { AppSettingsState } from "../../../core/app-settings/+state/app-settings.state";
-import { Sensor, SENSOR_SETTINGS_KEY } from "../model/sensor.model";
+import { Sensor } from "../model/sensor.model";
 
 @Injectable({
   providedIn: 'root'

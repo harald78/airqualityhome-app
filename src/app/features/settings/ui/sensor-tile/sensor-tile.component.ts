@@ -1,5 +1,5 @@
 import {Component, input, InputSignal} from '@angular/core';
-import {mdiBell, mdiMapMarker, mdiUpdate} from "@mdi/js";
+import {mdiBell, mdiCog, mdiMapMarker, mdiUpdate} from "@mdi/js";
 import {DatePipe} from "@angular/common";
 import {IconComponent} from "../../../../shared/components/icon/icon/icon.component";
 import {UnitPipe} from "../../../../shared/pipes/unit.pipe";
@@ -30,4 +30,5 @@ export class SensorTileComponent {
     alarmMin: InputSignal<number> = input(0.0);
     alarmMax: InputSignal<number> = input(0.0);
     type: InputSignal<string> = input('');
+  protected readonly mdiCog = mdiCog;
 }

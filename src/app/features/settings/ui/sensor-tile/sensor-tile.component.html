@@ -1,10 +1,15 @@
 <div id="sensor-tile" class="sensor-tile">
-  <app-icon [path]="mdiBell" [color]="alarmActive() ? 'black' : '#AC2020FF'" width="24px" class="alarm-icon"></app-icon>
+<!--  <app-icon [path]="mdiBell" [color]="alarmActive() ? '#e7940f' : 'black'" width="24px" class="alarm-icon"></app-icon>-->
   <div class="header">
     <div class="sensor-info">
-      <h2>{{ sensorType() }}</h2>
+      <h2><app-icon [path]="mdiCog" [color]="'#a9a9a9'" width="24px" class="me-1"></app-icon>{{ sensorType() }}</h2>
       <p>Name: {{ sensorName() }}</p>
       <p>Base: {{ sensorBase() }}</p>
+    </div>
+    <div class="alarms">
+      <h2><span><app-icon [path]="mdiBell" width="14px" [color]="alarmActive() ? '#e7940f' : 'black'"></app-icon></span>Alarms</h2>
+      <span class="badge bg-info">min {{ alarmMin() }}{{ type() | unit }}</span>
+      <span class="badge bg-danger">max {{ alarmMax() }}{{ type() | unit }}</span>
     </div>
   </div>
   <div id="sensor-footer" class="footer">

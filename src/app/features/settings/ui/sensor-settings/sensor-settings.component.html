@@ -1,6 +1,6 @@
 
   <div class="d-flex flex-column align-items-center justify-content-center" id="sensor-settings-container">
-    <button type="button" id="back-button" class="btn btn-outline-dark back-button mt-2 mb-2"
+    <button type="button" id="back-button" class="btn btn-outline-dark back-button mb-2"
             (click)="navigateBack()">Back</button>
     <p class="description mb-3 text-danger text-center"><em>Please adjust the settings for the sensors according to your specific requirements</em></p>
     <form [formGroup]="sensorSettingsForm" class="settings-form" (change)="valueChange()">
@@ -33,6 +33,10 @@
                        class="mb-3"
                        width="18px" [disabled]="buttonDisabled"
                        classes="btn btn-outline-secondary" (iconButtonClick)="saveData()"></app-icon-button>
+      <app-icon-button text="Cancel" [icon]="mdiRestore" iconColor="red"
+                       [iconActiveColor]="buttonDisabled ? 'red' : 'white'"
+                       width="18px" [disabled]="buttonDisabled"
+                       classes="btn btn-outline-danger" (iconButtonClick)="restoreData()"></app-icon-button>
     </form>
   </div>
 

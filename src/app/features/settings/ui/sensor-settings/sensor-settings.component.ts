@@ -3,7 +3,7 @@ import { Router, RouterOutlet } from "@angular/router";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import {Sensor, SensorSettingsForm} from '../../model/sensor.model';
 import { SensorSettingsState } from "../../+state/sensor.state";
-import { mdiContentSaveOutline } from "@mdi/js";
+import {mdiContentSaveOutline, mdiRestore} from "@mdi/js";
 import { IconButtonComponent } from "../../../../shared/components/icon-button/icon-button.component";
 
 @Component({
@@ -20,6 +20,8 @@ import { IconButtonComponent } from "../../../../shared/components/icon-button/i
 })
 export class SensorSettingsComponent implements OnInit {
 
+  protected readonly mdiContentSaveOutline = mdiContentSaveOutline;
+  protected readonly mdiRestore = mdiRestore;
   private readonly router = inject(Router);
   private readonly fb: FormBuilder = inject(FormBuilder);
   private readonly sensorSettingsState: SensorSettingsState = inject(SensorSettingsState);
@@ -41,8 +43,13 @@ export class SensorSettingsComponent implements OnInit {
   }
 
   async saveData(): Promise<void> {
-    const sensor: Sensor = this.sensorSettingsForm.value as Sensor;
+    const changedData: Partial<Sensor> = this.sensorSettingsForm.value as Partial<Sensor>;
+    const sensor: Sensor = {
+      ...this.selectedSensor()!,
+      ...changedData
+    };
     await this.sensorSettingsState.saveSensorSettings(sensor);
+    await this.router.navigate(['settings']);
   }
 
   valueChange() {
@@ -57,14 +64,11 @@ export class SensorSettingsComponent implements OnInit {
       selectedSensor.warningThreshold !== formState.warningThreshold ||
       selectedSensor.linearCorrectionValue !== formState.linearCorrectionValue;
 
-    console.log(selectedSensor);
-    console.log("valueChange: ", changed);
     this.buttonDisabled = !changed || !this.sensorSettingsForm.valid;
   }
 
   initForm(): void {
     const selectedSensor = this.selectedSensor();
-    console.log(selectedSensor);
     if (selectedSensor) {
       this.sensorSettingsForm.patchValue(selectedSensor);
     }
@@ -78,5 +82,7 @@ export class SensorSettingsComponent implements OnInit {
     await this.router.navigate(['settings']);
   }
 
-  protected readonly mdiContentSaveOutline = mdiContentSaveOutline;
+  restoreData() {
+    this.initForm();
+  }
 }
