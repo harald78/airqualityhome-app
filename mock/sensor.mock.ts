@@ -11,7 +11,7 @@ export const sensorListMock: Sensor[] = [
     "sensorBaseSensorTypeId": 1,
     "userId": 1,
     "location": "Wohnzimmer",
-    "alarmMin": 18.0,
+    "alarmMin": 18.5,
     "alarmMax": 30.0,
     "alarmActive": true,
     "warningThreshold": 1.0,
@@ -44,13 +44,13 @@ export const sensorListMock: Sensor[] = [
     "sensorName": "MQ2",
     "sensorBaseSensorTypeId": 3,
     "userId": 1,
-    "location": "Wohnzimmer",
+    "location": "Wohnzimm",
     "alarmMin": 0.0,
     "alarmMax": 400.0,
     "alarmActive": false,
     "warningThreshold": 50.0,
     "linearCorrectionValue": 0.0,
-    "created": new Date(2024, 5, 16, 8, 0),
-    "updated": new Date(2024, 5, 16, 8, 0)
+    "created": new Date(2024, 6, 16, 8, 0),
+    "updated": new Date(2024, 4, 16, 8, 0)
   }
 ]

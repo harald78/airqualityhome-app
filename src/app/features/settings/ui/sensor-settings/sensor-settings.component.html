@@ -1,2 +1,31 @@
-<p>sensor-settings works!</p>
-<div>{{ selectedSensor()?.sensorType }}</div>
+
+  <div class="d-flex flex-column align-items-center justify-content-center" id="sensor-settings-container">
+    <button type="button" id="back-button" class="btn btn-outline-dark back-button mt-2 mb-2"
+            (click)="navigateBack()">Back</button>
+    <p class="description mb-3 text-danger text-center"><em>Please adjust the settings for the sensors according to your specific requirements</em></p>
+    <form [formGroup]="sensorSettingsForm" class="settings-form" (change)="valueChange()">
+      <div class="mb-3">
+        <label for="location-input" class="form-label font-monospace fw-bolder">Location</label>
+        <input id="location-input" class="form-control" formControlName="location" type="text"/>
+      </div>
+      <div class="mb-3">
+        <label for="alarmMin-input" class="form-label font-monospace fw-bolder">Minimum</label>
+        <input id="alarmMin-input" class="form-control" formControlName="alarmMin" type="number" step="0.01"/>
+      </div>
+      <div class="mb-3">
+        <label for="alarmMax-input" class="form-label font-monospace fw-bolder">Maximum</label>
+        <input id="alarmMax-input" class="form-control" formControlName="alarmMax" type="number" />
+      </div>
+      <div class="form-check form-switch mb-4">
+        <input id="alarmActive" class="form-check-input" formControlName="alarmActive" type="checkbox"/>
+        <label for="alarmActive" class="form-check-label font-monospace fw-bolder">Notification</label>
+      </div>
+      <app-icon-button text="Save settings" [icon]="mdiContentSaveOutline" iconColor="black"
+                       [iconActiveColor]="buttonDisabled ? 'black' : 'white'"
+                       class="mb-3"
+                       width="18px" [disabled]="buttonDisabled"
+                       classes="btn btn-outline-secondary" (iconButtonClick)="saveData()"></app-icon-button>
+    </form>
+  </div>
+
+

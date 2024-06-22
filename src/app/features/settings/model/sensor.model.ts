@@ -1,4 +1,7 @@
-import {PhysicalType} from "../../../shared/model/sensor-type.model";
+import { PhysicalType } from "../../../shared/model/sensor-type.model";
+import { FormControl } from "@angular/forms";
+
+
 
 export interface Sensor {
   id: number;
@@ -7,13 +10,22 @@ export interface Sensor {
   sensorType: PhysicalType;
   sensorName: string;
   sensorBaseSensorTypeId: number;
-  userId: number
+  userId: number;
   location: string;
   alarmMin: number;
   alarmMax: number;
   alarmActive: boolean;
   warningThreshold: number;
   linearCorrectionValue: number;
-  updated: Date,
-  created: Date
+  updated: Date;
+  created: Date;
 }
+
+export interface SensorSettingsForm {
+  location: FormControl<string>;
+  alarmMin: FormControl<number>;
+  alarmMax: FormControl<number>;
+  alarmActive: FormControl<boolean>;
+}
+
+export const SENSOR_SETTINGS_KEY = 'sensor_settings';

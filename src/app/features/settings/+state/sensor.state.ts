@@ -1,7 +1,7 @@
-import {patchState, signalStore, withComputed, withMethods, withState} from "@ngrx/signals";
-import {Sensor} from "../model/sensor.model";
-import {SensorSettingsService} from "../service/sensor-settings.service";
-import {computed, inject} from "@angular/core";
+import { patchState, signalStore, withComputed, withMethods, withState } from "@ngrx/signals";
+import { Sensor } from "../model/sensor.model";
+import { SensorSettingsService } from "../service/sensor-settings.service";
+import { computed, inject } from "@angular/core";
 
 export interface SensorSettings {
   sensors: Sensor[],
@@ -14,24 +14,31 @@ const initialState: SensorSettings = {
 }
 
 export const SensorSettingsState = signalStore(
-  {providedIn: 'root'},
-  withState( initialState ),
+  { providedIn: 'root' },
+  withState(initialState),
   withMethods((store) => {
     const sensorService: SensorSettingsService = inject(SensorSettingsService);
     return {
       async loadSensor() {
         const sensors = await sensorService.getAvailableSensors();
-        patchState(store, {sensors: sensors});
+        patchState(store, { sensors: sensors });
       },
       async selectSensor(id: number) {
-        patchState(store, {selected: id});
+        patchState(store, { selected: id });
+      },
+      async saveSensorSettings(sensor: Sensor) {
+      sensorService.saveSensorToLocalStorage(sensor);
+
+      patchState(store, {
+        sensors: store.sensors().map(s => s.id === sensor.id ? sensor : s)
+      });
       },
       clearSensorSelection() {
-        patchState(store, {selected: null});
+        patchState(store, { selected: null });
       }
     }
   }),
-  withComputed(({sensors, selected} ) => ({
+  withComputed(({ sensors, selected }) => ({
     selectedSensor: computed(() => sensors().find(s => s.id === selected()))
   }))
 );
