@@ -39,6 +39,7 @@ pipeline {
         stage('Run playwright e2e tests') {
             steps {
                 sh 'npx playwright install'
+                sh 'sudo npx playwright install-deps'
                 sh 'npm run test:integration'
             }
         }
