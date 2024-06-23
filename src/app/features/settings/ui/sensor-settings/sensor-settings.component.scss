@@ -1,6 +1,5 @@
 :host {
   display: block;
-  height: 100%;
 }
 
 button#back-button {
@@ -15,4 +14,11 @@ div#app-settings-container {
 .settings-form, .description {
   width: 80%;
   max-width: 500px;
+  margin-bottom: 30px;
+}
+
+@media screen and (max-height: 650px) {
+  .settings-form, .description {
+    margin-bottom: 60px;
+  }
 }
