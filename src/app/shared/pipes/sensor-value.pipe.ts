@@ -12,8 +12,17 @@ export class SensorValuePipe implements PipeTransform {
       case PhysicalType.VOC:
         return value.toFixed(0);
       default:
-        return value.toFixed(2);
+        return this.checkNumberSizeAndReduceFixed(value);
     }
+  }
+
+  checkNumberSizeAndReduceFixed(value: number): string {
+    if (value > 10000) {
+      return value.toFixed(1);
+    } else if (value > 99999) {
+      return value.toFixed(0);
+    }
+    return value.toFixed(2);
   }
 
 }

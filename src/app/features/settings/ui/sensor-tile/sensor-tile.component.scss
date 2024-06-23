@@ -1,3 +1,6 @@
+:host {
+  display: block;
+}
 
 .sensor-tile {
   position: relative;
@@ -82,6 +85,10 @@
   align-items: flex-end;
   flex-direction: column;
   right: 10px;
+
+  & > span {
+    width: 100%;
+  }
 }
 
 .alarms h2 {

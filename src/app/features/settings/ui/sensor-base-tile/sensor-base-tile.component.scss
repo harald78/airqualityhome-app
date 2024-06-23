@@ -1,6 +1,7 @@
 .sensor-base-tile {
   position: relative;
   margin-top: 10px;
+  margin-bottom: 10px;
   width: 350px;
   border: 2px solid #ccc;
   border-radius: 8px;
@@ -12,10 +13,6 @@
   flex-direction: column;
   justify-content: space-between;
   transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.sensor-base-tile {
-  margin-bottom: 10px;
 }
 
 .header {
@@ -54,13 +51,21 @@
   color: #666;
 }
 
+.sensor-types {
+  padding: 5px;
+
+  & > span:not(:last-child)::after {
+    content: ", ";
+  }
+}
+
 .content {
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   font-size: 16px;
-  padding: 15px 20px;
+  padding: 10px 5px 15px 5px;
   color: #999;
 }
 
@@ -70,9 +75,12 @@
 
 .alarms {
   display: flex;
-  align-items: flex-end;
-  flex-direction: column;
-  margin-top: -5px
+  align-items: flex-start;
+
+  & > span {
+    width: 30%;
+    margin: 2px;
+  }
 }
 
 
@@ -100,24 +108,4 @@
   & > app-icon {
     margin-right: 3px;
   }
-}
-
-.alarms h2 {
-  display: flex;
-  align-items: center;
-  margin: 0 0 0 0;
-  font-size: 14px;
-  color: #333;
-
-  & > span {
-    margin-right: 2px;
-    margin-top: -2px
-  }
-}
-
-.alarms > span {
-  font-size: 10px;
-  color: #fff;
-
-  margin-top: 2px;
 }

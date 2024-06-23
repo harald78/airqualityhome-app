@@ -3,12 +3,14 @@
                    id="dashboard-filter-button"
                    (iconButtonClick)="openOverlay()"
                    [width]="'24px'"
-                   class="m-2 w-100"
+                   class="m-2"
                    [classes]="'btn btn-outline-dark'"></app-icon-button>
 </div>
-<div>
+<div class="measurement-list">
   @for (measurementItem of measurementItems(); track measurementItem.id; let index=$index) {
-      <app-measurement-tile id="measurement-tile-{{index}}"
+      <app-measurement-tile
+        class="measurement-tile"
+        id="measurement-tile-{{index}}"
         [value]="measurementItem.value"
         [type]="measurementItem.sensorType"
         [warningThreshold]="measurementItem.warningThreshold"

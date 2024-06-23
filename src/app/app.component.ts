@@ -27,8 +27,8 @@ export class AppComponent implements OnInit {
     await this.router.navigate(['dashboard']);
 
     if (this.swUpdate.isEnabled) {
-      this.swUpdate.versionUpdates.subscribe(() => {
-        if (confirm("New version available. Load New Version?")) {
+      this.swUpdate.versionUpdates.subscribe((event) => {
+        if (event.type === "VERSION_READY" && confirm("New version available. Load New Version?")) {
           window.location.reload();
         }
       });

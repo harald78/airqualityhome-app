@@ -6,17 +6,25 @@
     <h2 class="font-monospace fw-bolder" aria-label="aq-register-sensor-base-title">{{ sensorBase().name }}</h2>
   </div>
   <div class="content-wrapper">
-    @for (sensor of sensorBase().sensorTypes; track sensor.id) {
+    @for (sensor of sensorTypes(); track sensor.name) {
       <div class="content">
         <div class="sensor-info">
-          <h2 class="font-monospace fw-bolder">{{ sensor.type }}</h2>
-          <p>Type: {{ sensor.name }}</p>
+          <h2 class="font-monospace fw-bolder">{{ sensor.name }}</h2>
+          <p class="sensor-types">
+            @for (type of sensor.types; track type) {
+              <span >{{ type }}</span>
+            }
+          </p>
         </div>
-        <div class="alarms">
-          <h2><span><app-icon [path]="mdiBell" width="14px" [color]="'black'"></app-icon></span>Alarms</h2>
-          <span class="badge bg-info">min {{ sensor.maxValue }}{{ sensor.type | unit }}</span>
-          <span class="badge bg-danger">max {{ sensor.minValue }}{{ sensor.type | unit }}</span>
-        </div>
+        @if (sensor.sensorRanges.length > 0) {
+          <h2 class="font-monospace fs-6 fw-bolder">Sensor ranges</h2>
+        }
+        @for (range of sensor.sensorRanges; track range.alarmType) {
+          <div class="alarms">
+            <span class="badge bg-info">min {{ range.minAlarm }}{{ range.alarmType | unit }}</span>
+            <span class="badge bg-danger">max {{ range.maxAlarm }}{{ range.alarmType | unit }}</span>
+          </div>
+        }
       </div>
     }
   </div>

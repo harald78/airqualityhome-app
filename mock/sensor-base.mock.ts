@@ -1,4 +1,4 @@
-import {SensorBase} from "../src/app/shared/model/sensor-base.model";
+import {SensorBase} from "../src/app/features/settings/model/sensor-base.model";
 import {PhysicalType} from "../src/app/shared/model/sensor-type.model";
 
 export const availableSensorBaseMock: SensorBase[] = [

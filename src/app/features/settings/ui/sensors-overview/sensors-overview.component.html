@@ -1,18 +1,32 @@
 <div id="settings-container" class="setting-home-container" aria-label="settings-container-label">
-  <button id="navigate-to-base-button" type="button" class="btn btn-outline-dark mb-2" (click)="register()" aria-label="settings-register-base-button">Register new Base</button>
 
-  @for (sensor of registeredSensors(); track sensor.id) {
-    <app-sensor-tile
-      [sensorType]="sensor.sensorType"
-      [sensorName]="sensor.sensorName"
-      [sensorBase]="sensor.sensorBase"
-      [alarmMin]="sensor.alarmMin"
-      [alarmMax]="sensor.alarmMax"
-      [location]="sensor.location"
-      [updated]="sensor.updated"
-      [alarmActive]="sensor.alarmActive"
-      (click)="onSelect(sensor.id)"
+  <div class="d-flex align-items-center w-100 justify-content-center sticky-top bg-white">
+    <app-icon-button text="Filter" [icon]="mdiFilter"
+                     id="settings-filter-button"
+                     (iconButtonClick)="openOverlay()"
+                     [width]="'24px'"
+                     class="m-2"
+                     [classes]="'btn btn-outline-dark'"></app-icon-button>
+  </div>
+
+  <div class="sensor-list">
+    @for (sensor of registeredSensors(); track sensor.id) {
+      <app-sensor-tile
+        [sensorType]="sensor.sensorType"
+        [sensorName]="sensor.sensorName"
+        [sensorBase]="sensor.sensorBase"
+        [alarmMin]="sensor.alarmMin"
+        [alarmMax]="sensor.alarmMax"
+        [location]="sensor.location"
+        [updated]="sensor.updated"
+        [alarmActive]="sensor.alarmActive"
+        (click)="onSelect(sensor.id)"
       ></app-sensor-tile>
-  }
+    }
+  </div>
+
+
+  <button id="navigate-to-base-button" type="button" class="btn btn-outline-dark mt-3" (click)="register()"
+          aria-label="settings-register-base-button">Register new Base</button>
 </div>
 

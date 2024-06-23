@@ -1,7 +1,25 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 ::ng-deep .canvas {
   max-width: 70% !important;
   background-color: #022E46;
   color: white;
+}
+
+#dashboard-filter-button {
+  width: 80%;
+  max-width: 500px;
+}
+
+.measurement-list {
+  & > app-measurement-tile:last-child {
+    margin-bottom: 60px;
+  }
 }
 
 

@@ -3,8 +3,9 @@
     <div class="temperature-container">
       <div class="temperature-circle {{severity()}}">
         <span class="value">{{ value() | sensorValue: type() }}</span>
+        <span>{{ type() | unit }}</span>
       </div>
-      <span class="unit">{{ type() | unit }}</span>
+
     </div>
     <div class="sensor-info">
       <h2>{{ type() }}</h2>

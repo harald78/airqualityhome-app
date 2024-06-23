@@ -38,6 +38,7 @@ export class FilterService {
     this.FILTER_PROPERTIES.forEach((prop) => {
       this.initOptions(prop);
     });
+    this.filterItems();
   }
 
   public setFilter(filterEvent: FilterEvent) {

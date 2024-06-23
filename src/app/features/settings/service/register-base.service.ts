@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {SensorBase} from "../../../shared/model/sensor-base.model";
+import {SensorBase} from "../model/sensor-base.model";
 import {Toast, ToastService} from "../../../shared/components/toast/toast.service";
 import {catchError} from "rxjs/operators";
 import {mdiAlert} from "@mdi/js";

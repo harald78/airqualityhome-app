@@ -5,12 +5,21 @@
 .offcanvas-body {
   display: flex;
   flex-direction: column;
-  height: 92vh;
+  overflow-y: scroll;
+  height: 75vh;
+}
+
+.offcanvas-footer {
+  position: relative;
+  padding: 10px;
 }
 
 .close-button {
-  position: absolute;
+  background-color: #022E46;
+  color: white;
+  position: fixed;
   bottom: 10px;
+
 }
 
 app-icon {

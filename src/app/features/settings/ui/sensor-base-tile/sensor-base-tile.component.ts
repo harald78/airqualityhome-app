@@ -1,10 +1,11 @@
-import { Component, EventEmitter, input, InputSignal, Output } from '@angular/core';
+import {Component, computed, EventEmitter, input, InputSignal, Output} from '@angular/core';
 import { mdiBell, mdiMapMarker, mdiUpdate } from '@mdi/js';
 import { IconComponent } from '../../../../shared/components/icon/icon/icon.component';
 import { UnitPipe } from '../../../../shared/pipes/unit.pipe';
 import { DatePipe } from '@angular/common';
-import { SensorBase } from '../../../../shared/model/sensor-base.model';
+import {SensorBase, SensorRange, SensorTypeGroup} from '../../model/sensor-base.model';
 import { RegisterRequest } from '../../model/register-request.model';
+import {PhysicalType, SensorType} from "../../../../shared/model/sensor-type.model";
 
 @Component({
   selector: 'app-sensor-base-tile',
@@ -26,6 +27,22 @@ export class SensorBaseTileComponent {
   sensorBase: InputSignal<SensorBase> = input.required();
   activeRequest: InputSignal<RegisterRequest | undefined> = input.required();
 
+  sensorTypes = computed(() => {
+    return this.sensorBase().sensorTypes.reduce((prev, current) => {
+      const sensorTypeGroup = prev.find(p => p.name === current.name);
+
+      if (sensorTypeGroup) {
+        this.computeSensorRanges(sensorTypeGroup.sensorRanges, current);
+        sensorTypeGroup.types.push(current.type);
+
+      } else {
+        prev.push({name: current.name, types: [current.type], sensorRanges: this.computeSensorRanges([], current)});
+      }
+
+      return prev;
+    }, [] as SensorTypeGroup[]);
+  });
+
   @Output() cancelRequest: EventEmitter<SensorBase> = new EventEmitter<SensorBase>();
   @Output() openModal: EventEmitter<SensorBase> = new EventEmitter<SensorBase>();
 
@@ -35,5 +52,31 @@ export class SensorBaseTileComponent {
 
   request(sensorBase: SensorBase) {
     this.openModal.emit(sensorBase);
+  }
+
+  computeSensorRanges(ranges: SensorRange[], sensorType: SensorType): SensorRange[] {
+    switch (sensorType.type) {
+      case PhysicalType.TEMPERATURE:
+      case PhysicalType.HUMIDITY:
+        return this.mayBeAddRange(ranges, sensorType);
+      case PhysicalType.VOC:
+        return this.mayBeAddRange(ranges, sensorType);
+      default:
+        return ranges;
+    }
+  }
+
+  mayBeAddRange(ranges: SensorRange[], sensorType: SensorType): SensorRange[] {
+    const range = ranges.find(r => r.alarmType === sensorType.type);
+    if (range) {
+      return ranges;
+    }
+    const newRange: SensorRange = {
+      minAlarm: sensorType.minValue,
+      maxAlarm: sensorType.maxValue,
+      alarmType: sensorType.type
+    };
+    ranges.push(newRange);
+    return ranges;
   }
 }
