@@ -31,5 +31,11 @@
 }
 
 #navigate-to-base-button {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+}
+
+@media screen and (max-height: 700px) {
+  #navigate-to-base-button {
+    margin-bottom: 80px;
+  }
 }
