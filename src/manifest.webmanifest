@@ -1,6 +1,6 @@
 {
   "name": "airqualityhome-app",
-  "short_name": "airqualityhome-app",
+  "short_name": "AirQualityHome",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

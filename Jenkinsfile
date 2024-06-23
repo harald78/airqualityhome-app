@@ -44,6 +44,8 @@ pipeline {
                   }
               }
              steps {
+                sh 'rm -rf /var/www/app'
+                sh 'mkdir /var/www/app'
                 sh 'cp -r ./dist/airqualityhome-app/browser/. /var/www/app'
            }
         }
