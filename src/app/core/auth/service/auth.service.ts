@@ -1,12 +1,12 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {User} from "../../../shared/model/user.model";
-import { catchError, filter, finalize, firstValueFrom, map, Subject, Subscription,tap, throwError } from 'rxjs';
+import {catchError, filter, finalize, firstValueFrom, map, of, Subject, Subscription, tap, throwError} from 'rxjs';
 import {AuthRequestDto} from "../model/auth-request.model";
 import {JwtDto, RefreshTokenRequestDto} from "../model/jtw.model";
 import {ToastService} from "../../../shared/components/toast/toast.service";
 import { mdiAlert } from "@mdi/js";
-import { AuthState } from "../+state/auth.state";
+import {ANONYMOUS_USER, AuthState} from "../+state/auth.state";
 import {Router} from "@angular/router";
 import { OverlayService } from '../../../shared/services/overlay.service';
 import {AppSettingsState} from "../../app-settings/+state/app-settings.state";
@@ -59,11 +59,8 @@ import {interval} from "rxjs";
 
   async serverLogout(): Promise<User> {
     return firstValueFrom(this.http.post<User>(`${this.appSettingsState.baseUrl()}/user/logout`, {})
-      .pipe(catchError((err) => {
-      this.toastService.show({classname: "bg-danger text-light", header: '',
-        id: "logout-error", delay: 1000,
-        body: "Unauthorized", icon: mdiAlert, iconColor: "white"});
-      return throwError(() => err);
+      .pipe(catchError(() => {
+      return of(ANONYMOUS_USER);
     })));
   }
 

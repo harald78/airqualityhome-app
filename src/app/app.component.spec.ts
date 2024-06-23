@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MockProvider } from 'ng-mocks';
 import {AuthService} from "./core/auth/service/auth.service";
 import { routesMock } from '../../mock/routes.mock';
+import {SwUpdate} from "@angular/service-worker";
 
 
 describe('AppComponent', () => {
@@ -12,7 +13,7 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent, RouterModule.forRoot(routesMock)],
-      providers: [MockProvider(ActivatedRoute), MockProvider(AuthService)]
+      providers: [MockProvider(ActivatedRoute), MockProvider(AuthService), MockProvider(SwUpdate)]
     }).compileComponents();
 
     authService = TestBed.inject(AuthService);
