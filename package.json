@@ -12,6 +12,7 @@
     "start:standalone:mock": "npm run mock:server & npm run start:standalone",
     "start:local": "ng serve --configuration=local",
     "build": "ng build",
+    "build:prod": "ng build -c production",
     "watch": "ng build --watch --configuration development",
     "mock:server": "nodemon mock/json-server/server.js --ext js,ts,json,html",
     "test": "ng test",
