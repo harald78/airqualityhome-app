@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
 
     if (this.swUpdate.isEnabled) {
       this.swUpdate.versionUpdates.subscribe((event) => {
-        if (event.type === "VERSION_READY" && confirm("New version available. Load New Version?")) {
+        if (event.type === "VERSION_DETECTED" && confirm("New version available. Load New Version?")) {
           window.location.reload();
         }
       });
