@@ -5,6 +5,7 @@ import {FooterComponent} from "./shared/components/footer/footer/footer.componen
 import {ToastsContainerComponent} from "./shared/components/toast/toasts-container.component";
 import {AuthService} from "./core/auth/service/auth.service";
 import { OverlayComponent } from './shared/components/overlay/overlay.component';
+import {SwUpdate} from "@angular/service-worker";
 
 @Component({
   selector: 'app-root',
@@ -19,10 +20,19 @@ export class AppComponent implements OnInit {
   title = 'AirQuality@Home';
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly swUpdate: SwUpdate = inject(SwUpdate);
 
   async ngOnInit() {
     await this.authService.loadUserProfile();
     await this.router.navigate(['dashboard']);
+
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.versionUpdates.subscribe(() => {
+        if (confirm("New version available. Load New Version?")) {
+          window.location.reload();
+        }
+      });
+    }
   }
 
 }
