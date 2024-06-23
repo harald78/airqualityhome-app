@@ -1,7 +1,5 @@
 :host {
   display: block;
-  padding: 10px;
-  height: 70vh;
 }
 
 h1 {
@@ -55,6 +53,5 @@ button#changePW-button, button#cancel-button, button#logout-button {
 }
 
 button#logout-button {
-  position: absolute;
-  bottom: 0;
+  margin-top: 200px;
 }

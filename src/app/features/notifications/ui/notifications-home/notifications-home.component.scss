@@ -6,6 +6,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  & > app-notification-tile:last-child {
+    margin-bottom: 60px;
+  }
 }
 
 .trash-button-container {
@@ -15,7 +19,8 @@
 }
 
 #notification-trash-button {
-  width: 45px;
+  width: 80%;
+  max-width: 500px;
   height: 40px;
 }
 

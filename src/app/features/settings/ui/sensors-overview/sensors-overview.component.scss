@@ -2,6 +2,11 @@
   display: block;
 }
 
+#settings-filter-button {
+  width: 80%;
+  max-width: 500px;
+}
+
 .setting-home-container {
   display: flex;
   flex-direction: column;
@@ -11,4 +16,20 @@
     width: 80%;
     max-width: 500px;
   }
+}
+
+::ng-deep .canvas {
+  max-width: 70% !important;
+  background-color: #022E46;
+  color: white;
+}
+
+.sensor-list {
+  & > app-sensor-tile:last-child {
+    margin-bottom: 30px;
+  }
+}
+
+#navigate-to-base-button {
+  margin-bottom: 50px;
 }

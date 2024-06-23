@@ -1,9 +1,12 @@
 <div class="trash-button-container">
   <app-icon-button [icon]="trashIcon"
                    id="notification-trash-button"
+                   [iconActiveColor]="notifications().length === 0 ? '' : 'white'"
+                   [text]="'Delete'"
                    (iconButtonClick)="openDeleteModal()"
                    [width]="'24px'"
-                   class="mt-2 mb-2"
+                   [disabled]="notifications().length === 0"
+                   class="m-2"
                    [classes]="'btn btn-outline-dark'"></app-icon-button>
 </div>
 

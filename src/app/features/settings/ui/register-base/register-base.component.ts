@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
 import {RegisterBaseService} from "../../service/register-base.service";
-import {SensorBase} from "../../../../shared/model/sensor-base.model";
+import {SensorBase} from "../../model/sensor-base.model";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {UnitPipe} from "../../../../shared/pipes/unit.pipe";
 import {RegisterRequest} from "../../model/register-request.model";
