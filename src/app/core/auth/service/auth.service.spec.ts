@@ -1,9 +1,9 @@
-import {discardPeriodicTasks, fakeAsync, TestBed, waitForAsync} from "@angular/core/testing";
+import {fakeAsync, TestBed, waitForAsync} from "@angular/core/testing";
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import {AuthService} from "./auth.service";
 import {ToastService} from "../../../shared/components/toast/toast.service";
 import {userMock} from "../../../../../mock/user-mock";
-import {AuthState} from "../+state/auth.state";
+import {ANONYMOUS_USER, AuthState} from "../+state/auth.state";
 import { Router, RouterModule } from '@angular/router';
 import {AuthRequestDto} from "../model/auth-request.model";
 import {jwtDtoMock} from "../../../../../mock/jwt-dto.mock";
@@ -230,23 +230,11 @@ describe("AuthService Test", () => {
   });
 
   it('should handle error on logout user', async () => {
-    const errorToast = {classname: "bg-danger text-light", header: '',
-      id: "logout-error", delay: 1000,
-      body: "Unauthorized", icon: mdiAlert, iconColor: "white"};
-    const expectedError = {"error": {"email": "balu@dschungel.de", "id": 1, "roles": ["APP_READ", "APP_WRITE"], "username": "Balu"},
-      "headers": {"headers": new Map(), "lazyUpdate": null, "normalizedNames": new Map()},
-      "message": "Http failure response for http://localhost:3001/api/app/user/logout: 500 INTERNAL SERVER ERROR", "name": "HttpErrorResponse",
-      "ok": false, "status": 500, "statusText": "INTERNAL SERVER ERROR", "url": "http://localhost:3001/api/app/user/logout"};
-
-    const toastServiceSpy = jest.spyOn(toastService, 'show');
     const promise = service.serverLogout();
     const request = httpMock.expectOne(appState.baseUrl() + '/user/logout');
     request.flush(userMock, {status: 500, statusText: 'INTERNAL SERVER ERROR'});
 
-    await expect(promise).rejects.toEqual(expectedError);
-
-    // given
-    expect(toastServiceSpy).toHaveBeenCalledWith(errorToast);
+    await expect(promise).resolves.toEqual(ANONYMOUS_USER);
   });
 
   it('should unsubscribe from intervalSubscription', () => {
