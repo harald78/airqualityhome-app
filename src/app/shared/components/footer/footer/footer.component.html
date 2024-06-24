@@ -1,5 +1,5 @@
 <footer>
-  @if (authState.isLoggedIn()) {
+  @if (authState.isLoggedIn() && !!(online$ | async)) {
     <ul>
       <li><a id="home-link" routerLink="dashboard" aria-label="footer-dashboard-link"><app-icon [path]="iconDashboard" [color]="router.url.includes('dashboard') ? '#3f974f' : 'white'" width="2rem" ></app-icon></a></li>
       <li><a id="notifications-link" routerLink="notifications" aria-label="footer-notifications-link"><app-icon [path]="iconNotification" [color]="router.url.includes('notifications') ? '#3f974f' : 'white'" width="2rem"></app-icon></a></li>

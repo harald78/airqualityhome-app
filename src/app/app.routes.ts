@@ -8,6 +8,7 @@ import { SensorsOverviewComponent } from './features/settings/ui/sensors-overvie
 import { SensorSettingsComponent } from './features/settings/ui/sensor-settings/sensor-settings.component';
 import {DashboardOverviewComponent} from "./features/dashboard/ui/dashboard-overview/dashboard-overview.component";
 import {DashboardDetailComponent} from "./features/dashboard/ui/dashboard-detail/dashboard-detail.component";
+import {OfflineComponent} from "./core/offline/offline.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -32,5 +33,6 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'general-settings', loadComponent: () => import('./core/app-settings/ui/app-settings/app-settings.component')
       .then(m => m.AppSettingsComponent) },
+  { path: 'offline', component: OfflineComponent },
   { path: '**', redirectTo: 'dashboard' }
 ];

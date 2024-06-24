@@ -33,6 +33,8 @@ export class HeaderComponent implements OnInit {
       return 'App Settings';
     } else if (this.router.url.includes('login')) {
       return 'Login';
+    } else if (this.router.url.includes('offline')) {
+      return 'Offline';
     } else {
       return "";
     }
