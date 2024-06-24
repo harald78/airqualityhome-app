@@ -4,11 +4,10 @@ import {
   inject,
   input,
   InputSignal,
-  OnInit,
-  signal,
-  WritableSignal
+  Signal,
+  computed
 } from '@angular/core';
-import {Color, colorSets, LegendPosition, NgxChartsModule, ScaleType} from '@swimlane/ngx-charts';
+import {Color, colorSets, LegendPosition, NgxChartsModule} from '@swimlane/ngx-charts';
 import {SensorMeasurementHistory} from '../../../model/measurementHistory.model';
 import {ChartService} from '../../../service/chart.service';
 import {UnitPipe} from "../../../../../shared/pipes/unit.pipe";
@@ -23,7 +22,7 @@ import {ReferenceLine} from '../../../model/chart.models';
   styleUrl: './chart.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent {
 
   private readonly chartService: ChartService = inject(ChartService);
   public formatYAxisTickFn = this.formatYAxisTick.bind(this);
@@ -37,27 +36,15 @@ export class ChartComponent implements OnInit {
   showLegend = true;
   showXAxisLabel = false;
   showYAxisLabel = false;
-  yScaleMin: WritableSignal<number> = signal(0);
-  yScaleMax: WritableSignal<number> = signal(40);
+  yScaleMin: Signal<number> = computed(() => this.chartService.calculateYScaleMin(this.chartData()));
+  yScaleMax: Signal<number> = computed(() => this.chartService.calculateYScaleMax(this.chartData()));
   roundDomains = true;
   autoScale = false;
   legendPosition: LegendPosition = LegendPosition.Below;
   colorScheme: Color = colorSets.find(s => s.name === 'forest')!;
-  referenceLines: WritableSignal<ReferenceLine[]> = signal([]);
+  referenceLines: Signal<ReferenceLine[]> = computed(() => this.chartService.calculateReferenceLines(this.chartData()));
 
   dataToggle = input(false);
-
-  ngOnInit() {
-    this.prepareChartData();
-  }
-
-  prepareChartData() {
-    if (this.chartData()) {
-      this.yScaleMax.set(this.chartService.calculateYScaleMax(this.chartData()));
-      this.yScaleMin.set(this.chartService.calculateYScaleMin(this.chartData()));
-      this.referenceLines.set(this.chartService.calculateReferenceLines(this.chartData()));
-    }
-  }
 
   formatYAxisTick(value: number): string {
     return this.chartService.formatYAxisTick(value, this.chartData()[0].type, this.dataToggle());

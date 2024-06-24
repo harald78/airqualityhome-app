@@ -3,7 +3,6 @@ import {SensorMeasurementHistory} from "../model/measurementHistory.model";
 import {UnitPipe} from "../../../shared/pipes/unit.pipe";
 import { DateTimeUtil } from '../../../shared/util/date.util';
 import { ReferenceLine } from '../model/chart.models';
-import {parse} from "@angular-eslint/template-parser";
 
 @Injectable({
   providedIn: 'root'
