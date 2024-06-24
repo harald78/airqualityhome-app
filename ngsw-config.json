@@ -40,15 +40,18 @@
     },
     {
       "name": "notifications",
-      "urls": ["/api/app/notifications/user/"],
+      "urls": [
+        "/api/app/notifications/user/"
+      ],
       "cacheConfig": {
         "strategy": "freshness",
         "timeout": "10s",
         "maxAge": "id",
         "maxSize": 100
-      },
+      }
+    },
     {
-      "name": "notifications",
+      "name": "settings",
       "urls": ["/api/app/settings/"],
       "cacheConfig": {
         "strategy": "freshness",
