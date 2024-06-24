@@ -26,5 +26,36 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "last-measurements",
+      "urls": ["/api/app/measurements/user/"],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "timeout": "10s",
+        "maxAge": "id",
+        "maxSize": 100
+      }
+    },
+    {
+      "name": "notifications",
+      "urls": ["/api/app/notifications/user/"],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "timeout": "10s",
+        "maxAge": "id",
+        "maxSize": 100
+      },
+    {
+      "name": "notifications",
+      "urls": ["/api/app/settings/"],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "timeout": "10s",
+        "maxAge": "id",
+        "maxSize": 100
+      }
+    }
   ]
 }
