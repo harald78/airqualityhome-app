@@ -17,5 +17,13 @@ div#app-settings-container {
 }
 
 .restore-button {
-  margin-bottom: 80px;
+  margin-bottom: 30px;
 }
+
+@media screen and (max-height: 650px) {
+  .restore-button {
+    margin-bottom: 80px;
+  }
+}
+
+

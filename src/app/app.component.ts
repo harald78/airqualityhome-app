@@ -23,9 +23,6 @@ export class AppComponent implements OnInit {
   private readonly swUpdate: SwUpdate = inject(SwUpdate);
 
   async ngOnInit() {
-    await this.authService.loadUserProfile();
-    await this.router.navigate(['dashboard']);
-
     if (this.swUpdate.isEnabled) {
       this.swUpdate.versionUpdates.subscribe((event) => {
         if (event.type === "VERSION_DETECTED" && confirm("New version available. Load New Version?")) {
@@ -33,6 +30,11 @@ export class AppComponent implements OnInit {
         }
       });
     }
+
+    await this.authService.tryRefresh();
+    await this.authService.loadUserProfile();
+    await this.authService.setRefreshTimeout();
+    await this.router.navigate(['dashboard']);
   }
 
 }

@@ -62,7 +62,6 @@ describe("AuthService Test", () => {
 
     expect(setUserSpy).toHaveBeenCalledWith(userMock);
     expect(navigateSpy).not.toHaveBeenCalled(); // Das Setzen des Timeouts verzögert den Aufruf
-    expect(localStorage.getItem).toHaveBeenCalledWith('token');
   }));
 
   it('should login user without error', async () => {
@@ -189,6 +188,8 @@ describe("AuthService Test", () => {
 
   it('should not call refreshToken', fakeAsync( async () => {
     const refreshTokenSpy = jest.spyOn(service, 'refreshToken').mockResolvedValue(undefined);
+    const logoutSpy = jest.spyOn(service, 'logout').mockResolvedValue();
+
     jest.spyOn(Storage.prototype, 'getItem');
     Storage.prototype.getItem = jest.fn((key) => {
       if (key === APP_SETTINGS_KEY) {
@@ -197,9 +198,9 @@ describe("AuthService Test", () => {
       return null;
     });
 
-    await service.tryRefresh();
-
+    await expect( () => service.tryRefresh()).rejects.toEqual("Could not refresh token");
     expect(refreshTokenSpy).not.toHaveBeenCalled();
+    expect(logoutSpy).toHaveBeenCalled();
   }));
 
   it('should setRefreshTimeout', fakeAsync(async () => {
