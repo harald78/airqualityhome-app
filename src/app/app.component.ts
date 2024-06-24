@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
 import {Router, RouterOutlet} from '@angular/router';
 import {HeaderComponent} from "./shared/components/header/header/header.component";
 import {FooterComponent} from "./shared/components/footer/footer/footer.component";
@@ -19,8 +19,9 @@ export class AppComponent implements OnInit {
 
   title = 'AirQuality@Home';
   private readonly authService = inject(AuthService);
-  private readonly router = inject(Router);
   private readonly swUpdate: SwUpdate = inject(SwUpdate);
+  private readonly router: Router = inject(Router);
+
 
   async ngOnInit() {
     if (this.swUpdate.isEnabled) {
