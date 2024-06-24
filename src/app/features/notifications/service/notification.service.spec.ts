@@ -63,7 +63,7 @@ describe('NotificationService', () => {
     expect(toastService.show).toHaveBeenCalledWith({
       classname: 'bg-danger text-light',
       header: 'Could not load notifications',
-      body: '500 INTERNAL SERVER ERROR',
+      body: 'INTERNAL SERVER ERROR',
       icon: mdiAlert,
       iconColor: 'white'
     });
@@ -105,7 +105,7 @@ describe('NotificationService', () => {
     expect(toastService.show).toHaveBeenCalledWith({
       classname: 'bg-danger text-light',
       header: 'Could not delete notifications',
-      body: '500 Error',
+      body: 'Error',
       icon: mdiAlert,
       iconColor: 'white'
     });

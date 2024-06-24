@@ -25,7 +25,7 @@ export class MeasurementService {
         const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
         const errorToast: Toast = {classname: "bg-danger text-light", header: 'Could not load latest measurements',
           id: "dashboard-error",
-          body: `${err.status} ${statusText}`, icon: mdiAlert, iconColor: "white"};
+          body: `${statusText}`, icon: mdiAlert, iconColor: "white"};
         this.toastService.show(errorToast);
         return of([]);
       })));
@@ -38,7 +38,7 @@ export class MeasurementService {
         const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
         const errorToast: Toast = {classname: "bg-danger text-light", header: 'Could not load measurements history',
           id: 'dashboard-error',
-          body: `${err.status} ${statusText}`, icon: mdiAlert, iconColor: "white"};
+          body: `${statusText}`, icon: mdiAlert, iconColor: "white"};
         this.toastService.show(errorToast);
         return of();
       })));

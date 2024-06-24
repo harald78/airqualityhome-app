@@ -28,7 +28,7 @@ export class RegisterBaseService {
         const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
         const errorToast: Toast = {classname: "bg-danger text-light", header: 'Could not load available sensor bases',
           id: "settings-error",
-          body: `${err.status} ${statusText}`, icon: mdiAlert, iconColor: "white"};
+          body: `${statusText}`, icon: mdiAlert, iconColor: "white"};
         this.toastService.show(errorToast);
         return of([]);
       }));
@@ -41,7 +41,7 @@ export class RegisterBaseService {
         const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
         const errorToast: Toast = {classname: "bg-danger text-light", header: 'Could not load active registration requests',
           id: "settings-error",
-          body: `${err.status} ${statusText}`, icon: mdiAlert, iconColor: "white"};
+          body: `${statusText}`, icon: mdiAlert, iconColor: "white"};
         this.toastService.show(errorToast);
         return of(undefined);
       })));
@@ -53,7 +53,7 @@ export class RegisterBaseService {
           const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
           const errorToast: Toast = {classname: "bg-danger text-light", header: 'Could register sensor base',
             id: "settings-error",
-            body: `${err.status} ${statusText}`, icon: mdiAlert, iconColor: "white"};
+            body: `${statusText}`, icon: mdiAlert, iconColor: "white"};
           this.toastService.show(errorToast);
           return of(undefined);
         }))
@@ -66,7 +66,7 @@ export class RegisterBaseService {
         const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
         const errorToast: Toast = {classname: "bg-danger text-light", header: 'Could register sensor base',
           id: "settings-error",
-          body: `${err.status} ${statusText}`, icon: mdiAlert, iconColor: "white"};
+          body: `${statusText}`, icon: mdiAlert, iconColor: "white"};
         this.toastService.show(errorToast);
         return of(undefined);
       }))

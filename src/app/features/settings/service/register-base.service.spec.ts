@@ -52,7 +52,7 @@ describe('RegisterBaseService', () => {
     jest.spyOn(toastService, 'show');
     const expectedToast = {classname: "bg-danger text-light", header: 'Could not load available sensor bases',
       id: 'settings-error',
-      body: `403 FORBIDDEN`, icon: mdiAlert, iconColor: "white"};
+      body: `FORBIDDEN`, icon: mdiAlert, iconColor: "white"};
     service.getAvailableSensorBases().subscribe(result =>
       {
         expect(result).toEqual([]);
@@ -84,7 +84,7 @@ describe('RegisterBaseService', () => {
     await authState.setUser(userMock);
     const expectedToast = {classname: "bg-danger text-light", header: 'Could not load active registration requests',
       id: 'settings-error',
-      body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
+      body: "FORBIDDEN", icon: mdiAlert, iconColor: "white"};
     jest.spyOn(toastService, 'show');
 
     const promise = service.getActiveRegistrationsByUser();
@@ -127,7 +127,7 @@ describe('RegisterBaseService', () => {
     };
     const expectedToast = {classname: "bg-danger text-light", header: 'Could register sensor base',
       id: 'settings-error',
-      body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
+      body: "FORBIDDEN", icon: mdiAlert, iconColor: "white"};
     jest.spyOn(toastService, 'show');
 
     const promise = service.sendRegisterRequest(registerRequest);
@@ -170,7 +170,7 @@ describe('RegisterBaseService', () => {
     };
     const expectedToast = {classname: "bg-danger text-light", header: 'Could register sensor base',
       id: 'settings-error',
-      body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
+      body: "FORBIDDEN", icon: mdiAlert, iconColor: "white"};
     jest.spyOn(toastService, 'show');
 
     const promise = service.cancelRegisterRequest(registerRequest);
