@@ -3,6 +3,7 @@ import {SensorMeasurementHistory} from "../model/measurementHistory.model";
 import {UnitPipe} from "../../../shared/pipes/unit.pipe";
 import { DateTimeUtil } from '../../../shared/util/date.util';
 import { ReferenceLine } from '../model/chart.models';
+import {parse} from "@angular-eslint/template-parser";
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,6 @@ export class ChartService {
         });
       });
     }
-    console.log(min);
     return min;
   }
 
@@ -41,7 +41,6 @@ export class ChartService {
         });
       });
     }
-    console.log(max);
     return max;
   }
 
@@ -50,8 +49,8 @@ export class ChartService {
 
     data.forEach(d => {
       if (d.minAlarm !== 0 || d.maxAlarm !== 0) {
+        referenceLines.push({name: "max " + this.unitPipe.transform(d.type), value: d.maxAlarm});
         referenceLines.push({name: "min " + this.unitPipe.transform(d.type), value: d.minAlarm});
-        referenceLines.push({name: "max " + this.unitPipe.transform(d.type), value: d.maxAlarm})
       }
     });
 

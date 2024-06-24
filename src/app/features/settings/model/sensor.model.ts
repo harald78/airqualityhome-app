@@ -23,11 +23,11 @@ export interface Sensor {
 
 export interface SensorSettingsForm {
   location: FormControl<string>;
-  alarmMin: FormControl<number | string>;
-  alarmMax: FormControl<number | string>;
+  alarmMin: FormControl<number>;
+  alarmMax: FormControl<number>;
   alarmActive: FormControl<boolean>;
-  warningThreshold: FormControl<number | string>;
-  linearCorrectionValue: FormControl<number | string>;
+  warningThreshold: FormControl<number>;
+  linearCorrectionValue: FormControl<number>;
 }
 
 export const SENSOR_SETTINGS_KEY = 'sensor_settings';

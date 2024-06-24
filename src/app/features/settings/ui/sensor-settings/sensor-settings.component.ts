@@ -5,7 +5,6 @@ import {Sensor, SensorSettingsForm} from '../../model/sensor.model';
 import { SensorSettingsState } from "../../+state/sensor.state";
 import {mdiContentSaveOutline, mdiRestore} from "@mdi/js";
 import { IconButtonComponent } from "../../../../shared/components/icon-button/icon-button.component";
-import {type} from "@ngrx/signals";
 
 @Component({
   selector: 'app-sensor-settings',
@@ -32,11 +31,11 @@ export class SensorSettingsComponent implements OnInit {
   // Validators.pattern('^\\d*\\.?\\d*$')
   public sensorSettingsForm: FormGroup<SensorSettingsForm> = this.fb.group<SensorSettingsForm>({
     location: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
-    alarmMin: new FormControl<number | string>(0, { nonNullable: true, validators: [Validators.required] }),
-    alarmMax: new FormControl<number | string>(0, { nonNullable: true, validators: [Validators.required] }),
+    alarmMin: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] }),
+    alarmMax: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] }),
     alarmActive: new FormControl<boolean>(false, { nonNullable: true, validators: Validators.required }),
-    warningThreshold: new FormControl<number | string>(0, { nonNullable: true, validators: [Validators.required] }),
-    linearCorrectionValue: new FormControl<number | string>(0, { nonNullable: true, validators: [Validators.required] })
+    warningThreshold: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] }),
+    linearCorrectionValue: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] })
   });
 
 
@@ -46,18 +45,18 @@ export class SensorSettingsComponent implements OnInit {
 
   async saveData(): Promise<void> {
     const changedData: Partial<Sensor> = this.sensorSettingsForm.value as Partial<Sensor>;
-    const alarmMin = this.mayBeCorrectNumericValue(this.sensorSettingsForm.value.alarmMax!);
-    const alarmMax = this.mayBeCorrectNumericValue(this.sensorSettingsForm.value.alarmMin!);
-    const warningThreshold = this.mayBeCorrectNumericValue(this.sensorSettingsForm.value.warningThreshold!);
-    const linearCorrectionValue = this.mayBeCorrectNumericValue(this.sensorSettingsForm.value.linearCorrectionValue!);
+    const alarmMin = this.mayBeCorrectNumericValue(this.sensorSettingsForm.value.alarmMin ?? 0);
+    const alarmMax = this.mayBeCorrectNumericValue(this.sensorSettingsForm.value.alarmMax ?? 0);
+    const warningThreshold = this.mayBeCorrectNumericValue(this.sensorSettingsForm.value.warningThreshold ?? 0);
+    const linearCorrectionValue = this.mayBeCorrectNumericValue(this.sensorSettingsForm.value.linearCorrectionValue ?? 0);
 
     const sensor: Sensor = {
       ...this.selectedSensor()!,
       ...changedData,
-      alarmMax,
-      alarmMin,
-      warningThreshold,
-      linearCorrectionValue
+      alarmMax: alarmMax,
+      alarmMin: alarmMin,
+      warningThreshold: warningThreshold,
+      linearCorrectionValue: linearCorrectionValue
     };
     await this.sensorSettingsState.saveSensorSettings(sensor);
     await this.router.navigate(['settings']);
