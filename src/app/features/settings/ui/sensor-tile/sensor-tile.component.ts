@@ -1,19 +1,20 @@
-import {Component, input, InputSignal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input, InputSignal} from '@angular/core';
 import {mdiBell, mdiCog, mdiMapMarker, mdiUpdate} from "@mdi/js";
 import {DatePipe} from "@angular/common";
 import {IconComponent} from "../../../../shared/components/icon/icon/icon.component";
 import {UnitPipe} from "../../../../shared/pipes/unit.pipe";
 
 @Component({
-  selector: 'app-sensor-tile',
-  standalone: true,
   imports: [
     DatePipe,
     IconComponent,
     UnitPipe
   ],
+  selector: 'app-sensor-tile',
+  standalone: true,
+  styleUrl: './sensor-tile.component.scss',
   templateUrl: './sensor-tile.component.html',
-  styleUrl: './sensor-tile.component.scss'
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SensorTileComponent {
 

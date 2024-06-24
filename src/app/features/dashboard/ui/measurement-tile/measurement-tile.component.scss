@@ -2,7 +2,7 @@
   display: block;
 }
 
-.sensor-tile {
+.measurement-tile {
   position: relative;
   width: 350px;
   border: 2px solid #ccc;
@@ -17,22 +17,22 @@
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.sensor-tile:active {
+.measurement-tile:active {
   transform: scale(0.98);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.sensor-tile {
+.measurement-tile {
   margin-bottom: 10px;
 }
 
-.header {
+.measurement-header {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
 }
 
-.temperature-container {
+.measurement-temperature-container {
   position: relative;
   width: 90px;
   display: flex;
@@ -40,7 +40,7 @@
   margin-right: 10px;
 }
 
-.temperature-circle {
+.measurement-temperature-circle {
   min-width: 85px;
   min-height: 85px;
   max-width: 85px;
@@ -54,22 +54,22 @@
   font-weight: bold;
 }
 
-.temperature-circle.success {
+.measurement-temperature-circle.success {
   border: 5px solid green;
   color: black;
 }
 
-.temperature-circle.warning {
+.measurement-temperature-circle.warning {
   border: 5px solid orange;
   color: orange;
 }
 
-.temperature-circle.danger {
+.measurement-temperature-circle.danger {
   border: 5px solid red;
   color: red;
 }
 
-.unit {
+.measurement-unit {
   position: absolute;
   top: 0;
   right: -10px;
@@ -80,26 +80,26 @@
   margin-left: 5px;
 }
 
-.sensor-info h2 {
+.measurement-info h2 {
   margin: 0;
   font-size: 14px;
   color: #333;
 }
 
-.sensor-info p {
+.measurement-info p {
   margin: 0;
   font-size: 12px;
   color: #666;
 }
 
-.content {
+.measurement-content {
   text-align: center;
   margin-bottom: 8px;
   font-size: 12px;
   color: #999;
 }
 
-.footer {
+.measurement-footer {
   position: relative;
   display: flex;
   align-items: center;
@@ -108,13 +108,13 @@
   text-align: center;
 }
 
-.footer p {
+.measurement-footer p {
   margin: 8px 0 5px 5px;
   font-size: 12px;
   color: #666;
 }
 
-.location {
+.measurement-location {
   display: flex;
   align-items: center;
   position: absolute;
@@ -125,7 +125,7 @@
   }
 }
 
-.alarms {
+.measurement-alarms {
   position: absolute;
   display: flex;
   align-items: flex-end;
@@ -137,7 +137,7 @@
   }
 }
 
-.alarms h2 {
+.measurement-alarms h2 {
   display: flex;
   align-items: center;
   margin: 0 0 0 0;
@@ -150,7 +150,7 @@
   }
 }
 
-.alarms > span {
+.measurement-alarms > span {
   font-size: 10px;
   color: #fff;
 
