@@ -36,7 +36,7 @@ const handle401Error = (request: HttpRequest<unknown>, next: HttpHandlerFn, auth
 
   } else {
     authService.logout();
-    return throwError(() => new Error('Unauthorized'));
+    return throwError(() => new HttpErrorResponse({error: "Unauthorized", status: 403, statusText: "Unauthorized"}));
     }
 }
 
