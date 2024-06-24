@@ -30,7 +30,7 @@
   "dataGroups": [
     {
       "name": "app-api",
-      "urls": ["api/app"],
+      "urls": ["/api/app/"],
       "cacheConfig": {
         "strategy": "freshness",
         "timeout": "10s",

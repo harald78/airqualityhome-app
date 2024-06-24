@@ -24,6 +24,7 @@ export class ChartService {
         });
       });
     }
+    console.log(min);
     return min;
   }
 
@@ -40,6 +41,7 @@ export class ChartService {
         });
       });
     }
+    console.log(max);
     return max;
   }
 

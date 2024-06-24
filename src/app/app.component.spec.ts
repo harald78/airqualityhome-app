@@ -32,10 +32,15 @@ describe('AppComponent', () => {
   });
 
   it('should call loadUserProfile onInit', fakeAsync(async () => {
-    const authServiceSpy = jest.spyOn(authService, 'loadUserProfile').mockResolvedValue(undefined);
+    const authServiceSpy = jest.spyOn(authService, 'tryRefresh').mockResolvedValue(undefined);
+    const loadProfileSpy = jest.spyOn(authService, 'loadUserProfile').mockResolvedValue(undefined);
+    const startRefreshSpy = jest.spyOn(authService, 'setRefreshTimeout').mockResolvedValue(undefined);
+
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
+    await fixture.componentInstance.ngOnInit();
 
     expect(authServiceSpy).toHaveBeenCalled();
+    expect(loadProfileSpy).toHaveBeenCalled();
+    expect(startRefreshSpy).toHaveBeenCalled();
   }));
 });

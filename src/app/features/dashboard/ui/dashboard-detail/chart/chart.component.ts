@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, inject, input, InputSignal, OnInit} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  InputSignal,
+  OnInit,
+  signal,
+  WritableSignal
+} from '@angular/core';
 import {Color, colorSets, LegendPosition, NgxChartsModule, ScaleType} from '@swimlane/ngx-charts';
 import {SensorMeasurementHistory} from '../../../model/measurementHistory.model';
 import {ChartService} from '../../../service/chart.service';
@@ -28,13 +37,13 @@ export class ChartComponent implements OnInit {
   showLegend = true;
   showXAxisLabel = false;
   showYAxisLabel = false;
-  yScaleMin = 0;
-  yScaleMax = 40;
+  yScaleMin: WritableSignal<number> = signal(0);
+  yScaleMax: WritableSignal<number> = signal(40);
   roundDomains = true;
   autoScale = false;
   legendPosition: LegendPosition = LegendPosition.Below;
   colorScheme: Color = colorSets.find(s => s.name === 'forest')!;
-  referenceLines: ReferenceLine[] = [];
+  referenceLines: WritableSignal<ReferenceLine[]> = signal([]);
 
   dataToggle = input(false);
 
@@ -44,9 +53,9 @@ export class ChartComponent implements OnInit {
 
   prepareChartData() {
     if (this.chartData()) {
-      this.yScaleMax = this.chartService.calculateYScaleMax(this.chartData());
-      this.yScaleMin = this.chartService.calculateYScaleMin(this.chartData());
-      this.referenceLines = this.chartService.calculateReferenceLines(this.chartData());
+      this.yScaleMax.set(this.chartService.calculateYScaleMax(this.chartData()));
+      this.yScaleMin.set(this.chartService.calculateYScaleMin(this.chartData()));
+      this.referenceLines.set(this.chartService.calculateReferenceLines(this.chartData()));
     }
   }
 

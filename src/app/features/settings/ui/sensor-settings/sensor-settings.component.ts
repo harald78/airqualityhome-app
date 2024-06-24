@@ -28,13 +28,14 @@ export class SensorSettingsComponent implements OnInit {
   buttonDisabled: boolean = true;
   private readonly selectedSensor = this.sensorSettingsState.selectedSensor;
 
+  // Validators.pattern('^\\d*\\.?\\d*$')
   public sensorSettingsForm: FormGroup<SensorSettingsForm> = this.fb.group<SensorSettingsForm>({
     location: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
-    alarmMin: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.pattern('^\\d*\\.?\\d*$')] }),
-    alarmMax: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.pattern('^\\d*\\.?\\d*$')] }),
+    alarmMin: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] }),
+    alarmMax: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] }),
     alarmActive: new FormControl<boolean>(false, { nonNullable: true, validators: Validators.required }),
-    warningThreshold: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.pattern('^\\d*\\.?\\d*$')] }),
-    linearCorrectionValue: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.pattern('^\\d*\\.?\\d*$')] })
+    warningThreshold: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] }),
+    linearCorrectionValue: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] })
   });
 
 

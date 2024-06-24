@@ -30,7 +30,10 @@ import {interval} from "rxjs";
     const user = await firstValueFrom(this.http.get<User>(`${this.appSettingsState.baseUrl()}/user/profile`));
     if (user) {
       await this.authState.setUser(user);
-      await this.tryRefresh();
+      return Promise.resolve();
+    } else {
+      await this.logout();
+      return Promise.reject("Could not load user");
     }
   }
 
@@ -91,16 +94,22 @@ import {interval} from "rxjs";
     const token = localStorage.getItem('token');
     if (token) {
       await this.refreshToken(token);
+      return Promise.resolve();
+    } else {
+      await this.logout();
+      return Promise.reject("Could not refresh token");
     }
   }
 
   async setRefreshTimeout(): Promise<void> {
     const intervalValue = this.appSettingsState.appSettings().tokenRefreshInterval;
-    this.intervalSubscription = interval(intervalValue).pipe(
-      map(() => localStorage.getItem('token')),
-      filter((token) => token !== null),
-      tap((token) => this.refreshToken(token!))
-    ).subscribe();
+    if (this.intervalSubscription === undefined || this.intervalSubscription.closed) {
+      this.intervalSubscription = interval(intervalValue).pipe(
+        map(() => localStorage.getItem('token')),
+        filter((token) => token !== null),
+        tap((token) => this.refreshToken(token!))
+      ).subscribe();
+    }
   }
 
   async logUserOut(): Promise<void> {
