@@ -80,7 +80,7 @@ describe('AccountService', () => {
     const expectedUrl = appState.baseUrl() + '/user/save';
     const expectedToast = {classname: "bg-danger text-light", header: 'Could not save user data',
       id: 'account-error',
-      body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
+      body: "FORBIDDEN", icon: mdiAlert, iconColor: "white"};
 
     const promise = service.saveUserData(userChangeRequest);
     const request = httpMock.expectOne(expectedUrl);
@@ -140,7 +140,7 @@ describe('AccountService', () => {
     const errorStatusSpy = jest.spyOn(errorStatusService, 'getHttpErrorResponseTextByStatus');
     const expectedToast = {classname: "bg-danger text-light", header: 'Password could not be changed',
       id: 'account-error',
-      body: "403 FORBIDDEN", icon: mdiAlert, iconColor: "white"};
+      body: "FORBIDDEN", icon: mdiAlert, iconColor: "white"};
 
     const promise = service.savePassword(passwordChangeRequest);
     const request = httpMock.expectOne(expectedUrl);

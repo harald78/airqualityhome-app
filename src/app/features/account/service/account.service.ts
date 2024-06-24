@@ -36,7 +36,7 @@ export class AccountService {
         const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
         const errorToast: Toast = {classname: "bg-danger text-light", header: 'Could not save user data',
           id: "account-error",
-          body: `${err.status} ${statusText}`, icon: mdiAlert, iconColor: "white"};
+          body: `${statusText}`, icon: mdiAlert, iconColor: "white"};
         this.toastService.show(errorToast);
         return of(this.authState.user());
       }),
@@ -56,7 +56,7 @@ export class AccountService {
         const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
         const errorToast: Toast = {classname: "bg-danger text-light", header: 'Password could not be changed',
           id: "account-error",
-          body: `${err.status} ${statusText}`, icon: mdiAlert, iconColor: "white"};
+          body: `${statusText}`, icon: mdiAlert, iconColor: "white"};
         this.toastService.show(errorToast);
         return of(this.authState.user());
       }),
