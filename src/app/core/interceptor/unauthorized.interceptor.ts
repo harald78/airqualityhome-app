@@ -28,10 +28,7 @@ export const unauthorizedInterceptor: HttpInterceptorFn = (req: HttpRequest<unkn
 
 const handle401Error = (request: HttpRequest<unknown>, next: HttpHandlerFn, authService: AuthService)=> {
 
-  if (request.url.includes('refreshToken')){
-    return next(request);
-
-  } else if (request.url.includes('logout')) {
+  if (request.url.includes('logout')) {
     return throwError(() => new Error('Logged out'));
 
   } else {

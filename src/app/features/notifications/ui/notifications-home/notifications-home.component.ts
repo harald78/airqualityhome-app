@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
 import {FormsModule} from "@angular/forms";
-import { mdiTrashCanOutline } from '@mdi/js';
+import {mdiTrashCanOutline} from '@mdi/js';
 import {IconComponent} from "../../../../shared/components/icon/icon/icon.component";
 import {NgClass, NgIf} from "@angular/common";
 import {DeleteModalComponent} from "../delete-modal/delete-modal.component";
@@ -10,7 +10,7 @@ import {NotificationService} from "../../service/notification.service";
 import {AuthState} from "../../../../core/auth/+state/auth.state";
 import { NotificationTileComponent } from '../notification-tile/notification-tile.component';
 import { IconButtonComponent } from '../../../../shared/components/icon-button/icon-button.component';
-
+import {PushNotificationService} from "../../service/push-notification.service";
 
 @Component({
   selector: 'app-notifications-home',
@@ -34,12 +34,13 @@ export class NotificationsHomeComponent implements OnInit {
   protected readonly trashIcon = mdiTrashCanOutline;
   private readonly modalService = inject(NgbModal);
   private readonly authState = inject(AuthState);
+  private readonly pushService = inject(PushNotificationService);
 
   notifications: WritableSignal<Notification[]> = signal([]);
 
-
   async ngOnInit() {
     await this.loadNotifications();
+    await this.subscribeToNotifications();
   }
 
   async readNotification(id: number): Promise<void> {
@@ -64,6 +65,10 @@ export class NotificationsHomeComponent implements OnInit {
         this.notifications.set([]);
       }
     });
+  }
+
+  async subscribeToNotifications() {
+    await this.pushService.subscribeToNotifications();
   }
 }
 
