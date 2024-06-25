@@ -12,13 +12,13 @@
   }
 }
 
-.trash-button-container {
+.trash-button-container, .push-notification-container {
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
-#notification-trash-button {
+#notification-trash-button, #push-notification-button {
   width: 80%;
   max-width: 500px;
   height: 40px;
