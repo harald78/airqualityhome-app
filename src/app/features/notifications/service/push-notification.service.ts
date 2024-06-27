@@ -1,6 +1,6 @@
 import {inject, Injectable, signal, WritableSignal} from '@angular/core';
 import {SwPush} from "@angular/service-worker";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, firstValueFrom} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {AppSettingsState} from "../../../core/app-settings/+state/app-settings.state";
@@ -32,7 +32,6 @@ export class PushNotificationService {
         } else {
           this.activatedPush.set(false);
         }
-        console.log("Push subscription: ", sub);
         this.pushSubscription$.next(sub);
       });
   }
@@ -49,6 +48,10 @@ export class PushNotificationService {
           this.showSuccess();
         }
       }).catch(err => this.showError(err));
+    }
+
+    if (this.swPush.isEnabled) {
+      this.swPush.messages.subscribe(message => console.log(message));
     }
   }
 
