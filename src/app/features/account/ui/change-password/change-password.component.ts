@@ -42,8 +42,9 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   async saveData() {
-    const password = this.passwordForm.get('password')?.value!;
-    const oldPassword = this.passwordForm.get('oldPassword')?.value!;
+    const password = this.passwordForm.get('password')?.value as string;
+    const oldPassword = this.passwordForm.get('oldPassword')?.value as string;
+
     const passwordChangeRequest: PasswordChangeRequest = {
       id: this.authState.user().id!,
       username: this.authState.user().username!,

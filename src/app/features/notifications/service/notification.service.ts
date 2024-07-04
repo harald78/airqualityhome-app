@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {firstValueFrom, of, tap} from "rxjs";
+import {firstValueFrom, of, tap, throwError} from "rxjs";
 import {Notification} from "../model/notification.model";
 import {Toast, ToastService} from "../../../shared/components/toast/toast.service";
 import {catchError} from "rxjs/operators";
@@ -29,14 +29,14 @@ export class NotificationService {
       })));
   }
 
-  readNotification(id:number): Promise<Notification> {
+  readNotification(id: number): Promise<Notification> {
     return firstValueFrom(this.httpService.post<Notification>(`${this.appSettingsState.baseUrl()}/notifications/read/${id}`, {})
       .pipe(catchError(err => {
         const statusText = this.errorStatusService.getHttpErrorResponseTextByStatus(err.status);
         const errorToast: Toast = {classname: "bg-danger text-light", header: 'Could set status read',
           body: `${statusText}`, icon: mdiAlert, iconColor: "white"};
         this.toastService.show(errorToast);
-        return of();
+        return throwError(() => new Error("Could not set read on notification"));
       })));
   }
 

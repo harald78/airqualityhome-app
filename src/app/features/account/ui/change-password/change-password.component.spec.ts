@@ -118,4 +118,6 @@ describe('ChangePasswordComponent Test', () => {
 
     expect(routerSpy).toHaveBeenCalledWith(['account']);
   });
+
+
 });

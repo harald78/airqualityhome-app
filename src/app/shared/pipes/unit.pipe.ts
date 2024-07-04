@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {PhysicalType, SensorType} from "../model/sensor-type.model";
+import {PhysicalType} from "../model/sensor-type.model";
 
 @Pipe({
   name: 'unit',

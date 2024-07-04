@@ -2,7 +2,6 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PasswordChangeRequest, User, UserChangeRequest } from '../../../shared/model/user.model';
 import { finalize, firstValueFrom, of, tap } from 'rxjs';
-import { environment } from '../../../../environments/environment';
 import { catchError } from 'rxjs/operators';
 import { Toast, ToastService } from '../../../shared/components/toast/toast.service';
 import { mdiAlert, mdiCheck } from '@mdi/js';

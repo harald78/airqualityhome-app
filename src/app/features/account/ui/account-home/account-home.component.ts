@@ -15,8 +15,6 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './account-home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AccountHomeComponent {
-
-}
+export class AccountHomeComponent {}
 
 

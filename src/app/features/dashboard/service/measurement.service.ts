@@ -6,7 +6,7 @@ import { ErrorResponseService } from '../../../shared/services/error-response.se
 import { LatestMeasurement } from '../model/measurement.model';
 import { catchError } from 'rxjs/operators';
 import { mdiAlert } from '@mdi/js';
-import { firstValueFrom, of } from 'rxjs';
+import {firstValueFrom, of, throwError} from 'rxjs';
 import {AppSettingsState} from "../../../core/app-settings/+state/app-settings.state";
 import {MeasurementHistory} from "../model/measurementHistory.model";
 
@@ -40,7 +40,7 @@ export class MeasurementService {
           id: 'dashboard-error',
           body: `${statusText}`, icon: mdiAlert, iconColor: "white"};
         this.toastService.show(errorToast);
-        return of();
+        return throwError(() => new Error('Could not load history data'));
       })));
   }
 

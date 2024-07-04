@@ -4,7 +4,6 @@ import {
   MAT_DATE_LOCALE,
   NativeDateAdapter,
 } from '@angular/material/core';
-import { Injectable } from '@angular/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from "@angular/material-moment-adapter";
 
 const DATE_FORMATS = {
