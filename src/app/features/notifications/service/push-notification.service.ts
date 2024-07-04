@@ -49,10 +49,6 @@ export class PushNotificationService {
         }
       }).catch(err => this.showError(err));
     }
-
-    if (this.swPush.isEnabled) {
-      this.swPush.messages.subscribe(message => console.log(message));
-    }
   }
 
   public sendSubscriptionToServer(sub: PushSubscription) {
@@ -69,7 +65,7 @@ export class PushNotificationService {
     this.toastService.show(errorToast);
   }
 
-  private showSuccess(): void {
+  showSuccess(): void {
     const successToast: Toast = {classname: "bg-success text-light", icon: mdiCheck, header: '',
       body: `Successfully subscribed to push notifications`, iconColor: "white"};
     this.toastService.show(successToast);

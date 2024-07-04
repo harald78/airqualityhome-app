@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {mdiTrashCanOutline} from '@mdi/js';
 import {IconComponent} from "../../../../shared/components/icon/icon/icon.component";

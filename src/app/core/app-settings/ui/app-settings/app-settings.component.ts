@@ -84,8 +84,10 @@ export class AppSettingsComponent implements OnInit {
 
   initForm(): void {
     this.appSettingsForm.patchValue(this.appSettingsState.appSettings());
-    this.appSettingsForm.get('tokenRefreshInterval')?.setValue(this.appSettingsForm.get('tokenRefreshInterval')?.value! / 1000);
-    this.appSettingsForm.get('dashboardRefreshInterval')?.setValue(this.appSettingsForm.get('dashboardRefreshInterval')?.value! / 1000);
+    const tokenRefresh = this.appSettingsForm.get('tokenRefreshInterval')?.value ?? 270000;
+    const dashboardRefresh = this.appSettingsForm.get('dashboardRefreshInterval')?.value ?? 60000;
+    this.appSettingsForm.get('tokenRefreshInterval')?.setValue(tokenRefresh / 1000);
+    this.appSettingsForm.get('dashboardRefreshInterval')?.setValue(dashboardRefresh / 1000);
   }
 
   navigateBack() {

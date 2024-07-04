@@ -6,12 +6,9 @@ import {
   fromEvent,
   map,
   merge,
-  Observable,
   of,
   pairwise,
   Subscription,
-  take,
-  takeUntil
 } from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 

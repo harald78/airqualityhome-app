@@ -5,7 +5,6 @@ import {MockProvider} from "ng-mocks";
 import {AuthService} from "../../../core/auth/service/auth.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import { By } from '@angular/platform-browser';
-import { mdiEyeOutline } from '@mdi/js';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

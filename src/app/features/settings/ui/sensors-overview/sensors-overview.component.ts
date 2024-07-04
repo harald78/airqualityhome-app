@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, computed, inject, OnInit, Signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, OnInit} from '@angular/core';
 import {Router, RouterOutlet} from "@angular/router";
 import {SensorTileComponent} from "../sensor-tile/sensor-tile.component";
 import {Sensor} from "../../model/sensor.model";

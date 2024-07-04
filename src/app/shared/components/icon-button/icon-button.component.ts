@@ -14,11 +14,11 @@ import {NgClass} from "@angular/common";
 })
 export class IconButtonComponent implements OnInit {
 
-  @HostListener('mouseover', ['$event']) onMouseOver(event: MouseEvent) {
+  @HostListener('mouseover', ['$event']) onMouseOver() {
     this.currentColor.set(this.iconActiveColor());
   }
 
-  @HostListener('mouseout', ['$event']) onMouseLeave(event: MouseEvent) {
+  @HostListener('mouseout', ['$event']) onMouseLeave() {
     this.currentColor.set(this.iconColor());
   }
 
