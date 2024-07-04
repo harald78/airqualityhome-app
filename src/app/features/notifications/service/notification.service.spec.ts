@@ -69,6 +69,37 @@ describe('NotificationService', () => {
     });
   });
 
+  it('should successfully set read notification', async () => {
+    const mockNotification = { id: 1, message: 'Test Notification', read: true, readAt: new Date()};
+    const notificationId = 1;
+
+    const promise = service.readNotification(notificationId);
+
+    const req = httpMock.expectOne(`${appState.baseUrl()}/notifications/read/${notificationId}`);
+    expect(req.request.method).toBe('POST');
+    req.flush(mockNotification, {status: 200, statusText: "OK"});
+
+    const notifications = await promise;
+    expect(notifications).toEqual(mockNotification);
+  });
+
+  it('should handle error on read notification', async () => {
+    const notificationId = 1;
+    jest.spyOn(toastService, 'show');
+    const expectedToast = {classname: "bg-danger text-light", header: 'Could set status read',
+      body: `INTERNAL SERVER ERROR`, icon: mdiAlert, iconColor: "white"};
+
+    const promise = service.readNotification(notificationId);
+
+    const req = httpMock.expectOne(`${appState.baseUrl()}/notifications/read/${notificationId}`);
+    expect(req.request.method).toBe('POST');
+    req.flush(null, { status: 500, statusText: 'Server Error' });
+
+    await expect(promise).rejects.toEqual(new Error('Could not set read on notification'));
+    expect(toastService.show).toHaveBeenCalledWith(expectedToast);
+  });
+
+
   it('should show success toast on delete success', async () => {
     const userId = 1;
     jest.spyOn(toastService, 'show');

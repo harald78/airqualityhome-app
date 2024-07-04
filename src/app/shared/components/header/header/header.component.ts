@@ -1,4 +1,4 @@
-import { Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   headerText: string;
 
   ngOnInit() {
-    this.router.events.subscribe(event => {
+    this.router.events.subscribe(()=> {
       this.headerText = this.getHeaderText();
     });
   }

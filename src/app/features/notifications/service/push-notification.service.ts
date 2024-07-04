@@ -1,6 +1,6 @@
 import {inject, Injectable, signal, WritableSignal} from '@angular/core';
 import {SwPush} from "@angular/service-worker";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, firstValueFrom} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {AppSettingsState} from "../../../core/app-settings/+state/app-settings.state";
@@ -32,7 +32,6 @@ export class PushNotificationService {
         } else {
           this.activatedPush.set(false);
         }
-        console.log("Push subscription: ", sub);
         this.pushSubscription$.next(sub);
       });
   }
@@ -66,7 +65,7 @@ export class PushNotificationService {
     this.toastService.show(errorToast);
   }
 
-  private showSuccess(): void {
+  showSuccess(): void {
     const successToast: Toast = {classname: "bg-success text-light", icon: mdiCheck, header: '',
       body: `Successfully subscribed to push notifications`, iconColor: "white"};
     this.toastService.show(successToast);

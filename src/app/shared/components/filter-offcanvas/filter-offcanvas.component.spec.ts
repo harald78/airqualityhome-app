@@ -8,7 +8,6 @@ describe('FilterOffcanvasComponent', () => {
   let component: FilterOffcanvasComponent;
   let fixture: ComponentFixture<FilterOffcanvasComponent>;
   let filterService: FilterService;
-  let activeOffCanvas: NgbActiveOffcanvas
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -20,7 +19,6 @@ describe('FilterOffcanvasComponent', () => {
     fixture = TestBed.createComponent(FilterOffcanvasComponent);
     component = fixture.componentInstance;
     filterService = TestBed.inject(FilterService);
-    activeOffCanvas = TestBed.inject(NgbActiveOffcanvas);
     fixture.detectChanges();
   });
 
