@@ -21,10 +21,10 @@ export class SensorValuePipe implements PipeTransform {
       return '0'
     }
 
-    if (value > 10000) {
-      return value.toFixed(1);
-    } else if (value > 99999) {
+    if (value > 99999) {
       return value.toFixed(0);
+    } else if (value > 10000) {
+      return value.toFixed(1);
     }
     return value.toFixed(2);
   }
