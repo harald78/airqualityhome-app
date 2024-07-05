@@ -5,6 +5,7 @@ import {Sensor, SensorSettingsForm} from '../../model/sensor.model';
 import { SensorSettingsState } from "../../+state/sensor.state";
 import {mdiContentSaveOutline, mdiRestore} from "@mdi/js";
 import { IconButtonComponent } from "../../../../shared/components/icon-button/icon-button.component";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-sensor-settings',
@@ -37,6 +38,12 @@ export class SensorSettingsComponent implements OnInit {
     warningThreshold: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] }),
     linearCorrectionValue: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] })
   });
+
+  constructor() {
+    this.sensorSettingsForm.valueChanges.pipe(
+      takeUntilDestroyed()
+    ).subscribe(() => this.valueChange());
+  }
 
 
   async ngOnInit() {

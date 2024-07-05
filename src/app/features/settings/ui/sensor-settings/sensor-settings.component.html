@@ -3,7 +3,7 @@
     <button type="button" id="back-button" class="btn btn-outline-dark back-button m-2"
             (click)="navigateBack()">Back</button>
     <p class="description mb-3 text-danger text-center"><em>Please adjust the settings for the sensors according to your specific requirements</em></p>
-    <form [formGroup]="sensorSettingsForm" class="settings-form" (change)="valueChange()">
+    <form [formGroup]="sensorSettingsForm" class="settings-form">
       <div class="mb-3">
         <label for="location-input" class="form-label font-monospace fw-bolder">Location</label>
         <input id="location-input" class="form-control" formControlName="location" type="text"/>
